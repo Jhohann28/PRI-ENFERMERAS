@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         fontWeight:"bold",
    marginTop:6
-       },
+       }
   });
 
   export default styles;

@@ -9,9 +9,9 @@ export default function App() {
   return (
 <>
 <MyStatusBar></MyStatusBar>
-      <StartPage></StartPage>
+    <Loggin type={0}></Loggin>
 </>
-  
+   //<StartPage></StartPage>
     
   );
 }

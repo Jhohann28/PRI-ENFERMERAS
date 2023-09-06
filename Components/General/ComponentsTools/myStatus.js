@@ -5,12 +5,7 @@ import Constants from "expo-constants";
 
 export default function MyStatusBar() { //el resizemode contain se usa para poder hacer un resize de las imagenes adecuado
   
-                
-  const [win, setWin] = useState(0);
-  const [title, setTitle] = useState('Cargando...');
-  const [enf, setEnf] = useState('');
-  const [autor, setFuente] = useState('');
-  const [entradas, setEntradas] = useState('');
+  
 
     return (
       
