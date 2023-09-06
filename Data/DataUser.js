@@ -1,0 +1,41 @@
+class DataUser{
+
+     getUsers() {
+        
+    }
+    getUsersById(){
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

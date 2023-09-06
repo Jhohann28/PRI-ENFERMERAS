@@ -9,7 +9,10 @@
     "splash": {
       "image": "./assets/images/GeneralImages/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "showDuration": 2000,
+      "hideDuration": 0,
+      "autoHide": true
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,10 +27,14 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.pri.enfermeros"
-
     },
     "web": {
       "favicon": "./assets/images/GeneralImages/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d1487b3-44ad-4f1e-8a85-a730b11c50f5"
+      }
     }
   }
 }
