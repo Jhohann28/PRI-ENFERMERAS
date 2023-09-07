@@ -1,16 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { RefreshControlComponent, StyleSheet, Text, View } from 'react-native';
 import {appFirebase } from "./Data/firebaseConfig.js"
+import Home from './Components/User/UserHomeInterface.js';
+import NurseScreen from './Components/Nurse/NurseHome.js';
+import AdminScreen from './Components/Administrator/AdminHomeInterface.js';
+import MyStatusBar from './Components/General/ComponentsTools/myStatus.js'
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   
+    <>
+     <MyStatusBar></MyStatusBar>
+     
+     <Home></Home>
+    </>
+    /*Interfaces para mostrar 3*/
+    
+    /*<Home></Home>*/
+    /*<NurseScreen></NurseScreen>  */
+    /*<AdminScreen></AdminScreen>*/
+     
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
