@@ -10,6 +10,8 @@ class User{
         this.registrationDate = registrationDate;
         this.updateDate = updateDate;
 
+        
+
     }
 }
 

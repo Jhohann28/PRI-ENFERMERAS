@@ -88,14 +88,16 @@ const styles = StyleSheet.create({
        width:"100%",
        height:"auto",
        marginBottom:0,
-       marginTop:10
+       marginTop:40,
+       justifyContent:"flex-end",
+       flex:1
+   
     },
     footerText:{
         color:"#fff",
         fontSize:18,
         textAlign:"center",
         fontWeight:"bold",
-   marginTop:6
        }
   });
 
