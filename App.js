@@ -5,6 +5,10 @@ import Home from './Components/User/UserHomeInterface.js';
 import NurseScreen from './Components/Nurse/NurseHome.js';
 import AdminScreen from './Components/Administrator/AdminHomeInterface.js';
 import MyStatusBar from './Components/General/ComponentsTools/myStatus.js'
+import Navigation from "./Navigations/NurseNavigation/Navigation.js"
+import NurseNavigation from './Navigations/NurseNavigation/Navigation.js';
+import UserNavigation from './Navigations/UserNavigation/Navigation.js';
+import AdminNavigation from './Navigations/AdministratorNavigation/Navigation.js';
 
 
 export default function App() {
@@ -12,14 +16,18 @@ export default function App() {
    
     <>
      <MyStatusBar></MyStatusBar>
-     
-     <Home></Home>
+    
+     <AdminNavigation></AdminNavigation>
     </>
     /*Interfaces para mostrar 3*/
     
     /*<Home></Home>*/
-    /*<NurseScreen></NurseScreen>  */
+    /*<UserNavigation></UserNavigation>*/
+    /*<NurseScreen></NurseScreen>*/
+    /*<NurseNavigation></NurseNavigation>*/
     /*<AdminScreen></AdminScreen>*/
+    /*<AdminNavigation></AdminNavigation>*/
+    
      
   );
 }

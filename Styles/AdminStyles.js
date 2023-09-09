@@ -10,18 +10,14 @@ const stylesAdmin = StyleSheet.create({
     },
     container2: {
         backgroundColor: "#4958DC",
-        height: 160,
+        height: 350,
+        borderRadius: 25,
+   
 
     },
-    container3: {
-        backgroundColor: "#FFFFFF",
-        borderRadius: 25,
-        marginTop: -20,
-        height: 150,
-    },
     container4: {
-        backgroundColor: "#4958DC",
-        marginTop: 20,
+        backgroundColor: "#FFFFFF",
+        marginTop: -170,
         width: 380,
         borderRadius: 25,
         marginLeft: 15,
@@ -112,15 +108,17 @@ const stylesAdmin = StyleSheet.create({
         paddingBottom: 5,
     },
     textCorporationTitle: {
-        color: "#FFFFFF",
+        color: "#000000",
         fontSize: 18,
         marginTop: 25,
         marginLeft: 35,
         fontStyle: 'italic',
+        fontWeight: 'bold',
+
 
     },
     textCorporation: {
-        color: "#FFFFFF",
+        color: "#000000",
         fontSize: 18,
         marginTop: 25,
         marginLeft: 35,
@@ -132,7 +130,7 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: "#B4B6F1",
         width: 120,
         height: 120,
-        marginTop:30,
+        marginTop:110,
         marginLeft: 60,
         borderRadius: 25,
         justifyContent: 'flex-end', 
