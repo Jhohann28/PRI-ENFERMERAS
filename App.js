@@ -1,23 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { RefreshControlComponent, StyleSheet, Text, View } from 'react-native';
+     
+import {RefreshControlComponent, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {appFirebase } from "./Data/firebaseConfig.js"
-import Home from './Components/User/UserHomeInterface.js';
-import NurseScreen from './Components/Nurse/NurseHome.js';
-import AdminScreen from './Components/Administrator/AdminHomeInterface.js';
-import MyStatusBar from './Components/General/ComponentsTools/myStatus.js'
-import Navigation from "./Navigations/NurseNavigation/Navigation.js"
-import NurseNavigation from './Navigations/NurseNavigation/Navigation.js';
-import UserNavigation from './Navigations/UserNavigation/Navigation.js';
-import AdminNavigation from './Navigations/AdministratorNavigation/Navigation.js';
-
+import Loggin from './Components/General/Login.js';
+import MyStatusBar from './Components/General/ComponentsTools/myStatus.js';
+import StartPage from './Components/General/StartPage.js';
+import StartNavigator from './Components/General/Navigators/StartNavigator.js';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
    
     <>
-     <MyStatusBar></MyStatusBar>
-    
-     <AdminNavigation></AdminNavigation>
+      <MyStatusBar></MyStatusBar>
+  <StartNavigator></StartNavigator>
     </>
     /*Interfaces para mostrar 3*/
     
@@ -28,16 +24,6 @@ export default function App() {
     /*<AdminScreen></AdminScreen>*/
     /*<AdminNavigation></AdminNavigation>*/
     
-     
-  );
-}
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  )};

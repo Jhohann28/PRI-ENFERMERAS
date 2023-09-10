@@ -91,8 +91,8 @@ function MyTabs(){
 }
 export default function AdminNavigation(){
     return(
-        <NavigationContainer>
+       
             <MyTabs></MyTabs>
-        </NavigationContainer>
+        
     );
 }

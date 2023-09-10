@@ -66,8 +66,6 @@ function MyTabs(){
 }
 export default function UserNavigation(){
     return(
-        <NavigationContainer>
             <MyTabs></MyTabs>
-        </NavigationContainer>
     );
 }

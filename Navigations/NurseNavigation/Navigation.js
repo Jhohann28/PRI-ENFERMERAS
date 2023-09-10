@@ -87,8 +87,6 @@ function MyTabs(){
 }
 export default function NurseNavigation(){
     return(
-        <NavigationContainer>
             <MyTabs></MyTabs>
-        </NavigationContainer>
     );
 }
