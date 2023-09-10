@@ -16,7 +16,6 @@ export default function Loggin() {
 
   const { type } = route.params;
 
-
   //#region Usestates
    const [email, setEmail]= useState("");
    const [password, setPassword]= useState("");
@@ -36,8 +35,13 @@ export default function Loggin() {
           return;
         }
         else{
-          dataUser.getRoleAndUserAuth(type+"");
+          let finalResult= await dataUser.getRoleAndUserAuth(role+"");
 
+          if(finalResult=="Acceso denegado"){
+            setError("Acceso denegado");
+            return;
+          }
+          console.log("Bienvendo: "+ finalResult.personRef.names);
           //hacer transition
         }
         

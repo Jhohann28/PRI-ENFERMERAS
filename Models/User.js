@@ -1,7 +1,7 @@
 
 class User{
-    constructor(personID, userAuthID, role, status, latitude, longitude, registrationDate, updateDate){
-        this.personID = personID;
+    constructor(personRef, userAuthID, role, status, latitude, longitude, registrationDate, updateDate){
+        this.personRef = personRef;
         this.userAuthID = userAuthID;
         this.role = role;
         this.status = status;
@@ -11,7 +11,6 @@ class User{
         this.updateDate = updateDate;
 
         
-
     }
 }
 
