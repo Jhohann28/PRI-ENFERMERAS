@@ -85,6 +85,7 @@ function MyTabs(){
         </Tab.Navigator>
     );
 }
+
 export default function NurseNavigation(){
     return(
             <MyTabs></MyTabs>

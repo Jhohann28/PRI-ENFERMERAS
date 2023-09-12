@@ -64,9 +64,7 @@ export default function Loggin() {
     }
     else{
       setError(uController.isAllOk(myUser));
-
     }
-    
   }
 
   

@@ -9,5 +9,8 @@ class Validations {
         return emailRegex.test(word);
     }
 
+    
+
+
 }
 export default Validations;
