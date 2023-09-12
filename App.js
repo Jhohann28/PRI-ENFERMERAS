@@ -1,5 +1,5 @@
+import {GestureHandlerRootView} from "react-native-gesture-handler"
 import { StatusBar } from 'expo-status-bar';
-     
 import {RefreshControlComponent, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import {appFirebase } from "./Data/firebaseConfig.js"
 import Loggin from './Components/General/Login.js';

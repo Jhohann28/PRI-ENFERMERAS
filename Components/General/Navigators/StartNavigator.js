@@ -1,4 +1,5 @@
 import React from 'react';
+import {GestureHandlerRootView} from "react-native-gesture-handler"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import StartPage from '../StartPage';

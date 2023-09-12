@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput , ActivityIndicator} from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import * as ownStyles from "../../Styles/LoginStyles.js"
@@ -12,6 +12,13 @@ import UserController from '../../Controllers/UserController.js';
 import DataUser from "../../Data/DataUser.js";
 import UserLogin from '../../Models/UserLogin.js';
 
+
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google.js";
+import { GoogleAuthProvider,onAuthStateChanged, signInWithCredential, getAuth } from 'firebase/auth';
+
+WebBrowser.maybeCompleteAuthSession();
+
 export default function Loggin() {
   const nav = useNavigation();
 
@@ -24,8 +31,19 @@ export default function Loggin() {
    const [password, setPassword]= useState("");
    const [error, setError]=useState("");
 
+   const [loading, setLoading] = useState(false);
+
+   //google:
+   const [request, response, myMethod ] =  Google.useAuthRequest({
+    iosClientId:"655441475070-4bdn0hlrdmb50aqt5d6mhajl4cv44srb.apps.googleusercontent.com"
+    , androidClientId:"655441475070-c5o06mufa9m6cdgf1v1nkv7qnji01ifj.apps.googleusercontent.com"
+  });
+ //  setLoading(true);
+
   //#endregion
   const doLogin =async (role)=>{
+    setError("");
+    setLoading(true);
     let uController = new UserController();
     let myUser = new UserLogin(email.trim(),password);
     if(uController.isAllOk(myUser)==true){ //estoy devolviendo distintos tipos de datos
@@ -35,6 +53,9 @@ export default function Loggin() {
     
         if(r!==true){
           setError(r);
+
+          setLoading(false);
+
           return;
         }
         else{
@@ -42,11 +63,16 @@ export default function Loggin() {
 
           if(finalResult=="Acceso denegado"){
             setError("Acceso denegado");
+
+          setLoading(false);
             return;
           }
           console.log("Bienvendo: "+ finalResult.personRef.names);
           //hacer transition
+          setLoading(false);
+
           switch(type){
+
             case 1:
               nav.replace("AdminHome");
 
@@ -64,10 +90,58 @@ export default function Loggin() {
     }
     else{
       setError(uController.isAllOk(myUser));
+
+      setLoading(false);
+
     }
   }
 
   
+  
+  useEffect(()=>{
+    if( response?.type==="success"){
+      const{id_token}= response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      setLoading(true);
+
+      signInWithCredential(getAuth(appFirebase),credential);
+
+      const unsub= onAuthStateChanged(getAuth(appFirebase), async(user)=>{
+
+        if(user){
+          console.log(user);
+          setError("");
+           await myGoogleAuth(user);
+
+           setLoading(false);
+        }
+        return ()=>unsub();
+      })
+    }
+    
+  },[response])
+
+   let myGoogleAuth = async(muser)=>{
+    let userData = new DataUser();
+            userData.AuthID = muser.uid;
+            let userFinal = await userData.getRoleAndUserAuth("0");
+           if(userFinal=="Acceso denegado"){
+              //registrar
+              console.log("Tienes que registrar");
+              let r= await userData.saveGoogleUserClient(muser);
+              if(r==false){
+                console.log("error ven");
+
+                return;
+              }
+           }
+          
+            //redirect
+            console.log("Redirecciona");
+            nav.replace("UserHome");
+
+           
+   }
 
     return (
       <>
@@ -104,18 +178,19 @@ export default function Loggin() {
 
              
               <View style={styles.containerHorizontal}>
-                  <TouchableOpacity style={styles.btnTypeThree}><Text style={styles.btnTypeOneText} onPress={()=>doLogin(type)} >Iniciar Sesión</Text></TouchableOpacity>
+                  <TouchableOpacity style={styles.btnTypeThree} onPress={()=>doLogin(type)}><Text style={styles.btnTypeOneText}  >Iniciar Sesión</Text></TouchableOpacity>
               </View>
               
               {type==0? <><View >
                 <Text style={{textAlign:"center", fontWeight:"bold"}}>o</Text>
               </View><View style={ownStyles.default.btnTypeFour}>
-              <TouchableOpacity ><Text style={styles.btnTypeOneText}> <AntDesign name="google" size={24} color="white" /> Continuar con Google</Text></TouchableOpacity>
+              <TouchableOpacity onPress={()=>myMethod()} ><Text style={styles.btnTypeOneText}> <AntDesign name="google" size={24} color="white" /> Continuar con Google</Text></TouchableOpacity>
 
               </View></>:<View/>
 
               }
-             
+              <View style={{marginTop:10}}></View>
+              {loading && <ActivityIndicator size="large" color="#064571" />}             
               <View >
                 <Text style={{textAlign:"center", color:"red", margin:5}}>{error}</Text>
               </View>

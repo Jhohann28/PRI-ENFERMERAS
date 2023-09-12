@@ -1,14 +1,20 @@
 import firebase from 'firebase/app';
 import appFirebase  from "./firebaseConfig.js";
-import { getFirestore,doc,getDoc,query,collection,where,getDocs } from "firebase/firestore";
+import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction} from "firebase/firestore";
 
 
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import UserController from '../Controllers/UserController.js';
 import Nurse from '../Models/Nurse.js';
 import Person from '../Models/Person.js';
 import User from '../Models/User.js';
+
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google.js";
+
 const db = getFirestore(appFirebase);
+
+const provider = new GoogleAuthProvider();
 
 
 
@@ -78,12 +84,84 @@ class DataUser{
         }
       }
 
+      async getAuthIDSGoogle(){
 
-
+        return Google.useAuthRequest({
+          iosClientId:"655441475070-4bdn0hlrdmb50aqt5d6mhajl4cv44srb.apps.googleusercontent.com"
+          , androidClientId:"655441475070-c5o06mufa9m6cdgf1v1nkv7qnji01ifj.apps.googleusercontent.com"
+        })
+      }
+     
     getUsers() {
         
     }
     getUsersById(){
+
+    }
+
+
+    async saveGoogleUserClient(user){
+      try{
+        await runTransaction(db, async(transaction)=>{
+          let collectionn = collection(db,"Client");
+          let mnames = user.displayName.split(" ");
+          const clientt ={
+            names: mnames[0],
+            lastName: mnames[1],
+            secondLastName: "",
+            email: user.email,
+            ci:"",
+            gender:"",
+            phone:user.phoneNumber,
+            status:1,
+            registrationDate: serverTimestamp(),
+            updateDate: serverTimestamp()
+          }
+          await addDoc(collectionn, clientt).then(docRef=>{
+            const userSys ={
+              location: {
+                latitude: 34.0522,
+                longitude: -118.2437
+              },
+              personRef: docRef,
+              role:"0",
+              status:1,
+              registrationDate: serverTimestamp(),
+              updateDate: serverTimestamp(),
+              userAuthId: this.AuthID
+            };
+              console.log("Llegué aquí");
+             this.saveUser(userSys);
+            return true;
+          })
+          .catch(error=>{
+            console.error(error);
+            return false;
+          })
+    
+        })
+  
+       
+      }
+      catch(error){
+        console.log(error);
+        return false;
+      }
+    
+
+    }
+
+
+    async saveUser(data){
+      let mcollection = collection(db,"User");
+      await addDoc(mcollection, data).then(docRef=>{
+       
+        return true;
+      })
+      .catch(error=>{
+        console.error(error);
+        return false;
+      })
 
     }
 

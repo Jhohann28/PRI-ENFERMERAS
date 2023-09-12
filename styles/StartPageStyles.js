@@ -78,17 +78,17 @@ const styles = StyleSheet.create({
     },
     myScroll:{
         width:"100%",
-        height:"77%"
+        height:"80%"
     },
     startFooter:{
         backgroundColor: "#064571",
-        padding:19,
+        padding:13,
         borderTopLeftRadius:40,
         borderTopRightRadius:40,
        width:"100%",
        height:"auto",
        marginBottom:0,
-       marginTop:40,
+       marginTop:20,
        justifyContent:"flex-end",
        flex:1
    

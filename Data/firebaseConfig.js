@@ -20,5 +20,8 @@ const firebaseConfig = {
 const appFirebase = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(appFirebase);
 
+//ios: 655441475070-4bdn0hlrdmb50aqt5d6mhajl4cv44srb.apps.googleusercontent.com
+//android: 655441475070-c5o06mufa9m6cdgf1v1nkv7qnji01ifj.apps.googleusercontent.com
+
 export default appFirebase;
 

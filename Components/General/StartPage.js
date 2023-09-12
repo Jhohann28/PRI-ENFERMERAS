@@ -31,15 +31,15 @@ export default function StartPage() {
                     </View>
                     <View style={styles.containerHorizontal}>
                         <FontAwesome name='user' size={24} color={"black"} style={styles.myIconsTypeOne} ></FontAwesome>
-                        <TouchableOpacity style={styles.btnTypeOne}><Text style={styles.btnTypeOneText} onPress={()=>NavigateToLogin(0)}>Usuario</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.btnTypeOne} onPress={()=>NavigateToLogin(0)}><Text style={styles.btnTypeOneText} >Usuario</Text></TouchableOpacity>
                     </View>
                     <View style={styles.containerHorizontal}>
                     <FontAwesome5 name='user-tie' size={24} color={"black"} style={styles.myIconsTypeOne} ></FontAwesome5>
-                        <TouchableOpacity style={styles.btnTypeTwo}><Text style={styles.btnTypeOneText} onPress={()=>NavigateToLogin(1)}>Administrador</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.btnTypeTwo} onPress={()=>NavigateToLogin(1)}><Text style={styles.btnTypeOneText} >Administrador</Text></TouchableOpacity>
                     </View>
                     <View style={styles.containerHorizontal}>
                         <FontAwesome5 name='user-nurse' size={24} color={"black"} style={styles.myIconsTypeOne} ></FontAwesome5>
-                        <TouchableOpacity style={styles.btnTypeThree}><Text style={styles.btnTypeOneText} onPress={()=>NavigateToLogin(2)}>Trabaja con nosotros</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.btnTypeThree} onPress={()=>NavigateToLogin(2)}><Text style={styles.btnTypeOneText} >Trabaja con nosotros</Text></TouchableOpacity>
                     </View>
                 </View>
 
