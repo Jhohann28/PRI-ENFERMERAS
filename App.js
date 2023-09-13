@@ -9,6 +9,7 @@ import Navigation from "./Navigations/NurseNavigation/Navigation.js"
 import NurseNavigation from './Navigations/NurseNavigation/Navigation.js';
 import UserNavigation from './Navigations/UserNavigation/Navigation.js';
 import AdminNavigation from './Navigations/AdministratorNavigation/Navigation.js';
+import NurseResignationScreen from './Components/Nurse/NurseResignation.js';
 
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
     <>
      <MyStatusBar></MyStatusBar>
     
-     <AdminNavigation></AdminNavigation>
+     <NurseNavigation></NurseNavigation>
     </>
     /*Interfaces para mostrar 3*/
     
@@ -25,6 +26,7 @@ export default function App() {
     /*<UserNavigation></UserNavigation>*/
     /*<NurseScreen></NurseScreen>*/
     /*<NurseNavigation></NurseNavigation>*/
+    /*<NurseResignationScreen></NurseResignationScreen>*/
     /*<AdminScreen></AdminScreen>*/
     /*<AdminNavigation></AdminNavigation>*/
     

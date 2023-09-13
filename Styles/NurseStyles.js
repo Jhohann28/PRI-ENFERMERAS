@@ -3,20 +3,17 @@ import { StyleSheet } from "react-native"
 const stylesNurse = StyleSheet.create({
 
 
+    //-------------------------HOME DE LA ENFERMERA------------------------\\
     container: {
         backgroundColor: "#E7E7E7",
         flex: 1,
-
-        
-
     },
     container2: {        
         backgroundColor: "#98C7BE",
         borderBottomRightRadius: 25,
         borderBottomLeftRadius: 25,
-        height: 315,
-        
-
+        height: 320,
+       
     },
     image: {
         position: 'absolute',
@@ -86,7 +83,84 @@ const stylesNurse = StyleSheet.create({
         fontWeight: '900'
 
 
+    },
+    //-------------------------RENUNCIA DE LA ENFERMERA-----------------------------\\
+
+
+    container3: {
+        backgroundColor: "#E7E7E7",
+        flex: 1,
+    },
+    container4: {
+        backgroundColor: "#98C7BE",
+        borderBottomRightRadius: 25,
+        borderBottomLeftRadius: 25,
+        height: 150,
+        
+    },
+    container5: {
+        backgroundColor: "#98C7BE",
+        borderRadius: 25,
+        height: 550,
+        width: 380,
+        marginTop: 35,
+        marginLeft: 15
+    },
+    textTitle: {
+        color: "#000000",
+        fontSize: 20,
+        marginTop: 15,      
+        fontStyle: 'italic',
+        fontWeight: '900',
+        textAlign: 'center'
+    },
+    textReaseonResignation:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginLeft: 25,
+        marginTop: 25
+
+    },
+    inputReasonResignation: {
+        backgroundColor: "#FFFFFF",
+        width: 350,
+        marginLeft: 14,
+        marginTop: 10,
+        borderRadius: 15,
+        height: 350,
+        textAlign: 'left',
+        padding: 10,       
+        textAlignVertical: 'top',
+        padding: 20,      
+    },
+    inputNameResignation: {
+        backgroundColor: "#FFFFFF",
+        width: 350,
+        marginLeft: 14,
+        marginTop: 10,
+        borderRadius: 15,
+        height: 60,
+        textAlign: 'left',
+        padding: 10,       
+        textAlignVertical: 'top',
+        padding: 20,      
+    },
+    btnRequest: {
+        backgroundColor: '#D75656',
+        borderRadius: 10,
+        width: 220,
+        marginLeft: 80,
+        marginTop: 35,
+        marginBottom: 10,
+        height: 45,
+        justifyContent: 'center',
+    },
+    btnTextRequest: {
+        textAlign: 'center',
+        color: "#ffffff",
+        fontWeight: 'bold',
     }
+
 });
 
 export { stylesNurse };
