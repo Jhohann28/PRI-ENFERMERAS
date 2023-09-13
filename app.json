@@ -19,9 +19,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pri.enfermeros"
+      "bundleIdentifier": "com.pri.enfermeros",
+      "permissions": ["PHOTO_LIBRARY"]
     },
     "android": {
+      "permissions": ["CAMERA_ROLL", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/GeneralImages/adaptive-icon.png",
         "backgroundColor": "#ffffff"

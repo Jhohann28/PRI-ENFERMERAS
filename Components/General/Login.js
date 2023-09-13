@@ -17,9 +17,12 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google.js";
 import { GoogleAuthProvider,onAuthStateChanged, signInWithCredential, getAuth } from 'firebase/auth';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Loggin() {
+  
   const nav = useNavigation();
 
   const route = useRoute(); 
@@ -69,10 +72,11 @@ export default function Loggin() {
           }
           console.log("Bienvendo: "+ finalResult.personRef.names);
           //hacer transition
+          dataUser.setUserLogued(finalResult);
+
           setLoading(false);
 
           switch(type){
-
             case 1:
               nav.replace("AdminHome");
 
@@ -138,11 +142,15 @@ export default function Loggin() {
           
             //redirect
             console.log("Redirecciona");
+            userData.setUserLogued(userFinal);
             nav.replace("UserHome");
 
            
    }
 
+   const goToJob=()=>{
+    nav.navigate("JobRequest");
+   }
     return (
       <>
       <View style={styles.container}>
@@ -194,10 +202,17 @@ export default function Loggin() {
               <View >
                 <Text style={{textAlign:"center", color:"red", margin:5}}>{error}</Text>
               </View>
+              {type==0 || type==1?
+                 <TouchableOpacity onPress={()=>{console.log("Hola")}}>
+                 <Text style={ownStyles.default.links}>¿No tienes una cuenta?</Text>
+               </TouchableOpacity>:
 
-              <TouchableOpacity >
-                <Text style={ownStyles.default.links}>¿No tienes una cuenta?</Text>
-              </TouchableOpacity>
+               <TouchableOpacity onPress={()=>{goToJob()}}>
+               <Text style={ownStyles.default.links}>¿Quieres trabajar con nosotros?</Text>
+               </TouchableOpacity>
+              }
+
+             
               <TouchableOpacity >
                 <Text style={ownStyles.default.links}>Olvidé mi contraseña</Text>
               </TouchableOpacity>

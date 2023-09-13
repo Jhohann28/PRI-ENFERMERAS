@@ -12,6 +12,10 @@ import User from '../Models/User.js';
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google.js";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 const db = getFirestore(appFirebase);
 
 const provider = new GoogleAuthProvider();
@@ -117,7 +121,7 @@ class DataUser{
             registrationDate: serverTimestamp(),
             updateDate: serverTimestamp()
           }
-          await addDoc(collectionn, clientt).then(docRef=>{
+          await addDoc(collectionn, clientt).then(docRef=>{ 
             const userSys ={
               location: {
                 latitude: 34.0522,
@@ -163,6 +167,27 @@ class DataUser{
         return false;
       })
 
+    }
+
+    async getUserLogued(){
+      await AsyncStorage.getItem('user')
+      .then((userString) => {
+        if (userString) {
+          const muser = JSON.parse(userString);
+          console.log('Usuario recuperado de AsyncStorage:', muser);
+          return muser;
+        } else {
+          console.log("vacío");
+          return "";
+        }
+      })
+      .catch((error) => {
+        console.error('Error al recuperar el usuario de AsyncStorage:', error);
+        return "";
+      });
+    }
+   async setUserLogued(user){
+     await AsyncStorage.setItem('user', JSON.stringify(user) )     
     }
 
 }

@@ -7,14 +7,21 @@ import MyStatusBar from './Components/General/ComponentsTools/myStatus.js';
 import StartPage from './Components/General/StartPage.js';
 import StartNavigator from './Components/General/Navigators/StartNavigator.js';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DataUser from "./Data/DataUser.js";
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function App() {
-  return (
+
+    
+    return (
    
-    <>
-      <MyStatusBar></MyStatusBar>
-  <StartNavigator></StartNavigator>
-    </>
+      <>
+        <MyStatusBar></MyStatusBar>
+    <StartNavigator></StartNavigator></>
+    
+    )
+ 
     /*Interfaces para mostrar 3*/
     
     /*<Home></Home>*/
@@ -26,4 +33,4 @@ export default function App() {
     
 
 
-  )};
+  };

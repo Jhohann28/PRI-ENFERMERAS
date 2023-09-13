@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
+import DataUser from '../../Data/DataUser.js';
 
 
 export default function StartPage() {
@@ -12,7 +12,24 @@ export default function StartPage() {
         var NavigateToLogin =(ptype)=>{
               nav.replace("Loggin",{type:ptype})
         }
-
+        let dataUserr = new DataUser();
+        let UserLoged =  dataUserr.getUserLogued();
+        console.log(UserLoged);
+        if(UserLoged != false){
+          const nav = useNavigation();
+          switch(UserLoged.role){
+            case "1":
+              nav.replace("AdminHome");
+    
+            break;
+            case "2":
+              nav.replace("NurseHome");
+              break;
+              case "0":
+               nav.replace("UserHome");
+              break;
+          }
+        }
 
 
 

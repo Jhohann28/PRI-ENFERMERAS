@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect, useState }from 'react';
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import { stylesAdmin } from '../../Styles/AdminStyles.js';
 import profile from '../../assets/images/GeneralImages/perfil.jpg';
@@ -6,13 +6,31 @@ import logo from '../../assets/images/GeneralImages/logo.png'
 import {Ionicons, FontAwesome5} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AdminScreen = () => {
+    
+    const[myuser, setuser] = useState("");
+        var muser="";
+    const getLocalUser =async()=>{
+        try{
+                muser = await AsyncStorage.getItem("user");
+                let muserJson = muser? JSON.parse(muser): null;
+                setuser(muserJson);
+        }
+        catch(e){
+            console.error(e);
+        }
+    }
+    
+    useEffect(()=>{
+        getLocalUser();
+    })
     return (
         <View style = {stylesAdmin.container}>
             <View style = {stylesAdmin.container2}>
-                <Text style={stylesAdmin.texto}>Hello</Text>
-                <Text style={stylesAdmin.texto1}>Linda Valencia</Text>
+                <Text style={stylesAdmin.texto}>Bienvenido</Text>
+                <Text style={stylesAdmin.texto1}>{myuser!=""? myuser.personRef.names:""}</Text>
                 <Image
                     source={profile}
                     style = {stylesAdmin.image}
