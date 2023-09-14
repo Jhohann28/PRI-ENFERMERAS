@@ -48,6 +48,13 @@ const AcceptContactDeclineRequest = () => {
                  await Linking.openURL("tel:"+r.data().phone);
 
             break;
+            case 1:
+                let d2 = new DataJobRequest();
+                let r3= await d2.createNurseFromJobRequest(idRequest); //era esto xd
+                if(r3==true){
+                    console.log("registrado ok");
+                }
+            break;
         }
         
     }
@@ -62,6 +69,7 @@ const AcceptContactDeclineRequest = () => {
                 />
             </View>
             <Modal
+            style={{justifyContent:"center", alignItems:"center", alignSelf:"center"}}
                     animationType="slide"
                     transparent={true}
                     visible={modalVisible}
@@ -96,7 +104,7 @@ const AcceptContactDeclineRequest = () => {
                 />
             </View>
             
-                <TouchableOpacity onPress={() =>{setTypeA(1);setIdRequest("12"); setModalVisible(true); }} style = {stylesAdmin.btnButton1}>                   
+                <TouchableOpacity onPress={() =>{setTypeA(1);setIdRequest("AHh5VGEoxocTrW2AlpqP"); setModalVisible(true); }} style = {stylesAdmin.btnButton1}>                   
                     <Entypo name="text-document" size={45} color="black" style={stylesAdmin.btnIcons}/>
                     <Text style = {stylesAdmin.btnText}>Aceptar</Text>  
                 </TouchableOpacity>

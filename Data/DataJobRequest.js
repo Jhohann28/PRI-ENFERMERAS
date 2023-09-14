@@ -3,7 +3,7 @@ import appFirebase  from "./firebaseConfig.js";
 import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction} from "firebase/firestore";
 import {getStorage,ref, uploadBytes, getDownloadURL} from "firebase/storage"
 
-import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth';
 import UserController from '../Controllers/UserController.js';
 import Nurse from '../Models/Nurse.js';
 import Person from '../Models/Person.js';
@@ -13,7 +13,8 @@ import * as Google from "expo-auth-session/providers/google.js";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MySender from '../Tools/MailSender.js';
-
+import GenerateRandoms from '../Tools/GenerateRandoms.js';
+import DataUser from './DataUser.js';
 
 const db = getFirestore(appFirebase);
 
@@ -25,9 +26,11 @@ let requestsRef = ref(dbSt, 'JobRequests');
 const fullPath = requestsRef.fullPath;
 const buccket = requestsRef.bucket;
 
+const auth = getAuth();
+
 class DataJobRequest{
     AuthID;
-    
+    pasw;
     
     uploadFiles = async(fileName, filePath)=>{
         
@@ -79,6 +82,102 @@ class DataJobRequest{
        
     }
 
+
+    createNurseFromJobRequest = async(id)=>{
+        
+        try {
+            await runTransaction(db, async(transaction)=>{
+                const mrequestRef = doc(db, "JobRequest", id);
+                      let req = await getDoc(mrequestRef);
+                    let n =new GenerateRandoms();
+                    let pas = n.generatePassword(8);
+                    console.log(pas);
+                    createUserWithEmailAndPassword(auth, req.data().email, pas)
+                    .then((userCredential) => {
+                        
+                        const user = userCredential.user.uid;
+                        this.AuthID = user;
+                        this.pasw= pas;
+                        // ...
+                        this.createNurse(req);
+
+                        return true;
+
+
+
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        return false;
+                    });
+
+
+            })
+        } catch (error) {
+            
+        }
+       
+    }
+
+
+    createNurse=async (reqq)=>{
+        let collectionn = collection(db,"Nurse");
+        const newNurse ={
+          names: reqq.data().names,
+          lastName: reqq.data().lastName,
+          secondLastName: reqq.data().secondLastName,
+          email: reqq.data().secondLastName,
+          ci: reqq.data().ci,
+          gender:"",
+          phone: reqq.data().phone,
+          status:1,
+          registrationDate: serverTimestamp(),
+          updateDate: serverTimestamp(),
+          graduationInstitution: reqq.data().graduationInstitution,
+          titulationDate: reqq.data().titulationDate,
+          speciality: reqq.data().speciality,
+          curriculumName: reqq.data().curriculumName,
+          curriculumUrl: reqq.data().curriculumUrl
+        }
+        await addDoc(collectionn, newNurse).then(docRef=>{ 
+          const userSys ={
+            location: {
+              latitude: 34.0522,
+              longitude: -118.2437
+            },
+            personRef: docRef,
+            role:"2", //0 es user
+            status:1,
+            registrationDate: serverTimestamp(),
+            updateDate: serverTimestamp(),
+            userAuthId: this.AuthID
+          };
+            console.log("Llegué aquí");
+            let sender = new MySender();
+            this.saveUser(userSys);
+
+            sender.sendMail(reqq.data().email, "Usuario creado: ", "Bienvenido, use esta contraseña la primera vez: "+this.pasw);
+          return true;
+        })
+        .catch(error=>{
+          console.error(error);
+          return false;
+        })
+    }
+    async saveUser(data){
+        let mcollection = collection(db,"User");
+        console.log("llegué");
+        await addDoc(mcollection, data).then(docRef=>{
+         
+          return true;
+        })
+        .catch(error=>{
+          console.error(error);
+          return false;
+        })
+  
+      }
 
 
 }

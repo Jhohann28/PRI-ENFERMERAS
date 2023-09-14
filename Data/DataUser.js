@@ -158,6 +158,7 @@ class DataUser{
 
     async saveUser(data){
       let mcollection = collection(db,"User");
+      console.log("llegué");
       await addDoc(mcollection, data).then(docRef=>{
        
         return true;
