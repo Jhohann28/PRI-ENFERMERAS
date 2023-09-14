@@ -17,6 +17,8 @@ class UserController{
         return true;
     }
 
+    
+
 
 
     getProblemAuth=(error)=>{

@@ -11,6 +11,7 @@ import NurseReportScreen from '../../ScreensPrueba/NurseReport.js'
 import NurseHistoryScreen from '../../ScreensPrueba/NurseHistory.js';           
 import NurseResignationScreen from '../../ScreensPrueba/NurseResignation.js';   
 import NurseProfileScreen from '../../ScreensPrueba/NurseProfile'; 
+import AcceptContactDeclineRequest from "../../Components/Administrator/AceptContactDeclineRequest"
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
 
@@ -60,7 +61,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Sol. Trabajo" 
-                component={NurseHistoryScreen} 
+                component={AcceptContactDeclineRequest} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome5 name="grip-lines" size={30} color="white" /> 

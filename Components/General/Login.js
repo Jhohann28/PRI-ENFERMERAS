@@ -138,6 +138,7 @@ export default function Loggin() {
 
                 return;
               }
+              userFinal = await userData.getRoleAndUserAuth("0");
            }
           
             //redirect
