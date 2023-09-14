@@ -55,6 +55,10 @@ const AcceptContactDeclineRequest = () => {
                     console.log("registrado ok");
                 }
             break;
+            case 3:
+                let d3 = new DataJobRequest();
+                let r2= await d3.DeleteRequest(idRequest); //era esto xd
+                break;
         }
         
     }
@@ -112,7 +116,7 @@ const AcceptContactDeclineRequest = () => {
                     <MaterialIcons name="payment" size={60} color="black" style={stylesAdmin.btnIcons}/>
                     <Text style = {stylesAdmin.btnText}>Contactar</Text>   
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() =>{setTypeA(3); setModalVisible(true)}} style = {stylesAdmin.btnButton3}>                   
+                <TouchableOpacity onPress={() =>{setTypeA(3);setIdRequest("EP9rVSCXwYAPtYQ7RPL9"); setModalVisible(true)}} style = {stylesAdmin.btnButton3}>                   
                     <FontAwesome5 name="users" size={50} color="black" style={stylesAdmin.btnIcons}/> 
                     <Text style = {stylesAdmin.btnText}>Rechazar</Text>   
                 </TouchableOpacity>

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import appFirebase  from "./firebaseConfig.js";
-import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction} from "firebase/firestore";
-import {getStorage,ref, uploadBytes, getDownloadURL} from "firebase/storage"
+import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, updateDoc} from "firebase/firestore";
+import {getStorage,ref, uploadBytes, getDownloadURL, deleteObject} from "firebase/storage"
 
 import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth';
 import UserController from '../Controllers/UserController.js';
@@ -104,7 +104,6 @@ class DataJobRequest{
                         return true;
 
 
-
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -179,6 +178,21 @@ class DataJobRequest{
   
       }
 
+
+      async DeleteRequest(id){
+        const mrequestRef = doc(db, "JobRequest", id);
+        let req = await getDoc(mrequestRef);
+
+        const desertRef = ref(dbSt, 'JobRequests/'+req.data().curriculumName);
+           await  deleteObject(desertRef).then(() => {
+                  updateDoc(mrequestRef,{status:0});
+
+            console.log("Eliminado");
+            }).catch((error) => {
+                return error;
+            });
+
+      }
 
 }
 export default DataJobRequest;
