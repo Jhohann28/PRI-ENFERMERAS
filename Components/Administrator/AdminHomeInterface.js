@@ -108,7 +108,7 @@ const AdminScreen = () => {
                             <TouchableOpacity onPress={() => Alert.alert('Debe ir al formulario de agregar servicio')} style={stylesAdmin.btnAddServices}>                     
                                 <Ionicons name="add-circle" size={45} color="black" />
                             </TouchableOpacity>
-                            <ServicesList/> 
+                            <ServicesL-ist/> 
                         </>
                     )}
                 </ScrollView>              
