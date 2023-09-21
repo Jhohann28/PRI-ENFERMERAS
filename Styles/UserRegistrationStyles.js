@@ -2,66 +2,58 @@ import { StyleSheet } from "react-native"
 
 const stylesUserRegistration = StyleSheet.create({
 
-    container: {
-        padding: 16,
-        backgroundColor: '#6B98C3', // Fondo blanco
-        alignItems:"center",
-        alignItems: "center",
-      }, 
-      container2:{
-        backgroundColor: "#064571",
-        padding:19,
-        borderRadius:40,
-        
-        
-        width:"100%"
-    },
-      
-      
-      startHeader:{
-        backgroundColor: "#064571",
-        padding:19,
-        borderRadius:35,
-        
-       width:"100%",
-       marginBottom: 20
-       
-       
-    },
-    headerText:{
-     color:"#fff",
-     fontSize:27,
-     textAlign:"center",
-     fontWeight:"bold"
 
-    },
-      textInput: {
-        marginBottom: 16,
-        backgroundColor: '#96B4FF',
-        borderRadius: 8,
-        
-      },
-      button: {
-        marginTop: 16,
-        backgroundColor: '#D43A39',
-        // Color principal para el botón
-      },
-      buttonText: {
-        // Texto en blanco para el botón
-      },
-      label: {
-        backgroundColor: '#FFFFFF',
-        // Texto en blanco para el botón
-      },
-      links:{
-        textAlign:"center", 
-        fontWeight:"bold", 
-        color:"#000000",
-    
-        margin:5}
-      
-      
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#C5C5C5', // Fondo blanco
+    alignItems:"center",
+    alignItems: "center",
+  }, 
+  container2:{
+
+    backgroundColor: "#6C98DB",
+    padding:35,
+    borderRadius:40,
+    width:"100%",
+    height: 662,
+    marginTop: -190,
     
     
+    
+  },
+  imageUser: {
+    marginTop: -15,
+    width: 410,
+    height: 350,
+
+  },
+
+  textInput: {
+    marginBottom: 16,
+    backgroundColor: '#6C98DB',
+    borderRadius: 8,
+    fontSize: 15,
+  },
+  button: {
+    marginTop: 16,
+    backgroundColor: '#315488',
+    borderRadius: 5
+    // Color principal para el botón
+  },
+  buttonText: {
+    // Texto en blanco para el botón
+  },
+  label: {
+    backgroundColor: '#FFFFFF',
+    // Texto en blanco para el botón
+  },
+  links:{
+    textAlign:"center", 
+    fontWeight:"bold", 
+    color:"#000000",
+    margin:5
+  },
+      //-----------------------ESTILOS PARA LAS ALERTAS DE VALIDACIONES-------------------------------\\
 });
 export {stylesUserRegistration};

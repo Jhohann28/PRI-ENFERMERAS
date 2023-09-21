@@ -4,16 +4,28 @@ import { stylesUserRegistration } from '../../Styles/UserRegistrationStyles.js';
 import { TextInput, Button } from 'react-native-paper';
 import DataUser from '../../Data/DataUser.js'; // Asegúrate de usar el nombre de archivo correcto
 import { getFirestore,doc,getDoc,query,where,getDocs, updateDoc, runTransaction, Transaction, collection, serverTimestamp, } from "firebase/firestore";
+import { regexNombre, regexApellido, regexCI, regexEmail, regexGenero, regexCelular } from '../../Tools/UserValidationsForm.js';
+import ValidationsForm from '../../Tools/UserValidationsForm.js'
+import {Picker} from '@react-native-picker/picker';
+import UserRegisterIMPL from '../../Controllers/UserRegisterIMPL.js';
+import usuario from '../../assets/images/GeneralImages/usuario.png';
 
-const dataUser = new DataUser();
-const UserForm = () => {
+
+
+
+  const dataUser = new DataUser();
+  const UserForm = () => {
   const [ci, setCi] = useState('');
+  //const [ciError, setCiError] = useState(false);
   const [names, setNames] = useState('');
   const [lastName, setLastName] = useState('');
   const [secondLastname, setSecondLastname] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
+
+  const [selectedValue, setSelectedValue] = useState('Masculino');
 
   const handleSubmit = async () => {
     // Crea un objeto person con los valores de los estados
@@ -27,7 +39,19 @@ const UserForm = () => {
       phone,
     };
 
+    
     try {
+      setError('');
+      let v = new UserRegisterIMPL();
+      if(v.validateForm(person) != true)
+      {
+        setError(v.validateForm(person));
+        
+        return; 
+      }
+
+
+
 
       await dataUser.registerUser(person);
 
@@ -49,10 +73,11 @@ const UserForm = () => {
   return (
     <>
       <View style={stylesUserRegistration.container}>
-        <View style={stylesUserRegistration.startHeader}>
-          <Text style={stylesUserRegistration.headerText}>REGISTRO USUARIO</Text>
-        </View>
-
+       
+        <Image
+          source={usuario}
+          style={stylesUserRegistration.imageUser}
+        /> 
         <View style={stylesUserRegistration.container2}>
           <ScrollView>
             <TextInput
@@ -90,12 +115,15 @@ const UserForm = () => {
               onChangeText={(text) => setEmail(text)}
             />
 
-            <TextInput
-              style={stylesUserRegistration.textInput}
-              label="Genero"
-              value={gender}
-              onChangeText={(text) => setGender(text)}
-            />
+            <Picker        
+            selectedValue={selectedValue}                   
+            onValueChange={(itemValue, itemIndex) => {
+              setSelectedValue(itemValue); 
+              setGender (itemValue)         
+            }}>         
+              <Picker.Item label="Masculino" value="Masculino" />        
+              <Picker.Item label="Femenino" value="Femenino" />                       
+            </Picker>
 
             <TextInput
               style={stylesUserRegistration.textInput}
@@ -104,6 +132,9 @@ const UserForm = () => {
               onChangeText={(text) => setPhone(text)}
             />
 
+            <Text>
+              {error}
+            </Text>
             <Button mode="contained" id="btn" onPress={handleSubmit} style={stylesUserRegistration.button}>
               Enviar Solicitud
             </Button>
