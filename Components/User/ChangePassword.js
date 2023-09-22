@@ -2,12 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button,ImageBackground,TouchableOpacity} from 'react-native';
 import { ChagePassword } from '../../Styles/ChangePassword';
+import passwd from '../../assets/images/Windows/clave.png';
 
 
 const ChagePassword = () => {
   return (
    
-        <ImageBackground source={require('./assets/Windows/clave.png')} style={styles.backgroundImage}>
+        <ImageBackground source={require(passwd)} style={styles.backgroundImage}>
           <View style={styles.container}>
           <View style={styles.containerHead}></View>
           <Text style={styles.title}>Cambiar Contraseña</Text>
