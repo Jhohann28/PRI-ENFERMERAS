@@ -28,6 +28,7 @@ export default function App() {
     /*<UserNavigation></UserNavigation>*/
     /*<NurseScreen></NurseScreen>*/
     /*<NurseNavigation></NurseNavigation>*/
+    /*<NurseResignationScreen></NurseResignationScreen>*/
     /*<AdminScreen></AdminScreen>*/
     /*<AdminNavigation></AdminNavigation>*/
     

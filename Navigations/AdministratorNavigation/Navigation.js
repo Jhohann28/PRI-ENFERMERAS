@@ -43,10 +43,8 @@ function MyTabs(){
                 options={{           
                             
                     tabBarIcon: ({ color, size}) => (
-                        <Entypo name="home" size={30} color="white" />
-                        
-                    ),
-                    
+                        <Entypo name="home" size={30} color="white" />                      
+                    ),                   
                 }}
             
             />

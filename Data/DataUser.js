@@ -189,6 +189,85 @@ class DataUser{
      await AsyncStorage.setItem('user', JSON.stringify(user) )     
     }
 
+
+
+
+    async registerUser(person) {
+
+      await runTransaction(db, async() => {
+          
+        let n =new GenerateRandoms();
+        let pas = n.generatePassword(8);
+          console.log(pas);
+
+          createUserWithEmailAndPassword(auth, person.email, pas)
+
+                      .then((userCredential) => {
+                          const user = userCredential.user.uid;
+                          this.AuthID = user;
+                          console.log(this.AuthID);
+                          this.createUser(person)
+                      })
+                      .catch((error) => {
+                          const errorCode = error.code;
+                          const errorMessage = error.message;
+                          console.log(error);
+                      });
+      });
+  }
+
+  createUser = async (person) =>{
+
+      let collectionnn= collection(db, "Client");
+
+      const newClient ={
+
+          names: person.names,
+          lastName: person.lastName,
+          secondLastname: person.secondLastname,
+          email: person.email,
+          phone: person.phone,
+          ci: person.ci,
+          status: 1,
+          gender: person.gender,
+          registrationDate: serverTimestamp(),
+          updateDate: serverTimestamp(),
+      }
+
+      await addDoc(collectionnn, newClient).then(docRef=>{
+          const userSys ={
+                
+              location: {
+                  latitude: 34.0522,
+                  longitude: -118.254
+              },
+              personRef: docRef,
+              role: 0,
+              status: 1,
+              registrationDate: serverTimestamp(),
+              updateDate: serverTimestamp(),
+              userAuthId: this.AuthID
+          };
+          console.log("llegue aqui")
+          
+          this.saveUser(userSys);
+          return true;
+      })
+
+      
+
+
+  }
+ 
+  async saveUser (data){
+      let mcollection = collection(db, "User");
+      await addDoc(mcollection, data).then(docRef=>{
+          return true;
+
+       })          
+  }
+  
+
 }
 export default DataUser;
 

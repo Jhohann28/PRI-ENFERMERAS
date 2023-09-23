@@ -204,7 +204,7 @@ export default function Loggin() {
                 <Text style={{textAlign:"center", color:"red", margin:5}}>{error}</Text>
               </View>
               {type==0 || type==1?
-                 <TouchableOpacity onPress={()=>{console.log("Hola")}}>
+                 <TouchableOpacity onPress={()=>{nav.navigate("UserForm")}}>
                  <Text style={ownStyles.default.links}>¿No tienes una cuenta?</Text>
                </TouchableOpacity>:
 

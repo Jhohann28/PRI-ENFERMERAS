@@ -11,6 +11,7 @@ import AdminNavigation from "../../../Navigations/AdministratorNavigation/Naviga
 import UserNavigation from "../../../Navigations/UserNavigation/Navigation";
 import NurseNavigation from "../../../Navigations/NurseNavigation/Navigation";
 import JobRequest from '../JobRequest';
+import UserForm from '../../User/UserRegistration';
 
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ const StartNavigator = () => {
         <Stack.Screen name="UserHome" component={UserNavigation} options={{headerShown:false}}/>
         <Stack.Screen name="NurseHome" component={NurseNavigation} options={{headerShown:false}}/>
         <Stack.Screen name="JobRequest" component={JobRequest} options={{headerShown:false}}/>
+        <Stack.Screen name="UserForm" component={UserForm} options={{headerShown:false}}/>
 
       </Stack.Navigator>
     </NavigationContainer>

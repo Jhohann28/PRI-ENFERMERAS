@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native"
 const stylesNurse = StyleSheet.create({
 
 
+    //-------------------------HOME DE LA ENFERMERA------------------------\\
     container: {
         backgroundColor: "#E7E7E7",
         flex: 1,
@@ -159,6 +160,7 @@ const stylesNurse = StyleSheet.create({
         justifyContent:"center"
 
     }
+
 });
 
 export { stylesNurse };

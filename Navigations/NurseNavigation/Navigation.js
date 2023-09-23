@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import NurseHome from '../../Components/Nurse/NurseHome.js'
 import NurseReportScreen from '../../ScreensPrueba/NurseReport.js'              
 import NurseHistoryScreen from '../../ScreensPrueba/NurseHistory.js';           
-import NurseResignationScreen from '../../ScreensPrueba/NurseResignation.js';   
+import NurseResignationScreen from '../../Components/Nurse/NurseResignation.js';   
 import NurseProfileScreen from '../../ScreensPrueba/NurseProfile.js'; 
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
