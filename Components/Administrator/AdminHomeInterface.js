@@ -7,12 +7,20 @@ import {Ionicons, FontAwesome5} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const AdminScreen = () => {
-    
+    const n = useNavigation();
+
+
+    const [noshowDates, setShowDates] = useState(false);
     const[myuser, setuser] = useState("");
         var muser="";
     const getLocalUser =async()=>{
+        if(noshowDates){
+            setuser("");
+                return;
+        }
         try{
                 muser = await AsyncStorage.getItem("user");
                 let muserJson = muser? JSON.parse(muser): null;
@@ -20,12 +28,19 @@ const AdminScreen = () => {
         }
         catch(e){
             console.error(e);
+            setuser("");
         }
     }
     
     useEffect(()=>{
         getLocalUser();
     })
+
+    let closeSession=async ()=>{
+              
+          AsyncStorage.clear();
+        n.replace("StartPage");
+    }
     return (
         <View style = {stylesAdmin.container}>
             <View style = {stylesAdmin.container2}>
@@ -61,6 +76,10 @@ const AdminScreen = () => {
                 <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style = {stylesAdmin.btnButton4}>                   
                     <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons}/>
                     <Text style = {stylesAdmin.btnText}>Enfermeras</Text>   
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {setShowDates(true); setuser(""); closeSession()}} style = {stylesAdmin.btnButton4}>                   
+                    <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons}/>
+                    <Text style = {stylesAdmin.btnText}>Cerrar sesión</Text>   
                 </TouchableOpacity>
         </View>
     )

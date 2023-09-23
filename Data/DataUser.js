@@ -9,7 +9,6 @@ import Nurse from '../Models/Nurse.js';
 import Person from '../Models/Person.js';
 import User from '../Models/User.js';
 
-import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google.js";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -69,7 +68,6 @@ class DataUser{
             });
             const myPerson = await getDoc(referToPerson); //siuuuu
             let personClass;
-
             console.log("ok");
             role=="2"? personClass = new Nurse(myPerson.data().names, myPerson.data().lastName, myPerson.data().secondLastName,
             myPerson.data().email, myPerson.data().phone, myPerson.data().ci, myPerson.data().status, myPerson.data().speciality,
@@ -174,7 +172,7 @@ class DataUser{
       await AsyncStorage.getItem('user')
       .then((userString) => {
         if (userString) {
-          const muser = JSON.parse(userString);
+          let muser = JSON.parse(userString);
           console.log('Usuario recuperado de AsyncStorage:', muser);
           return muser;
         } else {

@@ -55,7 +55,7 @@ function MyTabs(){
                 }}
             />
             <Tab.Screen 
-                name="Historral" 
+                name="Historial" 
                 component={NurseHistoryScreen} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
