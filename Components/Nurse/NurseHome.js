@@ -11,10 +11,13 @@ import firebase from 'firebase/app';
 import appFirebase  from "../../Data/firebaseConfig.js";
 import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot} from "firebase/firestore";
 import MapMaker from '../../Tools/Maper.js';
+import { useNavigation } from '@react-navigation/native';
 
 const db = getFirestore(appFirebase);
 
 const NurseScreen = () => {
+
+    const n = useNavigation();
     const dtN = new DataNurse();
     const[requests, SetRequests]= useState([]);
     const[load, setload]= useState(false);
@@ -34,6 +37,15 @@ const NurseScreen = () => {
     useEffect(()=>{
         getLocalUser();
     },[])
+
+       
+    const[rejectedList, setRejected]=  useState([]);
+        
+    const Reject =(index)=>{
+      let n=[...rejectedList];
+      n.push(index);
+        setRejected(n);
+    }
 
     const susc = async () => {
         try {
@@ -70,7 +82,12 @@ const NurseScreen = () => {
         susc();
       }, []);
    
+      const OpenALot=(atentionr)=>{
+        
 
+
+        n.navigate("AtentionOpen", {atention: atentionr})
+      }
 
     return (
         <View style = {stylesNurse.container}>
@@ -92,40 +109,44 @@ const NurseScreen = () => {
             
              
              { requests.length>0?
-              requests.map((requestss) => (
-
-                        <TouchableOpacity style={stylesNurse.myAtentionRequestItem} key={requestss.id} >
-                        <View style={stylesNurse.containerHorizontal}
-                        >
-                            <MaterialCommunityIcons name="hospital-marker" size={44} color="black" />
-                            <View  style={stylesNurse.containerHorizontal2}
-                            >
-                                <View style={  stylesNurse.containerHorizontal}
-                                        >
-                                            <Text style={stylesNurse.left} >{requestss.userRef.personRef.names+" "+requestss.userRef.personRef.lastName}</Text>
-                                            <Text  style={stylesNurse.right2}>{requestss.serviceRef.name}</Text>
-
-                                            <Text  style={stylesNurse.right}>{requestss.serviceRef.price} Bs.</Text>
-                                    </View>
-                                    <View style={stylesNurse.containerHorizontal}
-                                        >
-                                            <Text  style={stylesNurse.left}>{requestss.directionName}</Text>
-
-                                    </View>
-                            </View>
-                        </View>
-                        <View style={{alignSelf:"center"}}><Text style={{textAlign:"center"}} >{requestss.date}</Text></View>
-                        <View style={stylesNurse.containerHorizontalButtons}>
-                                <TouchableOpacity style={stylesNurse.btnAccept}>
-                                    <Text style={{textAlign:"center", fontWeight:"bold", fontSize:15}}>Aceptar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={stylesNurse.btnRemove}>
-                                    <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:15, color:"white"}}>Rechazar</Text>
-                                </TouchableOpacity>
-
-                        </View>
-                        </TouchableOpacity>
-                    )): <Text style={stylesNurse.MessageText}>No hay ofertas</Text>}
+              requests.map((requestss, k) => {
+                       if(!rejectedList.includes(requestss.id)){
+                        return(
+                          <TouchableOpacity style={stylesNurse.myAtentionRequestItem} key={requestss.id} onPress={()=>{OpenALot(requestss)}} >
+                          <View style={stylesNurse.containerHorizontal}
+                          >
+                              <MaterialCommunityIcons name="hospital-marker" size={44} color="black" />
+                              <View  style={stylesNurse.containerHorizontal2}
+                              >
+                                  <View style={  stylesNurse.containerHorizontal}
+                                          >
+                                              <Text style={stylesNurse.left} >{requestss.userRef.personRef.names+" "+requestss.userRef.personRef.lastName+k}</Text>
+                                              <Text  style={stylesNurse.right2}>{requestss.serviceRef.name}</Text>
+  
+                                              <Text  style={stylesNurse.right}>{requestss.serviceRef.price} Bs.</Text>
+                                      </View>
+                                      <View style={stylesNurse.containerHorizontal}
+                                          >
+                                              <Text  style={stylesNurse.left}>{requestss.directionName}</Text>
+  
+                                      </View>
+                              </View>
+                          </View>
+                          <View style={{alignSelf:"center"}}><Text style={{textAlign:"center"}} >{requestss.date}</Text></View>
+                          <View style={stylesNurse.containerHorizontalButtons}>
+                                  <TouchableOpacity style={stylesNurse.btnAccept}>
+                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:15}}>Aceptar</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={stylesNurse.btnRemove}>
+                                      <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:15, color:"white"}}  onPress={()=>Reject(requestss.id)} >Rechazar</Text>
+                                  </TouchableOpacity>
+  
+                          </View>
+                          </TouchableOpacity>
+                        )
+                       }
+                       
+             }): <Text style={stylesNurse.MessageText}>No hay ofertas</Text>}
                
               <Text style={stylesNurse.MessageText2}>Esas son todas las solicitudes actualmente disponibles...</Text>
              

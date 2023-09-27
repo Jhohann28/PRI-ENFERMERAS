@@ -44,15 +44,14 @@ export default function StartPage() {
             console.error(e);
         }
     }
-        
-        
+ 
         
        
         
           
         
         useEffect(()=>{
-           // getLocalUser();
+            getLocalUser();
 
         },[])
 

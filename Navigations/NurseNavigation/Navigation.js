@@ -12,6 +12,7 @@ import NurseResignationScreen from '../../Components/Nurse/NurseResignation.js';
 import NurseProfileScreen from '../../ScreensPrueba/NurseProfile.js'; 
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
+import AtentionNurseNav from './AtentionNurseNav.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ function MyTabs(){
             >
             <Tab.Screen 
                 name="Home" 
-                component={NurseHome}
+                component={AtentionNurseNav}
                 options={{           
                             
                     tabBarIcon: ({ color, size}) => (
