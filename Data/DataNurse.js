@@ -69,6 +69,34 @@ class DataNurse{
       return p.data();
     }
      
+    async acceptResignation(id, AuthID){
+        const mrequestRef = doc(db, "resignations", id);
+        let req = await getDoc(mrequestRef);
+  
+       
+           await updateDoc(mrequestRef, {
+              status: -1 // -1 is accepted
+            });
+            const usersCollection = collection(db, 'User');
+            const q = query(usersCollection, where('userAuthId', '==',AuthID )); //0 user, 1 admin, 2 nurse
+          
+            try {
+              const querySnapshot = await getDocs(q);
+              var finalUser="";
+              if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                      console.log('Document data:', doc.data());
+                    finalUser = doc.ref;
+                     updateDoc(finalUser, {
+                      status: -1 ,// -1 disabled
+                      role:-1
+                    });
+                });}}
+                catch(er){
+
+                }
+        
+    }
   
 }
 export default DataNurse;

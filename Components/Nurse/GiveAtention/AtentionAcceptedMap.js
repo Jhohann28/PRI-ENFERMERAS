@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity, Alert} from 'react-native';
 import { stylesNurse } from '../../../Styles/NurseStyles.js';
 import {Ionicons, FontAwesome, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,18 +14,26 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
 import NurseAtentionData from '../../../Data/NurseAtentionData.js';
+import { getDatabase, ref, onValue } from '@firebase/database';
+import * as geolib from "geolib";
+
 
 const customIcon = require('../../../assets/images/Location/userIcon.gif');
 const db = getFirestore(appFirebase);
 
-const AtentionRequestOpen = () => {
+const AtentionAcceptedMap = () => {
 
     const nav = useNavigation();
     const route = useRoute(); 
-
+    const dataa = new NurseAtentionData();
+    const {atention} = route.params;
+    console.log(atention);
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [locationUser, setLocationUser] = useState(null);
   
+
+
     useEffect(() => {
       (async () => {
         
@@ -41,11 +49,52 @@ const AtentionRequestOpen = () => {
       })();
     }, []);
 
+    useEffect(()=>{
+        startLocationTracking();
 
-     const {atention} = route.params;
-        console.log(atention);
+    },[])
+     
+    const startLocationTracking = async () => {
+        const { coords } = await Location.getCurrentPositionAsync({});
+        console.log('Ubicación actual:', coords);
+      
+        const subscription = await Location.watchPositionAsync(
+          {
+            accuracy: Location.Accuracy.BestForNavigation, 
+            timeInterval: 1000, 
+            distanceInterval: 3, 
+          },
+           (location) => {
+            console.log('Nueva ubicación:', location.coords);
+             dataa.writeLocationNurse(location.coords,atention.id )
+            setLocation(location);
+          }
+        );
+      };
 
-    const dtN = new DataNurse();
+
+      //#region EScucha cliente
+      const db = getDatabase(appFirebase);
+      const starCountRef = ref(db, 'locations/' + atention.id + '/userLocation');
+      
+      
+      
+      useEffect(()=>{
+        const onDataChange = (snapshot) => {
+            try {
+                const lt = snapshot.val();
+                 setLocationUser(lt);
+    
+                
+            } catch (error) {
+                
+            }
+           
+          };
+      onValue(starCountRef, onDataChange);
+
+      },[])
+//#endregion
 
     const[myuser, setuser] = useState("");
         var muser="";
@@ -64,18 +113,36 @@ const AtentionRequestOpen = () => {
         getLocalUser();
     },[])
 
-        GoToMainAtent=async()=>{
-            let n = new NurseAtentionData();
-           if(await n.IsStillDisponible(atention)) {
-            nav.replace("AtentionOK",{atention: atention});
-           }
-           else{
-            console.log("YA NO ESTA DISPONIBLE");
-           }
-       }
-    
+       
+    const changeStateToNotFound=async ()=>{
+      if(  geolib.getDistance(location.coords, locationUser)>12){
+        console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
+        Alert.alert(
+            'No disponible',
+            'Debe estar cerca de la última ubicación del usuario para cambiar de estado'
+       )
+        }
+        let j = new NurseAtentionData();
+        await j.UserNotFound(atention.id);
+        
+    }
+    const changeStateToFound=async ()=>{
+        if(  geolib.getDistance(location.coords, locationUser)>12){
+          console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
+          Alert.alert(
+            'No disponible',
+            'Debe estar cerca de la última ubicación del usuario para cambiar de estado'
+       )
+          return;
+          }
+          let j = new NurseAtentionData();
+          await j.UserNotFound(atention.id);
+          //redireccionar cuando s integre
+          
+      }
+
     return (
-        <View style = {styles.container}>
+          <View style = {styles.container}>
             <View style={styles.myMapContainer}>
             <MapView
                 style={styles.MyMap}
@@ -87,7 +154,21 @@ const AtentionRequestOpen = () => {
                 }}
                
                 >
-                  { location != null? <Marker
+                  { locationUser != null? <Marker
+                        coordinate={{
+                            latitude: locationUser.latitude, 
+                            longitude: locationUser.longitude, 
+                        }}
+                        title="Ubicación de la persona"
+                        description="Descripción de la ubicación de la persona"
+               
+                
+                        >
+                        <Image source={customIcon} style={{width:30, height:50}}></Image>
+
+                        </Marker>:""}
+              
+                        { location != null? <Marker
                         coordinate={{
                             latitude: location.coords.latitude, 
                             longitude: location.coords.longitude, 
@@ -100,30 +181,16 @@ const AtentionRequestOpen = () => {
                         <Image source={customIcon} style={{width:30, height:50}}></Image>
 
                         </Marker>:""}
-                <Marker
-                        coordinate={{
-                            latitude: atention.userRef.location.latitude, 
-                            longitude: atention.userRef.location.longitude, 
-                        }}
-                        title="Ubicación de la persona"
-                        description="Descripción de la ubicación de la persona"
-               
-                
-                        >
-                        <Image source={customIcon} style={{width:30, height:50}}></Image>
-
-                        </Marker>
-                        {location!=null?  <MapViewDirections
+                        {location!=null && locationUser!=null ?  <MapViewDirections
                             origin={location.coords}
-                            destination={atention.userRef.location}
+                            destination={locationUser}
                             apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
                             strokeWidth={3}
                             strokeColor="#0000FF"
                             
                             >
 
-                            </MapViewDirections>:""}
-                          
+                            </MapViewDirections>:""} 
                         
                 </MapView>
             </View>
@@ -132,19 +199,16 @@ const AtentionRequestOpen = () => {
                 <View style={styles.MyCont}>
                  
 
-                    <Text style={styles.TextBodyA}>Descripción:    ( {atention.serviceRef.price} Bs. )</Text>
-                    <Text style={styles.TextBody}>{atention.description}</Text>
-                    {atention.imageUrl != ""? 
-                    <Image source={{uri: atention.imageUrl}} style={styles.MyImg}></Image>
-                    :<Text></Text>
-                
-                    }
+                    <Text style={styles.TextBodyA}>El paciente esta esperándote!!    </Text>
+                    <Text style={styles.TextBody}>Solicitud Aceptada</Text>
+                    <Text style={styles.TextBody}>Cambia el estado de la solicitud sólo cuando estés cerca.</Text>
+                   
                     <View style={styles.horizontal} >
                 <TouchableOpacity style={styles.btnAccept}>
-                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18}} onPress={()=>GoToMainAtent(atention)}>Aceptar</Text>
+                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18, justifyContent:"center", alignItems:"center"}} onPress={()=>changeStateToFound()}>En atención</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btnRemove}>
-                                      <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:18, color:"white"}}  onPress={()=>nav.replace("NurseHome")} >Cerrar</Text>
+                                      <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:18, color:"white"}}  onPress={()=>changeStateToNotFound()} >Usuario no encontrado</Text>
                                   </TouchableOpacity>
                 </View>
                 </View>
@@ -155,4 +219,4 @@ const AtentionRequestOpen = () => {
     )
 }
 
-export default AtentionRequestOpen;
+export default AtentionAcceptedMap;
