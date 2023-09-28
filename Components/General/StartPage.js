@@ -52,7 +52,7 @@ export default function StartPage() {
           
         
         useEffect(()=>{
-           // getLocalUser();
+           getLocalUser();
 
         },[])
 

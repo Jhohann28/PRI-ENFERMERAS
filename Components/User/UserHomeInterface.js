@@ -6,8 +6,13 @@ import world from '../../assets/images/GeneralImages/World.gif';
 import {Ionicons} from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DataUser from "../../Data/DataUser.js";
+import { useNavigation } from "@react-navigation/native";
+
+
 const Home = () => {
    
+    const n = useNavigation();
+
     const[myuser, setuser] = useState("");
         var muser="";
     const getLocalUser =async()=>{
@@ -23,7 +28,7 @@ const Home = () => {
     
     useEffect(()=>{
         getLocalUser();
-    })
+    }, [])
 
 
     return(
@@ -39,12 +44,12 @@ const Home = () => {
             </View>
 
             <Image
-
                 source={world}
                 style={styles.worldBlue}
             />
+            
             <TouchableOpacity 
-                onPress={() => Alert.alert('Holaaaaaa')} 
+                onPress={() => n.navigate("ServiceRequestUser")} 
                 style = {styles.btnSolicitar}>
                 <Text style = {styles.btnTexto}>Solicitar</Text>         
             </TouchableOpacity>     

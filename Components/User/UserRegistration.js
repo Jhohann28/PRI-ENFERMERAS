@@ -15,7 +15,9 @@ import { useNavigation } from '@react-navigation/core';
 
 
   const dataUser = new DataUser();
+
   const UserForm = () => {
+
   const [ci, setCi] = useState('');
   //const [ciError, setCiError] = useState(false);
   const [names, setNames] = useState('');
@@ -27,6 +29,7 @@ import { useNavigation } from '@react-navigation/core';
   const [error, setError] = useState('');
 
   const [selectedValue, setSelectedValue] = useState('Masculino');
+  
     const n = useNavigation();
   const handleSubmit = async () => {
     // Crea un objeto person con los valores de los estados
