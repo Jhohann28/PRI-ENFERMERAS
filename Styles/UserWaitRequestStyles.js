@@ -72,8 +72,10 @@ const ServiceWaitRequestUserStyle = StyleSheet.create({
     loadIndicator: {
         width: 100,
         padding: 25,      
-        marginTop: 150,
-        marginLeft: 140
+        marginBottom: -50,
+        marginTop:100,
+        marginLeft: 140,
+        
 
     }
 });

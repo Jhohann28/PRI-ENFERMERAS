@@ -101,9 +101,6 @@ const ServiceRequestUser = () => {
     
         const dataServiceRequestUser = new DataServiceRequestUser();
 
-      
-        
-
         setServiceError(serviceValidation);
         setDescriptionError(descriptionValidation);
     
@@ -124,19 +121,21 @@ const ServiceRequestUser = () => {
             longitude: location.coords.longitude
            
         };
-
+        //const docReferenci = 
         await dataServiceRequestUser.uploadFileToStorage(imageName, image, requestData)
     
           // Enviar los datos a Firebase        
-            .then(() => {
+            .then(async() => {
               console.log("Solicitud enviada con éxito");
+              await console.log("ID del requerimiento: ",dataServiceRequestUser.addRef);
               
-              n.navigate("ServiceWaitInterface"); // Navegar a la siguiente pantalla
+              n.navigate("ServiceWaitInterface", {service: dataServiceRequestUser.addRef}); 
             })
             .catch((error) => {
               console.error('Error al enviar la solicitud', error);
             });
         }
+      
     };
    
     
@@ -183,7 +182,7 @@ const ServiceRequestUser = () => {
 
             </View>
             <TouchableOpacity 
-                /*onPress={() => n.navigate("MapDetailInterface")} */
+               
                 onPress={handleValidation} 
                 style = {stylesServiceRequestUser.btnSolicitar}>
                 <Text style = {stylesServiceRequestUser.btnTexto}>Enviar Solicitud</Text>         

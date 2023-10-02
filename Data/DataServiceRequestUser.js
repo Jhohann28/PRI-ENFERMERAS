@@ -5,15 +5,21 @@ import AtentionRequest from '../Models/AtentionRequest.js';
 import { getAuth } from 'firebase/auth';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getStorage, getDownloadURL, deleteObject, storage,ref, uploadBytes } from "firebase/storage"; 
+import { getDatabase, set } from "firebase/database";
+
 
 const db = getFirestore(appFirebase);
+const db2 = getDatabase(appFirebase);
 const auth = getAuth();
 const dbSt = getStorage(appFirebase);
 let requestsRef = ref(dbSt, 'AtentionRequest');
-const fullPath = requestsRef.fullPath;
+
+
+
 class DataServiceRequestUser {
     URL;
-    
+    addRef;
+    flag = false;   
     async sendRequest(requestData) {
 
         try {
@@ -30,9 +36,7 @@ class DataServiceRequestUser {
                     if (!querySnapshot.empty) {
                         querySnapshot.forEach((doc) => {
 
-                          referToPerson = doc.ref;
-
-                        
+                          referToPerson = doc.ref; 
                     })}
 
                     console.log(referToPerson);
@@ -53,9 +57,19 @@ class DataServiceRequestUser {
 
                     const serviceRequestCollection = collection(db, "AtentionRequest");
 
-                    await addDoc(serviceRequestCollection, serviceRequest);
+                    const ref = await addDoc(serviceRequestCollection, serviceRequest);
+
+                    this.addRef = ref.id;
+
+                    this.flag = true;
 
                     console.log("Solicitud de servicio enviada con éxito");
+
+                    console.log("ID del requerimiento 2: ", this.addRef);
+
+                  
+                    return ref.id;
+
                 } else {
                     console.error("No se encontró la AuthID en la referencia al usuario en el almacenamiento local");
                 }
@@ -80,16 +94,16 @@ class DataServiceRequestUser {
       
       const storageRef = ref(dbSt, `ServicesRequests/${fileName}`);
 
-      uploadBytes(storageRef, blob)
+      await uploadBytes(storageRef, blob)
             .then((snapshot) => {
                 console.log('Archivo subido con éxito');
                 // Puedes obtener la URL de descarga del archivo
                 return getDownloadURL(snapshot.ref);
             })
-            .then((downloadURL) => {
+            .then(async(downloadURL) => {
                 console.log('URL de descarga del archivo:', downloadURL);
                 this.URL = downloadURL;
-                this.sendRequest(r);
+                this.addRef = await this.sendRequest(r);
             })
       
       /*await uploadBytes(storageRef, blob);
@@ -100,10 +114,19 @@ class DataServiceRequestUser {
       console.error('Error al subir el archivo:', error);
       throw error;
     }
+
+
   };
 
+  async updateCancelAttention (id) {
 
-
+    const washingtonRef = doc(db, "AtentionRequest", id);
+  
+      await updateDoc(washingtonRef, {
+        status: 0
+      });
+    }
+    
 }
 
 export default DataServiceRequestUser;
