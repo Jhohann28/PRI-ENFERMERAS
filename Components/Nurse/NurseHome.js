@@ -9,7 +9,7 @@ import DataNurse from '../../Data/DataNurse.js';
 
 import firebase from 'firebase/app';
 import appFirebase  from "../../Data/firebaseConfig.js";
-import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot} from "firebase/firestore";
+import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot, orderBy} from "firebase/firestore";
 import MapMaker from '../../Tools/Maper.js';
 import { useNavigation } from '@react-navigation/native';
 
@@ -49,10 +49,10 @@ const NurseScreen = () => {
 
     const susc = async () => {
         try {
-          const q = query(collection(db, "AtentionRequest"), where("status", "==", 1));
+          const q = query(collection(db, "AtentionRequest") , where("status", "==", 1), orderBy("date", "desc"));
+          
           const unsubscribe = onSnapshot(q, async (querySnapshot) => {
             const rr = [];
-      
             const promises = querySnapshot.docs.map(async (doc) => {
               let service = await dtN.getServiceAtention(doc.data());
               let user = await dtN.getUserAtention(doc.data());
@@ -63,10 +63,10 @@ const NurseScreen = () => {
               myAuxReq.directionName = await maper.getAddressFromCoordinates(myAuxReq.userRef.location.latitude,myAuxReq.userRef.location.longitude);
               console.log(myAuxReq);
               rr.push(myAuxReq);
-            });
-      
+            }); 
             await Promise.all(promises);
-      
+  
+              
             console.log(requests.length);
             SetRequests(rr);
             setload(true);
@@ -74,7 +74,6 @@ const NurseScreen = () => {
             console.log(rr.length);
           });
         } catch (error) {
-          // Maneja el error adecuadamente
         }
       };
       
@@ -120,7 +119,7 @@ const NurseScreen = () => {
                               >
                                   <View style={  stylesNurse.containerHorizontal}
                                           >
-                                              <Text style={stylesNurse.left} >{requestss.userRef.personRef.names+" "+requestss.userRef.personRef.lastName+k}</Text>
+                                              <Text style={stylesNurse.left} >{requestss.userRef.personRef.names.split(" ")[0]+" "+requestss.userRef.personRef.lastName}</Text>
                                               <Text  style={stylesNurse.right2}>{requestss.serviceRef.name}</Text>
   
                                               <Text  style={stylesNurse.right}>{requestss.serviceRef.price} Bs.</Text>

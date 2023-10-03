@@ -23,6 +23,7 @@ const provider = new GoogleAuthProvider();
 
 
 class DataUser{
+  
     AuthID;
     async authUsers(user) {
         const auth = getAuth();

@@ -12,6 +12,7 @@ import NurseHistoryScreen from '../../ScreensPrueba/NurseHistory.js';
 import NurseProfileScreen from '../../ScreensPrueba/NurseProfile.js'; 
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
+import AttentionUserNav from './AttentionUserNav.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,14 +37,13 @@ function MyTabs(){
             >
             <Tab.Screen 
                 name="Home" 
-                component={UsereHome}
+                component={AttentionUserNav}
                 options={{           
                     
                     tabBarIcon: ({ color, size}) => (
                         <Entypo name="home" size={24} color="#ffffff" />
                     ),
                 }}
-            
             />   
             <Tab.Screen 
                 name="Historial" 
