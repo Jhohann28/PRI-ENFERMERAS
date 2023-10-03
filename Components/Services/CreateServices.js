@@ -2,23 +2,45 @@ import React, { useState } from 'react';
 import { View, Text, TextInput,Image,TouchableOpacity } from 'react-native';
 import { CreateStyles } from '../../Styles/createService';
 import create from '../../assets/images/Windows/createService.png';
+import { collection, addDoc, Timestamp ,getFirestore} from 'firebase/firestore';
+import { appFirebase } from '../../Data/firebaseConfig';
+
+
  
 
 const InsertServiceScreen = () => {
-
   const [name, setName] = useState('');
-
   const [price, setPrice] = useState('');
-
   const [description, setDescription] = useState('');
 
- 
+const handleSave = async () => {
+  try {
+    const db = getFirestore(appFirebase);
 
-  const handleSave = () => {
+    // Crear un objeto con los datos del servicio
+    const newService = {
+      name,
+      price: parseFloat(price), // Convierte el precio a número (asumiendo que price es un número).
+      description,
+      registrationDate: Timestamp.now(),
+      status: 1,
+    };
 
-    // Add your logic to save the service here
+    // Agregar el servicio a la colección "Services"
+    const docRef = await addDoc(collection(db, 'Services'), newService);
+    Alert.alert('Éxito', 'El servicio se ha creado correctamente.');
 
-  };
+    // Limpia los campos después de guardar
+    setName('');
+    setPrice('');
+    setDescription('');
+  } catch (error) {
+    Alert.alert('Error', 'Hubo un error al crear el servicio. Por favor, inténtalo de nuevo.');
+    console.error('Error al crear el servicio:', error);
+  }
+};
+
+  
   return (
 
     <View style={CreateStyles.container}>
@@ -51,9 +73,10 @@ const InsertServiceScreen = () => {
         multiline={true}
         onChangeText={(description)=>setDescription(description)}
       />
-      <TouchableOpacity style={CreateStyles.button}>
+      <TouchableOpacity style={CreateStyles.button} onPress={handleSave}>
               <Text style={CreateStyles.textButton}>CREAR SERVICIO</Text>
       </TouchableOpacity>
     </View>
   );
+  
 };export default InsertServiceScreen;
