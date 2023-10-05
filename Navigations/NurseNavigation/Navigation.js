@@ -13,6 +13,8 @@ import NurseProfileScreen from '../../ScreensPrueba/NurseProfile.js';
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
 import AtentionNurseNav from './AtentionNurseNav.js';
+import HistoryAtentionNurse from '../../Components/Nurse/HistoryAtentionNurse/HistoryAtentionNurse.js';
+import HistoyAtentionsNurseNav from './HistoyAtentionsNurseNav.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,7 +59,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Historial" 
-                component={NurseHistoryScreen} 
+                component={HistoyAtentionsNurseNav } 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome5 name="grip-lines" size={30} color="black" /> 

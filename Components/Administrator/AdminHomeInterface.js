@@ -99,7 +99,7 @@ const AdminScreen = () => {
                                 <FontAwesome5 name="users" size={50} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Usuarios</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnButton4}>
+                            <TouchableOpacity onPress={() => n.navigate("NurseList")} style={stylesAdmin.btnButton4}>
                                 <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Enfermeras</Text>
                             </TouchableOpacity>

@@ -17,19 +17,20 @@ const stylesAdmin = StyleSheet.create({
     },
     container3: {
         backgroundColor: "#315488",
-        marginTop: 50,
-        width: 380,
+        marginTop: -70,
+        width: "90%",
         borderRadius: 25,
-        marginLeft: 15,
-        height: 420,
+       height:"65%",
+        alignSelf:"center",
+        justifyContent:"center",
+        alignItems:"center",
 
     },
     container4: {
         backgroundColor: "#FFFFFF",
-        marginTop: -155,
-        width: 380,
+        width: "90%",
+        alignSelf:"center",
         borderRadius: 25,
-        marginLeft: 15,
 
     },
     image: {

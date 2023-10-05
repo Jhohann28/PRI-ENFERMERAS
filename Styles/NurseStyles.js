@@ -18,6 +18,14 @@ const stylesNurse = StyleSheet.create({
         
 
     },
+    container2Open: {        
+        backgroundColor: "#98C7BE",
+        borderBottomRightRadius: 25,
+        borderBottomLeftRadius: 25,
+        height: 155,
+        
+
+    },
     image: {
         position: 'absolute',
         top: 25, // Alinea la imagen en la parte superior
@@ -102,18 +110,28 @@ const stylesNurse = StyleSheet.create({
     {
         flexDirection:"row"
         ,
-        marginTop:3
+        marginTop:3,
+        alignItems:"center",
+        justifyContent:"center"
     },
+    containerHorizontal3:
+    {
+        flexDirection:"row"
+        ,
+        marginTop:3
+    }
+    ,
     containerHorizontal2:
     {
       width:"87%",
+      margin:4
     },
     myAtentionRequestItem:{
         backgroundColor: "white",
         width:"93%",
         alignSelf:"center",
         borderRadius:15,
-        padding:5,
+        padding:10,
         marginVertical:10
     },
     myScroll:{
@@ -159,6 +177,34 @@ const stylesNurse = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center"
 
+    },
+    btnAccept2:{
+        backgroundColor:"#56D782",
+        padding:5,
+        borderRadius:8,
+        marginHorizontal:10,
+       width:"80%"
+
+    },
+    MyImg:{
+        width:200,
+        height:200,
+        alignSelf:"center",
+        borderRadius:10
+    },
+    myTextReport:{
+        margin:10,
+        fontWeight:"bold",
+        fontSize:17,
+        borderBottomWidth:1,
+        borderBottomColor:"#00774f"
+    },
+    myTextReport2:{
+        margin:10,
+        fontWeight:"bold",
+        fontSize:13,
+        borderBottomWidth:1,
+        borderBottomColor:"#00774f"
     }
 
 });
