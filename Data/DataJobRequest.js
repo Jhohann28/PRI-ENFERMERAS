@@ -32,25 +32,48 @@ class DataJobRequest{
     AuthID;
     pasw;
     
-    uploadFiles = async(fileName, filePath)=>{
+    uploadFiles = async(fileName, filePath,data)=>{
         
 
-        fetch(filePath)
+       await fetch(filePath)
             .then((response) => response.blob())
-            .then((blob) => {
+            .then(async(blob) => {
                 // Obtén una referencia al archivo en Firebase Storage
                 let dt = new Date();
-                const archivoRef = ref(dbSt, "JobRequests/"+ dt.getMilliseconds().toString()+fileName);
+                var myFileName = dt.getMilliseconds().toLocaleString()+"xd"+fileName;
+                
+                const archivoRef = ref(dbSt, "JobRequests/"+ myFileName);
 
 
-                uploadBytes(archivoRef, blob)
+               await uploadBytes(archivoRef, blob)
                 .then((snapshot) => {
                     console.log('Archivo subido con éxito');
                     // Puedes obtener la URL de descarga del archivo
                     return getDownloadURL(snapshot.ref);
                 })
-                .then((downloadURL) => {
+                .then(async(downloadURL) => {
                     console.log('URL de descarga del archivo:', downloadURL);
+                    const myData={
+                      ci:data.ci,
+                      email:data.email,
+                      graduationInstitution:data.graduationInstitution,
+                      lastName:data.lastName,
+                      names:data.names,
+                      phone:data.phone,
+                      secondLastName:data.secondLastName,
+                      speciality:data.speciality,
+                      titulationDate:data.titulationDate,
+                      curriculumName:myFileName,
+                      curriculumUrl:downloadURL,
+                      status:1,
+                      registrationDate:serverTimestamp(),
+                      updateDate:serverTimestamp()
+                    }
+                    let collectionn = collection(db,"JobRequest");
+          
+                  
+        
+        await addDoc(collectionn, myData).then(docRef=>{ })
                 })
                 .catch((error) => {
                     console.error('Error al subir el archivo:', error);
@@ -58,7 +81,7 @@ class DataJobRequest{
             })
             .catch((error) => {
                 console.error('Error al convertir la URI en blob:', error);
-            });
+            }); 
         
     }
 

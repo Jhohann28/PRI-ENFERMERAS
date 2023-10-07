@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput , ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity , ActivityIndicator, Alert} from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import * as ownStyles from "../../Styles/LoginStyles.js"
@@ -15,8 +15,32 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as DocumentPicker from 'expo-document-picker';
 import DataJobRequest from '../../Data/DataJobRequest.js';
+import { stylesNf } from '../../Styles/FormNurseStyles.js';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { TextInput, Button } from 'react-native-paper';
+
+
 export default function JobRequest() {
+    const [ci, setCi] = useState('');
+    const [nombre, setNombre] = useState('');
+    const [apellidoPaterno, setApellidoPaterno] = useState('');
+    const [apellidoMaterno, setApellidoMaterno] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [especialidad, setEspecialidad] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [añoTitulacion, setAñoTitulacion] = useState(new Date());
+    const [institucionAcademica, setInstitucionAcademica] = useState('');
+    const [showDatePicker, setShowDatePicker] = useState(false);
   
+    
+    
+    
+    const handleDateChange = (event, date) => {     
+      setShowDatePicker(false);     
+      if (date !== undefined) {       
+        setAñoTitulacion(date);     
+      }  
+     };  
     const[uri, seturi] = useState("");
     const[names, setname] = useState("");
 
@@ -49,8 +73,28 @@ export default function JobRequest() {
   
 
     const LoadFiles= async()=>{
-        let dataJobr = new DataJobRequest();
-        dataJobr.uploadFiles(names,uri); //ya da siuu
+        try {
+            let data={
+                ci:ci,
+                email:correo,
+                graduationInstitution:institucionAcademica,
+                lastName:apellidoPaterno,
+                names:nombre,
+                phone:telefono,
+                secondLastName:apellidoMaterno,
+                speciality:especialidad,
+                titulationDate: añoTitulacion
+            }
+
+
+            let dataJobr = new DataJobRequest();
+      await  dataJobr.uploadFiles(names,uri,data); //ya da siuu
+      console.log("Se registro");  
+      Alert.alert('Se registro')
+        } catch (error) {
+            
+        }
+        
     }
 
     return (
@@ -60,18 +104,87 @@ export default function JobRequest() {
           <Text style={styles.headerText} >Solicitud de Trabajo</Text>
       </View>
       <ScrollView style={styles.myScroll} >
-          <View style={styles.container}>
+      <TextInput       
+       style={stylesNf.textInput}
+        label="Ci"
+        value={ci}
+        onChangeText={(text) => setCi(text)}
+      />
+      <TextInput       
+       style={stylesNf.textInput}
+        label="Nombre"
+        value={nombre}
+        onChangeText={(text) => setNombre(text)}
+      />
+      <TextInput
+       style={stylesNf.textInput}
+        label="Apellido Paterno"
+        value={apellidoPaterno}
+        onChangeText={(text) => setApellidoPaterno(text)}
+      />
+      <TextInput
+       style={stylesNf.textInput}
+        label="Apellido Materno"
+        value={apellidoMaterno}
+        onChangeText={(text) => setApellidoMaterno(text)}
+      />
+      <TextInput
+       style={stylesNf.textInput}
+        label="Correo"
+        value={correo}
+        onChangeText={(text) => setCorreo(text)}
+      />
+      <TextInput
+       style={stylesNf.textInput}
+        label="Especialidad"
+        value={especialidad}
+        onChangeText={(text) => setEspecialidad(text)}
+      />
+      <TextInput
+       style={stylesNf.textInput}
+        label="Teléfono"
+        value={telefono}
+        onChangeText={(text) => setTelefono(text)}
+      />
+      <Text>Fecha de Titulación</Text>
+       <Text title="Seleccionar fecha" onPress={()=>setShowDatePicker(true)} >{añoTitulacion!=null? añoTitulacion.toLocaleDateString():"Ingrese fecha de Titulación"}</Text>      
+       {showDatePicker && (<DateTimePicker        
+       value={añoTitulacion}           
+       mode="date"        
+       display="default"          
+        onChange={handleDateChange}   
+              
+        />       
+        )}
+      <TextInput
+       style={stylesNf.textInput}
+        label="Institución Académica"
+        value={institucionAcademica}
+        
+        onChangeText={(text) => setInstitucionAcademica(text)}
+        
+      />
+      <View style={styles.container}>
               <TouchableOpacity onPress={()=>{pickDocument(); seturi(Uri)}}><Text>{names!= ""? names:"Subir curriculum..."} </Text></TouchableOpacity>
-              <TouchableOpacity onPress={()=>{LoadFiles()}}><Text>Cargar </Text></TouchableOpacity>
+              
 
           </View>
+    
+
+      <TouchableOpacity mode="contained" onPress={()=>LoadFiles()}  style={stylesNf.button}>
+        <Text>Enviar Solicitud</Text>
+      </TouchableOpacity>
+      <TouchableOpacity >
+                <Text style={stylesNf.links}>¿Ya trabajas con nosotros? Iniciar Sesión</Text>
+              </TouchableOpacity>
+          
 
 
       </ScrollView>
      
 
 
-  </View>
+</View>
    <View style={styles.startFooter}>
    <Text style={styles.footerText} >©Univalle  PRI-2023</Text>
 </View></>

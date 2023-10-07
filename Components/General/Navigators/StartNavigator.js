@@ -13,6 +13,7 @@ import NurseNavigation from "../../../Navigations/NurseNavigation/Navigation";
 import JobRequest from '../JobRequest';
 import UserForm from '../../User/UserRegistration';
 import AtentionAcceptedMap from '../../Nurse/GiveAtention/AtentionAcceptedMap';
+//import JobRequest from '../../Nurse/JobRequest';
 
 
 const Stack = createStackNavigator();
