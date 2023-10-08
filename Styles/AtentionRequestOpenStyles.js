@@ -6,6 +6,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:"flex-start"
     },
+
+    container7: {
+      backgroundColor: "#E7E7E7",
+      flex: 1,
+      justifyContent:"flex-start",
+      marginTop:-100,
+      
+  },
+
     header: {
       backgroundColor: '#0C124E',
       width: '100%',
@@ -160,7 +169,16 @@ const styles = StyleSheet.create({
        width:"50%"
 
       
-    }
+    },
+    myMapContainer2:{
+      flex:3,
+      backgroundColor:"blue",
+      alignItems:"center",
+      justifyContent:"center",
+      margin:0,
+      height:1000
+      
+  }
   });
 
   export default styles;

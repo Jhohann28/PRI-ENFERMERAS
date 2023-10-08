@@ -20,7 +20,6 @@ const ServicesList = () => {
 
   const [id , setId] = useState("");
 
-
   useEffect(() => {
 
     gettingServices();

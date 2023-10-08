@@ -6,14 +6,13 @@ import { getFirestore,doc,getDoc,query,collection,where,getDocs, updateDoc } fro
 
 import Services from '../Models/ServicesModel.js'
 import Nurse from '../Models/Nurse.js';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
 
 const db = getFirestore(appFirebase);
-
-
-
+const dbSt = getStorage(appFirebase);
 
 class ListNurseData{
-
+isAllOk=false;
   nurseList = [];
   async  getNurses() {
 
@@ -32,9 +31,12 @@ class ListNurseData{
 
         let dta =  await this.getFormattedData( doc.data().titulationDate);
         console.log(dta);
-
+        let curriculum ={
+          curriculumUrl: doc.data().curriculumUrl,
+          curriculumName: doc.data().curriculumName
+        }
         let nurse = new Nurse(doc.data().names,doc.data().lastName, doc.data().secondLastName, doc.data().email,
-        doc.data().phone, doc.data().ci, 1, doc.data().speciality, dta, doc.data().graduationInstitution,doc.data().curriculumUrl
+        doc.data().phone, doc.data().ci, 1, doc.data().speciality, dta, doc.data().graduationInstitution,curriculum
         );
 
         nurse.id= doc.id;
@@ -76,7 +78,7 @@ class ListNurseData{
                         
       } 
       else {
-        return "No hay services";
+        return [];
       }
     } 
     catch (error) {
@@ -84,15 +86,50 @@ class ListNurseData{
     }
   }
 
-  //------------------metodo para poder desactivar servicios--------------------------\\
-  async deleteNurses (id) {
+ 
 
-  const washingtonRef = doc(db, "Nurse", id);
+  async DeleteRequest(id,curriculumname){
+    const mrequestRef = doc(db, "Nurse", id);
+    this.isAllOk = false;
+    //let req = await getDoc(mrequestRef);
+    try {
+      const desertRef = ref(dbSt, 'JobRequests/'+curriculumname);
+      await  deleteObject(desertRef).then(async() => {
+          await   updateDoc(mrequestRef,{status:0});
 
-    await updateDoc(washingtonRef, {
-      status: 0
-    });
+       console.log("Eliminado");
+       this.isAllOk=true;
+       return true;
+       }).catch(async(error) => {
+          try {
+            await updateDoc(mrequestRef,{status:0});
+            this.isAllOk = true;
+            return true;
+          } catch (error) {
+        console.log("Error 2: ",error);
+
+           return error;
+            
+          }
+       });
+    } catch (error) {
+      console.log(error);
+      try {
+        await updateDoc(mrequestRef,{status:0});
+       this.isAllOk=true;
+
+        return true;
+      } catch (error) {
+        console.log("Error 3: ",error);
+        return error;
+        
+      }
+    }
+ 
+
   }
+
+
   getFormattedData= async (date)=>{
     let datee = new Date(date.seconds * 1000 + date.nanoseconds / 1000000);
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };

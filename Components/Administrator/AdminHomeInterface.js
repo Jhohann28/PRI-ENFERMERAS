@@ -9,6 +9,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import ServicesList from './ListofServices.js';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { stylesNurse } from '../../Styles/NurseStyles.js';
+
 const AdminScreen = () => {
     //----------------------------ESTADOS-------------------------\\
     const [mostrarBotones, setMostrarBotones] = useState(true);
@@ -40,9 +42,9 @@ const AdminScreen = () => {
     },[])
 
     let closeSession=async ()=>{
+        n.replace("StartPage");
               
           AsyncStorage.clear();
-        n.replace("StartPage");
     }
     // --------------------FUNCIONES PARA CAMBIAR ENTRE ESTADOS----------------\\
     const volverAlEstadoPrincipal = () => {
@@ -64,30 +66,29 @@ const AdminScreen = () => {
     //--------------------------------------------------------------------------\\
     return (
         <View style = {stylesAdmin.container}>
-            <View style = {stylesAdmin.container2}>
+              <View style = {stylesAdmin.container2}>
                 <Text style={stylesAdmin.texto}>Bienvenido</Text>
                 <Text style={stylesAdmin.texto1}>{myuser!=""? myuser.personRef.names:""}</Text>
-                <Image
-                    source={profile}
-                    style = {stylesAdmin.image}
-                />
-            </View>
-           
-            <View style = {stylesAdmin.container4}>
-                <Text style={stylesAdmin.textCorporationTitle}>Corporacion</Text>
+                <Ionicons name="ios-person-circle-outline" size={74} color="white" style={stylesAdmin.image} />
+                  <View style = {stylesAdmin.container4}>
+                <Text style={stylesAdmin.textCorporationTitle}>SISEEM</Text>
                 <Text style={stylesAdmin.textCorporation}>Servicios de vida al 100%</Text>
                 <Image
                     source={logo}
                     style = {stylesAdmin.image}
                 />
             </View>
+            </View>
+           
+            
    
 
             <View style = {stylesAdmin.container3}>
-                <ScrollView>
+                <ScrollView style={{width:"100%"}}>
                     {mostrarBotones && (
                         <>
-                            <TouchableOpacity onPress={EstadoRenuncia} style={stylesAdmin.btnButton1}>
+                        <View style={stylesNurse.containerHorizontal}>
+                        <TouchableOpacity onPress={EstadoRenuncia} style={stylesAdmin.btnButton1}>
                                 <Entypo name="text-document" size={45} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Solicitud Renuncia</Text>
                             </TouchableOpacity>
@@ -95,7 +96,10 @@ const AdminScreen = () => {
                                 <FontAwesome5 name="servicestack" size={45} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Servicios</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnButton3}>
+                        </View>
+                           
+                           <View style={stylesNurse.containerHorizontal}>
+                           <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnButton3}>
                                 <FontAwesome5 name="users" size={50} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Usuarios</Text>
                             </TouchableOpacity>
@@ -103,6 +107,8 @@ const AdminScreen = () => {
                                 <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Enfermeras</Text>
                             </TouchableOpacity>
+                           </View>
+                           
                             <TouchableOpacity onPress={() => {setShowDates(true); setuser(""); closeSession()}} style = {stylesAdmin.btnButton4}>                   
                                 <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons}/>
                                 <Text style = {stylesAdmin.btnText}>Cerrar sesión</Text>   
@@ -136,12 +142,15 @@ const AdminScreen = () => {
                     )} 
                     {mostrarServicios && (
                         <>
-                            <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
-                                <Text style={stylesAdmin.btnTextReturn}>Vover</Text>
+                        <View style={stylesNurse.containerHorizontal}>
+                        <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
+                                <Text style={stylesAdmin.btnTextReturn}>Volver</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => Alert.alert('Debe ir al formulario de agregar servicio')} style={stylesAdmin.btnAddServices}>                     
-                                <Ionicons name="add-circle" size={45} color="black" />
+                                <Ionicons name="add-circle" size={45} color="white" />
                             </TouchableOpacity>
+                        </View>
+                           
                             <ServicesList/> 
                         </>
                     )}

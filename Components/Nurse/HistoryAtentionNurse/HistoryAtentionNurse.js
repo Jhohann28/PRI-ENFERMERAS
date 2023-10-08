@@ -33,7 +33,7 @@ const HistoryAtentionNurse = () => {
                 muser = await AsyncStorage.getItem("user");
                 let muserJson = muser? JSON.parse(muser): null;
                 setuser(muserJson);
-                await GetListOfAtentions();
+               // await GetListOfAtentions();
         }
         catch(e){
             console.error(e);
@@ -60,7 +60,9 @@ const HistoryAtentionNurse = () => {
         setAtention(n);
       }
 
-
+      useEffect(()=>{
+        GetListOfAtentions();
+      },[myuser])
 
     return (
         <View style = {stylesNurse.container}>

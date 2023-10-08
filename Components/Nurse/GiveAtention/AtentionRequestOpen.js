@@ -22,7 +22,7 @@ const AtentionRequestOpen = () => {
 
     const nav = useNavigation();
     const route = useRoute(); 
-
+    const {atention} = route.params;
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
   
@@ -42,7 +42,7 @@ const AtentionRequestOpen = () => {
     }, []);
 
 
-     const {atention} = route.params;
+     
         console.log(atention);
 
     const dtN = new DataNurse();
@@ -116,7 +116,7 @@ const AtentionRequestOpen = () => {
                         {location!=null?  <MapViewDirections
                             origin={location.coords}
                             destination={atention.userRef.location}
-                            apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
+                          //  apikey="AIzaSyAwM90zqo1GBuXDpnqTS2-bzA9Y0aiUBmQ" // Reemplaza con tu clave de API de Google Maps
                             strokeWidth={3}
                             strokeColor="#0000FF"
                             

@@ -19,6 +19,10 @@ import HistoyAtentionsNurseNav from './HistoyAtentionsNurseNav.js';
 const Tab = createBottomTabNavigator();
 
 function MyTabs(){
+    let height =60;
+    if(Platform.OS =="ios"){
+        height=70;
+    }
     return(
         <Tab.Navigator 
             initialRouteName='Home'        
@@ -31,7 +35,7 @@ function MyTabs(){
                 tabBarStyle: {
                          
                    backgroundColor: '#ffffff',                 
-                   height: 60,
+                   height: height,
                    borderColor: '#000000',
                    
                 }

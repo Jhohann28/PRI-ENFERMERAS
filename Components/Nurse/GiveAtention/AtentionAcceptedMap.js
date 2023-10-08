@@ -61,7 +61,7 @@ const AtentionAcceptedMap = () => {
         const subscription = await Location.watchPositionAsync(
           {
             accuracy: Location.Accuracy.BestForNavigation, 
-            timeInterval: 1000, 
+            timeInterval: 10000, 
             distanceInterval: 3, 
           },
            (location) => {
@@ -184,7 +184,7 @@ const AtentionAcceptedMap = () => {
                         {location!=null && locationUser!=null ?  <MapViewDirections
                             origin={location.coords}
                             destination={locationUser}
-                            apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
+                          //  apikey="AIzaSyAwM90zqo1GBuXDpnqTS2-bzA9Y0aiUBmQ" // Reemplaza con tu clave de API de Google Maps
                             strokeWidth={3}
                             strokeColor="#0000FF"
                             

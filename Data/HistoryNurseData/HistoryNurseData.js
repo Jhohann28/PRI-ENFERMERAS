@@ -88,7 +88,7 @@ class HistoryNurseData{
           const querySnapshot = await getDocs(q);
           let referToPerson="";
           if (!querySnapshot.empty) {
-            const promises= querySnapshot.docs.map(async (doc) => {
+            const promises=  querySnapshot.docs.map(async (doc) => {
                   console.log('Document data:', doc.data());
                 referToPerson = await doc.data().personRef;
                 console.log("Entré: "+ referToPerson);

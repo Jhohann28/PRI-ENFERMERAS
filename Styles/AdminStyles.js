@@ -9,7 +9,14 @@ const stylesAdmin = StyleSheet.create({
 
     },
     container2: {
-        backgroundColor: "#4958DC",
+        backgroundColor: "#002f5C",
+        height: 310,
+        borderRadius: 25,
+   
+
+    },
+    container22: {
+        backgroundColor: "#002f5C",
         height: 310,
         borderRadius: 25,
    
@@ -17,6 +24,16 @@ const stylesAdmin = StyleSheet.create({
     },
     container3: {
         backgroundColor: "#315488",
+        marginTop: -70,
+        width: "90%",
+        borderRadius: 25,
+       height:"65%",
+        alignSelf:"center",
+        justifyContent:"center",
+        alignItems:"center",
+
+    }, container33: {
+        backgroundColor: "white",
         marginTop: -70,
         width: "90%",
         borderRadius: 25,
@@ -35,7 +52,7 @@ const stylesAdmin = StyleSheet.create({
     },
     image: {
         position: 'absolute',
-        top: 25,
+        top: 5,
         right:15, 
         width: 100, 
         height: 100, 
@@ -120,17 +137,17 @@ const stylesAdmin = StyleSheet.create({
     textCorporationTitle: {
         color: "#000000",
         fontSize: 18,
-        marginTop: 25,
-        marginLeft: 35,
+        marginTop: 15,
         fontStyle: 'italic',
         fontWeight: 'bold',
+        alignSelf:"flex-start"
 
 
     },
     textCorporation: {
         color: "#000000",
         fontSize: 18,
-        marginTop: 25,
+        marginTop: 15,
         marginLeft: 35,
         fontStyle: 'italic',
         paddingBottom: 20,
@@ -140,18 +157,16 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: "#B4B6F1",
         width: 120,
         height: 120,
-        marginTop:110,
-        marginLeft: 45,
         borderRadius: 25,
         justifyContent: 'flex-end', 
         alignItems: 'center',
+        margin:20
     },
     btnButton2: {
         backgroundColor: "#B4B6F1",
         width: 120,
         height: 120,
-        marginTop:30,
-        marginLeft: 45,
+        margin:20,
         borderRadius: 25,
         justifyContent: 'flex-end', 
         alignItems: 'center',
@@ -161,8 +176,7 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: "#B4B6F1",
         width: 120,
         height: 120,
-        marginTop:-268,
-        marginLeft: 225,
+        margin:20,
         borderRadius: 25,
         justifyContent: 'flex-end', 
         alignItems: 'center',
@@ -172,15 +186,21 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: "#B4B6F1",
         width: 120,
         height: 120,
-        marginTop:30,
-        marginLeft: 225,
+        margin:20,
         borderRadius: 25,
         justifyContent: 'flex-end', 
         alignItems: 'center',   
     },
 
-
-
+    mySearcher:{
+            borderBottomWidth:4,
+            borderBottomColor:"#007aa2",
+            margin:5,
+            width:"60%",
+            alignSelf:"flex-start",
+            fontSize:17
+    }
+,
     //----------------------------------------------RENUNCIA---------------------------------------------\\
 
     container5: {
@@ -263,10 +283,10 @@ const stylesAdmin = StyleSheet.create({
     container6: {
         backgroundColor: '#6C98DB',
         height: 'auto',
-        width: 350,
+        width: "95%",
         borderRadius: 25,
-        marginLeft: 15,
-        marginTop: 25,
+        margin:10,
+        alignSelf:"center"
         
 
     },
@@ -281,13 +301,12 @@ const stylesAdmin = StyleSheet.create({
     },
     btnAddServices: {
         backgroundColor: '#315488',
-        height: 48,       
-        justifyContent: 'center',
+        justifyContent: "flex-end",
         borderRadius: 50,
         width: 60,
-        marginLeft: 320,
-        marginTop: -34,
-        alignItems: 'center'
+        alignItems: "flex-end",
+        margin:3,
+        alignSelf:"flex-end"
 
     },
     textNameServices: {
@@ -396,7 +415,47 @@ const stylesAdmin = StyleSheet.create({
         paddingTop: 6,
         fontWeight: '800',
     },
-    
+    MyModal:{
+        backgroundColor:"#e0e0e0",
+        width:"85%",
+        alignSelf:"center",
+        alignItems:"center",
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.35,
+        shadowRadius: 4,
+        elevation: 8,
+        padding:10,
+        borderRadius:10,
+        marginTop:269
+
+
+
+    },
+
+    myBtnModalCancel:{
+        borderRadius:11,
+        backgroundColor: "#73C883",
+        padding:6,
+        margin:6,
+        width:"45%"
+        
+        
+    },
+    myBtnModalAccept:{
+        borderRadius:11,
+        backgroundColor: "red",
+        padding:6,
+        margin:6,
+        width:"45%"
+    }
+    ,myTextModal:{
+
+    }
+
    
 });
 

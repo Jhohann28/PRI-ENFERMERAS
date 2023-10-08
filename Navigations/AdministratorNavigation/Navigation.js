@@ -15,10 +15,19 @@ import AcceptContactDeclineRequest from "../../Components/Administrator/AceptCon
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
 import HomeNavigation from './HomeNavigation';
+import AtentionsListAdmin from '../../Components/Administrator/AtentionsListAdmin';
+import AtentionAdminNavigation from './AtentionAdminNavigation';
+import { Platform } from 'react-native';
+import AdminAtentionRequestList from '../../Components/Administrator/AdminAtentionRequestList';
+import AtentionRequestNav from './AtentionRequestNav';
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs(){
+    let height =60;
+    if(Platform.OS =="ios"){
+        height=70;
+    }
     return(
         <Tab.Navigator 
             initialRouteName='Home'        
@@ -31,9 +40,9 @@ function MyTabs(){
                 tabBarStyle: {
                          
                    backgroundColor: '#315488',                 
-                   height: 60,
+                   height: height,
                    borderColor: '#000000',
-                   borderTopWidth: 3,
+                   borderTopWidth: 0,
                 }
             }}
             >
@@ -51,7 +60,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Atenciones" 
-                component={NurseReportScreen} 
+                component={AtentionAdminNavigation } 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <Ionicons name="documents" size={30} color="white" />
@@ -70,7 +79,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Sol. Atencion" 
-                component={NurseResignationScreen} 
+                component={AtentionRequestNav} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome5 name="envelope-open-text" size={30} color="white" />  

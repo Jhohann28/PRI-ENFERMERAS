@@ -83,6 +83,7 @@ const AcceptContactDeclineRequest = () => {
                     }}>
                     <View >
                     <View>
+                        
                         <TouchableOpacity
                         
                         onPress={() => setModalVisible(!modalVisible)}>

@@ -1,5 +1,5 @@
 class Atention{
-    
+    valoration;
 
     constructor(id, aditionalCost,clientRef, date, description, imageName, imageUrl, nurseRef, physicalTest, reference, serviceCurrentCost, serviceRef, status,treatment, adress  ){
         this.id = id;

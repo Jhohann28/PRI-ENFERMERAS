@@ -40,7 +40,8 @@ class DataJobRequest{
             .then((blob) => {
                 // Obtén una referencia al archivo en Firebase Storage
                 let dt = new Date();
-                const archivoRef = ref(dbSt, "JobRequests/"+ dt.getMilliseconds().toString()+fileName);
+                var name= dt.getMilliseconds().toString()+fileName;
+                const archivoRef = ref(dbSt, "JobRequests/"+ name);
 
 
                 uploadBytes(archivoRef, blob)
