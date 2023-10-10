@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Alert, FlatList, Modal, Pressable } from 'react-native';
 import { stylesAdmin } from '../../Styles/AdminStyles';
 import DataServices from '../../Data/DataServices.js'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { stylesNurse } from '../../Styles/NurseStyles';
+import { ActivityIndicator } from 'react-native-paper';
 
 const ServicesList = () => {
   
-  
+  const n = useNavigation();
   var ServicesLists = [];
 
   const myDataServices = new DataServices();
@@ -15,11 +18,13 @@ const ServicesList = () => {
   const [services, setServices] = useState([]);
 
   const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const [modalVisible, setModalVisible] = useState(false);
 
   const [id , setId] = useState("");
-
+  
   useEffect(() => {
 
     gettingServices();
@@ -31,22 +36,29 @@ const ServicesList = () => {
   //------------------------PARTE DE METODO QUE MUESTRA LA LISTA DE SERVICIOS------------------------------\\
   const gettingServices = async () => {
     try {
+      setLoading(true);
       ServicesLists = await myDataServices.getServices();
       setServices(ServicesLists);
     } catch (error) {
       console.error('Error al obtener servicios:', error);
     }
+    setLoading(false);
+
   }
   //----------------FUNCION PARA DESABILITAR UN SERVICIO--------------------------------
    const deleteService = async (serviceId) => {
     try {
+      setLoading(true);
+
       var services = new DataServices();
       services.updateServices(serviceId);
-      setReload(true);
+      setReload(!reload);
       setModalVisible(false);
     } catch (error) {
       console.error("Error al eliminar el servicio", error);
     }
+    setLoading(false);
+
   };
 
   return (
@@ -74,6 +86,8 @@ const ServicesList = () => {
           </View>
         </View>
       </Modal>
+      {loading && <ActivityIndicator size="large" color="white"  />} 
+
       {services.map((item) => (
         <View style={stylesAdmin.container6}  key={item.id}>
           <Text style={stylesAdmin.textNameServices}>{item.name}</Text>
@@ -83,11 +97,17 @@ const ServicesList = () => {
           <TouchableOpacity style={stylesAdmin.btnDelete} onPress={() => {setId(item.id); setModalVisible(true)}}>
             <Text style={stylesAdmin.btnTextOptions}>Eliminar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={stylesAdmin.btnEdit}>
+          <TouchableOpacity style={stylesAdmin.btnEdit} onPress={()=>{n.navigate("ServiceForm", {service: item})}}>
             <Text style={stylesAdmin.btnTextOptions}>Editar</Text>
           </TouchableOpacity>
         </View>
       ))}
+
+      <View style={stylesNurse.containerHorizontal}>
+         <TouchableOpacity style={stylesNurse.btnAccept} onPress={()=>{gettingServices()}}><Text style={{alignSelf:"center", fontSize:15}}>Recargar</Text></TouchableOpacity>
+
+      </View>
+      <View style={{margin:5}}></View>
     </View>
   );
 };

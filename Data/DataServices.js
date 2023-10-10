@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 
 import appFirebase  from "./firebaseConfig.js";
 
-import { getFirestore,doc,getDoc,query,collection,where,getDocs, updateDoc } from "firebase/firestore";
+import { getFirestore,doc,getDoc,query,collection,where,getDocs, updateDoc, addDoc, serverTimestamp } from "firebase/firestore";
 
 import Services from '../Models/ServicesModel.js'
 
@@ -57,7 +57,40 @@ class DataServices{
       status: 0
     });
   }
+
+  async updateServicesAll (data) {
+
+    const washingtonRef = doc(db, "Services", data.id);
   
+      await updateDoc(washingtonRef, {
+        updateDate: serverTimestamp(),
+        name: data.name,
+        description: data.description,
+        price: parseFloat( data.price)
+
+
+      });
+    }
+  
+    async AddService (data){
+      const washingtonRef = collection(db, "Services"); //así es pa ref completa sin id
+
+      let myData ={
+        name: data.name,
+        description: data.description,
+        price: parseFloat( data.price),
+        status: 1,
+        registrationDate: serverTimestamp(),
+        updateDate: serverTimestamp()
+      }
+      await addDoc(washingtonRef, myData).then((doc)=>{
+        console.log("doc añadido: "+ doc.id)
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+
+    }
 }
 
 export default DataServices;

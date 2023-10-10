@@ -146,7 +146,7 @@ const AdminScreen = () => {
                         <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
                                 <Text style={stylesAdmin.btnTextReturn}>Volver</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Alert.alert('Debe ir al formulario de agregar servicio')} style={stylesAdmin.btnAddServices}>                     
+                            <TouchableOpacity onPress={() => n.navigate("ServiceForm",{service:0})} style={stylesAdmin.btnAddServices}>                     
                                 <Ionicons name="add-circle" size={45} color="white" />
                             </TouchableOpacity>
                         </View>

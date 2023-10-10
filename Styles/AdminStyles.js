@@ -454,6 +454,22 @@ const stylesAdmin = StyleSheet.create({
     }
     ,myTextModal:{
 
+    },
+    myTextInput:{
+        color : "white",
+        margin : 10,
+        fontSize: 20,
+        fontWeight:"bold"
+    },
+    myTextInputReal:{
+        color : "white",
+        margin : 10,
+        fontSize: 20,
+        borderBottomWidth:3,
+        borderBottomColor:"white",
+        width:"80%"
+        ,padding:5
+        
     }
 
    
