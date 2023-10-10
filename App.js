@@ -12,7 +12,7 @@ import DataUser from "./Data/DataUser.js";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ServiceRequest from './Components/User/ServiceRequest.js';
 import UserNavigation from './Navigations/UserNavigation/Navigation.js';
-
+import ListaSolicitudes from './Components/Administrator/JobDetails.js'
 
 export default function App() {
 
