@@ -20,8 +20,8 @@ export default function App() {
     return (
    
       <>
-        <MyStatusBar></MyStatusBar>
-        <StartNavigator></StartNavigator></>
+        <ListaSolicitudes></ListaSolicitudes>
+       </>
     
     )
  

@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { stylesDetails } from '../../Styles/JobDetailsStyle.js';
-
+import DataJobRequest from '../../Data/DataJobRequest.js';
+import JobRequest from '../General/JobRequest.js';
 const ListaSolicitudes = () => {
   const solicitudes = [
-    { id: '1', nombre: 'Solicitud 1', fecha: '01/10/2023', estado: 'Pendiente' },
-    { id: '2', nombre: 'Solicitud 2', fecha: '02/10/2023', estado: 'Aprobada' },
+    { id: '1', nombre: 'Nombre:', egresado: 'Egresado de:', especialidad: 'Especialidad:' },
+    { id: '1', nombre: 'Nombre:', egresado: 'Egresado de:', especialidad: 'Especialidad:' },
     // ... más datos
-  ];    
+  ]; 
+  const [JobRequests,setJobRequest] = useState([]);
+  
+  
+  const load =async () => {
+  let d = new DataJobRequest();
+  let aux = [];
+  aux = await d.getJobRequest();
+  setJobRequest(aux);
+  console.log(JobRequests);
+  };
+
+  useEffect(()=>{
+  load();
+  },[]); 
 
   const contactarHandler = (solicitudId) => {
     console.log(`Contactar a la solicitud con ID: ${solicitudId}`);
@@ -21,36 +36,57 @@ const ListaSolicitudes = () => {
     console.log(`Rechazar la solicitud con ID: ${solicitudId}`);
   };
 
-  const renderItem = ({ item }) => (
-    <View style={[stylesDetails.itemContainer, { backgroundColor: '#9FC4EF' }]}>
-      <View style={stylesDetails.itemDetails}>
-        <Text style={stylesDetails.itemText}>{item.nombre}</Text>
-        <Text style={stylesDetails.itemText}>{item.fecha}</Text>
-        <Text style={[stylesDetails.itemText]}>
-          {item.estado}
-        </Text>
-      </View>
-      <View style={stylesDetails.buttonsContainer}>
+  const renderSolicitudContainer = ({ item }) => (
+    <View style={stylesDetails.itemContainer}>
+      <View style={[stylesDetails.itemInnerContainer, { backgroundColor: '#9FC4EF', borderRadius: 10 }]}>
+        <View style={stylesDetails.itemDetails}>
+          <Text style={stylesDetails.itemText}>{item.nombre}</Text>
+          <Text style={stylesDetails.itemText}>{item.egresado}</Text>
+          <Text style={stylesDetails.itemText}>{item.especialidad}</Text>
+          <View style={stylesDetails.buttonsContainer}>
         <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'green' }]} onPress={() => contactarHandler(item.id)}>
           <Text style={stylesDetails.buttonText}>Contactar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#3498db' }]} onPress={() => ampliarHandler(item.id)}>
+        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#3498db', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item.id)}>
           <Text style={stylesDetails.buttonText}>Ampliar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'red' }]} onPress={() => rechazarHandler(item.id)}>
           <Text style={stylesDetails.buttonText}>Rechazar</Text>
         </TouchableOpacity>
       </View>
+        </View>
+      </View>
+      
     </View>
   );
 
   return (
-    <View style={stylesDetails.container}>
-      <FlatList
-        data={solicitudes}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+    <View style={stylesDetails.outerContainer}>
+      {JobRequests.length > 0?
+      JobRequests.map((item)=>(
+        <View style={stylesDetails.itemContainer}>
+      <View style={[stylesDetails.itemInnerContainer, { backgroundColor: '#9FC4EF', borderRadius: 10 }]}>
+        <View style={stylesDetails.itemDetails}>
+          <Text style={stylesDetails.itemText}>Nombre: {item.names}</Text>
+          <Text style={stylesDetails.itemText}>Egresado de: {item.graduationInstitution}</Text>
+          <Text style={stylesDetails.itemText}>Especialidad: {item.speciality}</Text>
+          <View style={stylesDetails.buttonsContainer}>
+        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'green' }]} onPress={() => contactarHandler(item.id)}>
+          <Text style={stylesDetails.buttonText}>Contactar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#3498db', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item.id)}>
+          <Text style={stylesDetails.buttonText}>Ampliar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'red' }]} onPress={() => rechazarHandler(item.id)}>
+          <Text style={stylesDetails.buttonText}>Rechazar</Text>
+        </TouchableOpacity>
+      </View>
+        </View>
+      </View>
+      
+    </View>
+      )):<Text>No hay solicitudes de trabajo</Text>
+      }
     </View>
   );
 };

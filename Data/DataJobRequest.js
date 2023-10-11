@@ -31,6 +31,7 @@ const auth = getAuth();
 class DataJobRequest{
     AuthID;
     pasw;
+    listJobRequest = [];
     
     uploadFiles = async(fileName, filePath,data)=>{
         
@@ -216,6 +217,44 @@ class DataJobRequest{
             });
 
       }
+    async getJobRequest(){
+
+      const jobRequestCollection = collection(db, 'JobRequest');
+
+      const q = query(jobRequestCollection, where('status', '==', 1)); //0 user, 1 admin, 2 nurse
+  
+      try {
+  
+        const querySnapshot = await getDocs(q);
+  
+  
+        if (!querySnapshot.empty) {
+  
+          querySnapshot.forEach((doc) => {
+          let jobrequest = new Nurse(doc.data().names, doc.data().lastName, doc.data().secondLastname, doc.data().email,doc.data().phone,doc.data().ci,doc.data().status,doc.data().speciality,doc.data().titulationDate,doc.data().graduationInstitution,'');
+          //aquí añadí a tu lista de services
+          let curriculum = {
+            curriculumName:doc.data().curriculumName, 
+            curriculumUrl:doc.data().curriculumUrl
+          }      
+          jobrequest.curriculum= curriculum;
+          jobrequest.id=doc.id;      
+          console.log(doc.id);
+          this.listJobRequest.push(jobrequest);
+                    
+        });
+        
+          return  this.listJobRequest;
+                          
+        } 
+        else {
+          return [];
+        }
+      } 
+      catch (error) {
+          console.error('Error al consultar la base de datos:', error);
+      }
+    }
 
 }
 export default DataJobRequest;

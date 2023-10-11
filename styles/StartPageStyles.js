@@ -9,8 +9,7 @@ const styles = StyleSheet.create({
     startHeader:{
         backgroundColor: "#064571",
         padding:19,
-        borderBottomLeftRadius:40,
-        borderBottomRightRadius:40,
+        
        width:"100%"
     },
     headerText:{
