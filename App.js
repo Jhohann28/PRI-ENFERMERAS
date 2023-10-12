@@ -13,6 +13,9 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import ServiceRequest from './Components/User/ServiceRequest.js';
 import UserNavigation from './Navigations/UserNavigation/Navigation.js';
 import ListaSolicitudes from './Components/Administrator/JobDetails.js'
+import ExpandedJobList from './Components/Administrator/ExpandedJobList.js'
+import JobRequest from "./Components/General/JobRequest.js";
+import QuejaForm from "./Components/User/UserComplaint.js";
 
 export default function App() {
 
@@ -20,7 +23,10 @@ export default function App() {
     return (
    
       <>
-        <ListaSolicitudes></ListaSolicitudes>
+       <MyStatusBar></MyStatusBar>
+       <QuejaForm></QuejaForm>
+
+        
        </>
     
     )
@@ -33,7 +39,9 @@ export default function App() {
     /*<NurseNavigation></NurseNavigation>*/
     /*<NurseResignationScreen></NurseResignationScreen>*/
     /*<AdminScreen></AdminScreen>*/
-    /*<AdminNavigation></AdminNavigation>*/
+    /*<AdminNavigation></AdminNavigation>
+    <MyStatusBar></MyStatusBar>
+       <StartNavigator></StartNavigator>*/
     
 
 

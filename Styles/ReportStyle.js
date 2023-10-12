@@ -3,7 +3,7 @@ const stylesN = StyleSheet.create({
     container: {
       padding: 20,
       flex: 1,
-      backgroundColor: '#98C7BE', // Fondo verde azulado
+      backgroundColor: '#a2c8cc', // Fondo verde azulado
     },
     title: {
       fontSize: 20,
@@ -40,7 +40,9 @@ const stylesN = StyleSheet.create({
       backgroundColor: 'white',
       color: 'black',
       borderRadius: 8,
+      textAlignVertical: 'top', 
     },
+    
     button: {
       backgroundColor: '#26ADEE', // Nuevo color del botón
       padding: 15,
@@ -57,12 +59,20 @@ const stylesN = StyleSheet.create({
       marginBottom: 10,
       borderRadius: 10,
     },
-    headerText:{
-      fontSize: 25,
-      marginBottom: 20,
-      color: 'black',
-      textAlign:'center',
-    },
+    startHeader:{
+      backgroundColor: "#338b85",
+      padding:19,
+      borderRadius:10,
+      
+     width:"100%"
+  },
+  headerText:{
+   color:"black",
+   fontSize:27,
+   textAlign:"center",
+   fontWeight:"bold"
+
+  },
     inputError: {
       borderColor: 'red',
     },
@@ -71,6 +81,7 @@ const stylesN = StyleSheet.create({
       fontSize: 14,
       marginTop: 5,
     },
+  
     
     
   });

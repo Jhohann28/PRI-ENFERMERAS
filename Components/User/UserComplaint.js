@@ -21,6 +21,8 @@ const QuejaForm = ({ onCancelar, onRegistrar }) => {
 
       // Reinicia el estado del formulario
       setDescripcion('');
+      //ARREGLAR EL FORM DE QUEJA 
+      //INTERFAZ DE REPORTE CON GRAFICOS ESTATICOS
     }
   };
 

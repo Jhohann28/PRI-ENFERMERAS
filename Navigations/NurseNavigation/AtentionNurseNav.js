@@ -16,6 +16,7 @@ const AtentionNurseNav = () => {
       <Stack.Navigator initialRouteName="HomeNurse">
         <Stack.Screen name="HomeNurse" component={NurseHome}  options={{headerShown:false}} />
         <Stack.Screen name="AtentionOpen" component={AtentionRequestOpen}  options={{headerShown:false}} />
+        
 
       </Stack.Navigator>
 

@@ -127,7 +127,7 @@ const AtentionAcceptedMap = () => {
         
     }
     const changeStateToFound=async ()=>{
-        if(  geolib.getDistance(location.coords, locationUser)>12){
+        if(  geolib.getDistance(location.coords, locationUser)>100000){
           console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
           Alert.alert(
             'No disponible',
@@ -137,6 +137,8 @@ const AtentionAcceptedMap = () => {
           }
           let j = new NurseAtentionData();
           await j.UserNotFound(atention.id);
+          dataa.writeLocationNurse({latitude:-1000,longitude:-1000},atention.id )
+          nav.replace('AtentionForm',{request:atention}); 
           //redireccionar cuando s integre
           
       }
@@ -184,7 +186,7 @@ const AtentionAcceptedMap = () => {
                         {location!=null && locationUser!=null ?  <MapViewDirections
                             origin={location.coords}
                             destination={locationUser}
-                            apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
+                            // Reemplaza con tu clave de API de Google Maps
                             strokeWidth={3}
                             strokeColor="#0000FF"
                             
@@ -218,5 +220,5 @@ const AtentionAcceptedMap = () => {
 
     )
 }
-
+// apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M"
 export default AtentionAcceptedMap;

@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet,Image,A
 import { stylesN } from '../../Styles/ReportStyle.js';
 import * as ImagePicker from 'expo-image-picker';
 
-const FormularioPaciente = () => {
+const AtentionForm = () => {
  
  
   const [costoServicio, setCostoServicio] = useState('');
@@ -24,6 +24,8 @@ const FormularioPaciente = () => {
       aspect: [4, 3],
       quality: 1,
     });
+    //VALIDAAAAAAAAR 
+    //QUE LA CADENA NO ESTE LLENA DE ESPACIOS
 
     if (!result.cancelled) {
       setImagen(result.uri);
@@ -47,19 +49,22 @@ const FormularioPaciente = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={stylesN.container}>
-      
-      <Text style={stylesN.headerText} >Reporte</Text>
+    <View style={stylesN.container}>
+<ScrollView style={{width:"100%"}} >
+
+<View style={stylesN.startHeader}>
+          <Text style={stylesN.headerText} >Reporte</Text>
+      </View>
             
       <Text style={stylesN.title}>Información del Paciente</Text>
       
 
       <View style={stylesN.section}>
-        <Text style={stylesN.label}>Costo Adicional</Text>
+        <Text style={stylesN.label}>Costo Adicional</Text> 
         <TextInput
           style={stylesN.input}
           placeholder="Costo Adicional"
-          value={costoServicio}
+          value={costosAdicionales}
           onChangeText={(text) => setCostosAdicionales(text)}
         />
         
@@ -95,7 +100,7 @@ const FormularioPaciente = () => {
   />
   <Text style={stylesN.label}>Referencia</Text>
   <TextInput
-    style={stylesN.textarea}
+    style={stylesN.input}
     placeholder="Especialista, hospital, etc"
     value={referenciaEspecialista}
     onChangeText={(text) => setReferenciaEspecialista(text)}
@@ -118,9 +123,11 @@ const FormularioPaciente = () => {
         <Text style={stylesN.buttonText}>Enviar</Text>
       </TouchableOpacity>
     </ScrollView>
+    </View>
+    
   );
 };
 
 
 
-export default FormularioPaciente;
+export default AtentionForm;

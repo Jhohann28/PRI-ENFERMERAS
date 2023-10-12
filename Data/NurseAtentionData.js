@@ -67,7 +67,8 @@ class NurseAtentionData{
 
      
          await updateDoc(mrequestRef, {
-            status: 3 // 3 is atempted
+            status: 3 ,// 3 is atempted
+            
           });
 
       

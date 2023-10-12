@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity , ActivityIndicator, Alert} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet,Image,Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import * as ownStyles from "../../Styles/LoginStyles.js"
@@ -17,7 +17,10 @@ import * as DocumentPicker from 'expo-document-picker';
 import DataJobRequest from '../../Data/DataJobRequest.js';
 import { stylesNf } from '../../Styles/FormNurseStyles.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { TextInput, Button } from 'react-native-paper';
+import { FontAwesome } from '@expo/vector-icons';
+
+
+
 
 
 export default function JobRequest() {
@@ -31,11 +34,41 @@ export default function JobRequest() {
     const [añoTitulacion, setAñoTitulacion] = useState(new Date());
     const [institucionAcademica, setInstitucionAcademica] = useState('');
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [validationMessageNombre, setValidationMessageNombre] = useState('');
+    const [isNameValid, setIsNameValid] = useState(true);
+    const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
+    const [validationMessagePhoneNumber, setValidationMessagePhoneNumber ] = useState('');
   
+    const handleNameChange = (text) => {
+      setNombre(text);
+  
+      const regexForName = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+      const isValid = regexForName.test(text);
+      const regexForNumbers = /^[0-9]+$/;
+      const isValidNumber = regexForNumbers.test(text);
+
+     
+  
+      if (!isValid) {
+        setValidationMessageNombre('Por favor, ingrese un nombre válido.');
+      } else {
+        setValidationMessageNombre('');
+      }
+      setIsNameValid(isValid);
+
+      if (!isValidNumber) {
+        setValidationMessagePhoneNumber('Por favor, ingrese un número válido.');
+      } else {
+        setValidationMessagePhoneNumber('');
+      }
+    
+      setIsPhoneNumberValid(isValidNumber);
+    };
     
     
     
     const handleDateChange = (event, date) => {     
+
       setShowDatePicker(false);     
       if (date !== undefined) {       
         setAñoTitulacion(date);     
@@ -74,17 +107,25 @@ export default function JobRequest() {
 
     const LoadFiles= async()=>{
         try {
+          if (!isNameValid || !isPhoneNumberValid ) {
+            Alert.alert('Por favor, corrija los errores antes de enviar la solicitud.');
+            return;
+          }
+          
+
             let data={
-                ci:ci,
-                email:correo,
-                graduationInstitution:institucionAcademica,
-                lastName:apellidoPaterno,
-                names:nombre,
-                phone:telefono,
-                secondLastName:apellidoMaterno,
-                speciality:especialidad,
+                ci:ci,//permitir letras y numeros 106512-A , 12313212 , permitir una E al inicio *opcional
+                email:correo,//regex correo
+                graduationInstitution:institucionAcademica, //mismo regex que nombre
+                lastName:apellidoPaterno,//permitir solo letras con acentos y ñ
+                names:nombre,//permitir espacios pero que el campo no este lleno de espacios
+                phone:telefono,//solo numeros de 6 a 8
+                secondLastName:apellidoMaterno,//puede estar vacio pero si no esta vacio validar
+                speciality:especialidad,//mismo regex que nombre
                 titulationDate: añoTitulacion
             }
+            
+
 
 
             let dataJobr = new DataJobRequest();
@@ -96,97 +137,146 @@ export default function JobRequest() {
         }
         
     }
-
+    
     return (
       <>
-      <View style={styles.container}>
+       <View style={stylesNf.container}>
+       <View style={styles.container}>
       <View style={styles.startHeader}>
           <Text style={styles.headerText} >Solicitud de Trabajo</Text>
       </View>
       <ScrollView style={styles.myScroll} >
-      <TextInput       
-       style={stylesNf.textInput}
-        label="Ci"
-        value={ci}
-        onChangeText={(text) => setCi(text)}
-      />
-      <TextInput       
-       style={stylesNf.textInput}
-        label="Nombre"
-        value={nombre}
-        onChangeText={(text) => setNombre(text)}
-      />
-      <TextInput
-       style={stylesNf.textInput}
-        label="Apellido Paterno"
-        value={apellidoPaterno}
-        onChangeText={(text) => setApellidoPaterno(text)}
-      />
-      <TextInput
-       style={stylesNf.textInput}
-        label="Apellido Materno"
-        value={apellidoMaterno}
-        onChangeText={(text) => setApellidoMaterno(text)}
-      />
-      <TextInput
-       style={stylesNf.textInput}
-        label="Correo"
-        value={correo}
-        onChangeText={(text) => setCorreo(text)}
-      />
-      <TextInput
-       style={stylesNf.textInput}
-        label="Especialidad"
-        value={especialidad}
-        onChangeText={(text) => setEspecialidad(text)}
-      />
-      <TextInput
-       style={stylesNf.textInput}
-        label="Teléfono"
-        value={telefono}
-        onChangeText={(text) => setTelefono(text)}
-      />
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Ci</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Ci"
+          value={ci}
+          onChangeText={(text) => setCi(text)}
+        />
+        
+      </View>
+      <View style={stylesNf.section}>
+            <Text style={stylesNf.label}>Nombre</Text>
+            <TextInput
+              style={stylesNf.input}
+              placeholder="Nombre"
+              value={nombre}
+              onChangeText={handleNameChange}
+            />
+            <Text style={stylesNf.validationMessage}>{validationMessageNombre}</Text>
+          </View>
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Apellido Paterno</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Apellido Paterno"
+          value={apellidoPaterno}
+          onChangeText={(text) => setApellidoPaterno(text)}
+        />
+        
+      </View>
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Apellido Materno</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Apellido Materno"
+          value={apellidoMaterno}
+          onChangeText={(text) => setApellidoMaterno(text)}
+        />
+        
+      </View>
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Correo</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Correo"
+          value={correo}
+          onChangeText={(text) => setCorreo(text)}
+        />
+        
+      </View>
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Especialidad</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Especialidad"
+          value={especialidad}
+          onChangeText={(text) => setEspecialidad(text)}
+        />
+        
+      </View>
+      <View style={stylesNf.section}>
+  <Text style={stylesNf.label}>Teléfono</Text>
+  <TextInput
+    style={stylesNf.input}
+    placeholder="Teléfono"
+    value={telefono}
+    onChangeText={(text)=> setTelefono(text)}
+  />
+  <Text style={stylesNf.validationMessage}>{validationMessagePhoneNumber}</Text>
+</View>
       <Text>Fecha de Titulación</Text>
-       <Text title="Seleccionar fecha" onPress={()=>setShowDatePicker(true)} >{añoTitulacion!=null? añoTitulacion.toLocaleDateString():"Ingrese fecha de Titulación"}</Text>      
-       {showDatePicker && (<DateTimePicker        
-       value={añoTitulacion}           
-       mode="date"        
-       display="default"          
-        onChange={handleDateChange}   
-              
-        />       
-        )}
-      <TextInput
-       style={stylesNf.textInput}
-        label="Institución Académica"
-        value={institucionAcademica}
+      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+        <View style={stylesNf.dateTimePicker}>
+          <FontAwesome name="calendar" size={20} color="#333" style={stylesNf.calendarIcon} />
+          <Text style={stylesNf.dateTimePickerText}>
+            {añoTitulacion != null ? añoTitulacion.toLocaleDateString() : "Ingrese fecha de Titulación"}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={añoTitulacion}
+          mode="date"
+          display="default"
+          onChange={handleDateChange}
+          style={stylesNf.dateTimePicker}  // Estilo para DateTimePicker
+        />
+      )}
+      <View style={stylesNf.section}>
+        <Text style={stylesNf.label}>Institución Academica</Text>
+        <TextInput
+          style={stylesNf.input}
+          placeholder="Institución Academica"
+          value={institucionAcademica}
         
         onChangeText={(text) => setInstitucionAcademica(text)}
+        />
         
-      />
+      </View>
+      
       <View style={styles.container}>
-              <TouchableOpacity onPress={()=>{pickDocument(); seturi(Uri)}}><Text>{names!= ""? names:"Subir curriculum..."} </Text></TouchableOpacity>
-              
-
-          </View>
+  <TouchableOpacity 
+    style={styles.uploadButton}  // Nuevo estilo para el botón
+    onPress={() => { pickDocument(); seturi(Uri) }}
+  >
+    <Text style={styles.uploadButtonText}>{names !== "" ? names : "Subir curriculum..."}</Text>
+  </TouchableOpacity>
+</View>
     
 
-      <TouchableOpacity mode="contained" onPress={()=>LoadFiles()}  style={stylesNf.button}>
-        <Text>Enviar Solicitud</Text>
-      </TouchableOpacity>
+<TouchableOpacity onPress={() => LoadFiles()} style={stylesNf.button} >
+          <Text>Enviar Solicitud</Text>
+        </TouchableOpacity>
       <TouchableOpacity >
                 <Text style={stylesNf.links}>¿Ya trabajas con nosotros? Iniciar Sesión</Text>
               </TouchableOpacity>
           
-
+              
 
       </ScrollView>
+      
+       </View>
+       <View style={styles.startFooter}>
+      <Text style={styles.footerText} >©Univalle  PRI-2023</Text>
      
 
 
 </View>
-   <View style={styles.startFooter}>
-   <Text style={styles.footerText} >©Univalle  PRI-2023</Text>
+   
+  
 </View></>
     );
 }
