@@ -113,7 +113,7 @@ const stylesNurse = StyleSheet.create({
         width:"93%",
         alignSelf:"center",
         borderRadius:15,
-        padding:5,
+        padding:10,
         marginVertical:10
     },
     myScroll:{
@@ -159,6 +159,13 @@ const stylesNurse = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center"
 
+    },
+    btnAccept2: {
+        backgroundColor:"#56D782",
+        padding:5,
+        borderRadius:8,
+        marginHorizontal:10,
+        width:"40%"
     }
 
 });

@@ -9,11 +9,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import ServicesList from './ListofServices.js';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ListOfComplaints from './ListOfComplaints.js';
+
+
 const AdminScreen = () => {
     //----------------------------ESTADOS-------------------------\\
     const [mostrarBotones, setMostrarBotones] = useState(true);
     const [mostrarRenuncia, setMostrarRenuncia] = useState(false);
     const [mostrarServicios, setMostrarServicios] = useState(false);
+    const [mostrarQuejas, setMostrarQuejas] = useState(false);
     const n = useNavigation();
 
     const [noshowDates, setShowDates] = useState(false);
@@ -49,17 +53,26 @@ const AdminScreen = () => {
         setMostrarBotones(true);
         setMostrarRenuncia(false); 
         setMostrarServicios(false);
+        setMostrarQuejas(false);
                 
     };
     const EstadoRenuncia = () => {
         setMostrarBotones(false);   
         setMostrarRenuncia(true);
         setMostrarServicios(false);
+        setMostrarQuejas(false);
     };
     const EstadoServicios = () => {
         setMostrarBotones(false);  
         setMostrarRenuncia(false); 
         setMostrarServicios(true);
+        setMostrarQuejas(false);
+    };
+    const EstadoQuejas = () => {
+        setMostrarBotones(false);  
+        setMostrarRenuncia(false); 
+        setMostrarServicios(false);
+        setMostrarQuejas(true);
     };
     //--------------------------------------------------------------------------\\
     return (
@@ -95,7 +108,7 @@ const AdminScreen = () => {
                                 <FontAwesome5 name="servicestack" size={45} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Servicios</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnButton3}>
+                            <TouchableOpacity onPress={() => n.navigate("UserList")} style={stylesAdmin.btnButton3}>
                                 <FontAwesome5 name="users" size={50} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Usuarios</Text>
                             </TouchableOpacity>
@@ -107,6 +120,12 @@ const AdminScreen = () => {
                                 <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons}/>
                                 <Text style = {stylesAdmin.btnText}>Cerrar sesión</Text>   
                             </TouchableOpacity>
+                            <TouchableOpacity onPress={EstadoQuejas} style={stylesAdmin.btnButton2}>
+                                <Entypo name="text-document" size={45} color="black" style={stylesAdmin.btnIcons} />
+                                <Text style={stylesAdmin.btnText}>Quejas</Text>
+                            </TouchableOpacity>
+                           
+                            
                         </>
                     )}   
                     {mostrarRenuncia && (
@@ -143,6 +162,15 @@ const AdminScreen = () => {
                                 <Ionicons name="add-circle" size={45} color="black" />
                             </TouchableOpacity>
                             <ServicesList/> 
+                        </>
+                    )}
+                    {mostrarQuejas && (
+                        <>
+                            <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
+                                <Text style={stylesAdmin.btnTextReturn}>Vover</Text>
+                            </TouchableOpacity>
+                            
+                            <ListOfComplaints/> 
                         </>
                     )}
                 </ScrollView>              

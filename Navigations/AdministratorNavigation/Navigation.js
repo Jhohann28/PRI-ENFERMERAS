@@ -14,6 +14,9 @@ import NurseProfileScreen from '../../ScreensPrueba/NurseProfile';
 import AcceptContactDeclineRequest from "../../Components/Administrator/AceptContactDeclineRequest"
 
 import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/vector-icons';
+import HomeNavigation from './HomeNavigation';
+
+
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +41,7 @@ function MyTabs(){
             >
             <Tab.Screen 
                 name="Home" 
-                component={AdminHome}
+                component={HomeNavigation}
                 
                 options={{           
                             

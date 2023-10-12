@@ -2,13 +2,24 @@ import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Button, To
 import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DataUser from '../../Data/DataUser.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StartPage() {
 
     const nav = useNavigation();
+    const r = useRoute();
+    try {
+        const {closeSession} = r.params;
+
+        if(closeSession){
+            AsyncStorage.clear();
+        }
+    } catch (error) {
+        
+    }
+    
 
         var NavigateToLogin =(ptype)=>{
               nav.replace("Loggin",{type:ptype})
@@ -51,7 +62,7 @@ export default function StartPage() {
           
         
         useEffect(()=>{
-          //  getLocalUser();
+            getLocalUser();
 
         },[])
 

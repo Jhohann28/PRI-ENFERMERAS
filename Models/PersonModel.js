@@ -1,5 +1,7 @@
 class Person {
-    constructor (names, lastName, secondLastname, email, phone,ci, gender,status ){
+    id;
+    registrationDate;
+    constructor (names, lastName, secondLastname, email, phone,ci, status, gender ){
         this.names = names;
         this.lastName = lastName;
         this.secondLastname = secondLastname; 

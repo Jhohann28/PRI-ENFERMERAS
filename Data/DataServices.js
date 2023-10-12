@@ -14,6 +14,7 @@ const db = getFirestore(appFirebase);
 class DataServices{
   //------------------------metodo para poder listar y vizualizar los servicios----------------------------\\
   servicesList = [];
+  
   async  getServices() {
 
     const serviceCollection = collection(db, 'Services');

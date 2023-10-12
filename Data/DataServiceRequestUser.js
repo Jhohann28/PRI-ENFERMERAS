@@ -114,8 +114,6 @@ class DataServiceRequestUser {
       console.error('Error al subir el archivo:', error);
       throw error;
     }
-
-
   };
 
   async updateCancelAttention (id) {
