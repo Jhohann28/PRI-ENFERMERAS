@@ -32,6 +32,8 @@ const db = getFirestore(appFirebase);
 
 class DataNurse{
    r;
+
+   
       getAtentions=(data, d)=>{
         try {
           

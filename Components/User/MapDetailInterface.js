@@ -64,6 +64,9 @@ const DetailOfNurseOnTheWay = () => {
         const onDataChange = (snapshot) => {
             try {
                 const lt = snapshot.val();
+                if(snapshot.val().latitude ==-1000){
+                  Alert.alert("SE ESTÁ ATENDIENDO");
+                }
                 setNurseLocations(lt);
             } catch (error) {
 
@@ -169,7 +172,7 @@ description="Descripción de la ubicación de la persona"
 
             destination={nurseLocations}
 
-            apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
+            //apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
 
             strokeWidth={3}
 

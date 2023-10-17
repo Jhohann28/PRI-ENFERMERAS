@@ -15,7 +15,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AtentionRequest from '../Models/AtentionRequest.js';
 
 
-
 const db = getFirestore(appFirebase);
 
 class DataAdminServiceRequest{

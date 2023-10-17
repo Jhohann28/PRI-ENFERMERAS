@@ -24,7 +24,7 @@ isAllOk=false;
     await this.sleep(170);
     switch(n){
         case "1":
-            q =  await query(atentionCollectipn, where("status","==",1)); 
+            q =   query(atentionCollectipn, where("status","==",1)); 
 
         break;
         case "3":

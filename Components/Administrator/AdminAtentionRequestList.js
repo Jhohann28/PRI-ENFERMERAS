@@ -34,10 +34,11 @@ const AdminAtentionRequestList = () => {
         const susc = async () => {
             try {
               const q = query(collection(db, "AtentionRequest") ,  orderBy("date", "desc"));
+              setLoading(true);
+              
               
               const unsubscribe = onSnapshot(q, async (querySnapshot) => {
-                const rr = [];
-                setLoading(true);
+                const  rr = [];
                 const promises = querySnapshot.docs.map(async (doc) => {
                   let service = await dtN.getServiceAtention(doc.data());
                   let user = await dtN.getUserAtention(doc.data());
@@ -47,21 +48,26 @@ const AdminAtentionRequestList = () => {
                      userNurse = await dtN.getUserNurseAtention(doc.data());
                     userNurse.personRef =  await dtN.getPersonAtention(userNurse);
                   }
-                  let myAuxReq = dtN.getAtentionsRequestToShow(doc.data(), doc, service, user, userNurse);
+                  let myAuxReq = await dtN.getAtentionsRequestToShow(doc.data(), doc, service, user, userNurse);
     
                   let maper = new MapMaker();
                   myAuxReq.directionName = await maper.getAddressFromCoordinates(myAuxReq.userRef.location.latitude,myAuxReq.userRef.location.longitude);
                   console.log(myAuxReq.nurse);
                   rr.push(myAuxReq);
+                  console.log("HOLAAAA");
+
                 }); 
+                SetRequests(rr);
+
+                console.log("HOLAAAA2");
                 await Promise.all(promises);
       
                   
                 console.log(requests.length);
-                SetRequests(rr);
+              
                setLoading(false);
           
-                console.log(rr.length);
+                console.log(requests.length);
               });
             } catch (error) {
             }
