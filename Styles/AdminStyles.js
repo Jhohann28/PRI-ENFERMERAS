@@ -471,8 +471,86 @@ const stylesAdmin = StyleSheet.create({
         ,padding:5
         
     }
-
+,
+    //--------------------ESTILO PARA LA LISTA DE USUARIOS----------------------
+    scrollContainer: {
+        backgroundColor: '#315488',
+        width: "90%",
+        padding: 10,
+        borderRadius: 10,
+        margin: 20
+    },
+    containerUserDetail: {
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+        color: '#ffffff',
+        marginBottom: 20
+        
+    },
+    textDetailUser: {
+        color: '#000000',
+        padding: 10,
+        marginBottom: 10,
+        fontWeight: 'bold'
+    },
+    btnChangeStatus: {
+        backgroundColor: '#000000',
+        //farfan, si ves esto lo puse en pixeles el alto del boton 
+        //porque se desconfigura y no aparece completa la caja de detalles de usuario
+        height: 35,
+        width: "90%",
+        marginBottom: 20,
+        marginTop: 15,
+        borderRadius: 5,
+        alignSelf: 'center'
+        
+    },
+    textChangeStatus:{
+        color: '#ffffff',
+        textAlign: 'center',
+        justifyContent: 'center',
+        paddingTop: 6,
+        fontWeight: '800',
+    },
+    //-------------ESTILO PARA LA VENTANA MODAL-----------
    
+
+    //-----------ESTILO PARA LA LISTA DE QUEJAS-------------------
+    containerComplaintsDetail: {
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+        color: '#ffffff',
+        marginBottom: 20,
+        width: '85%',
+        marginLeft: 25,
+        marginTop: 15
+        
+    },
+    textDetailComplaint: {
+        color: '#000000',
+        padding: 10,
+        marginBottom: 10,
+        fontWeight: 'bold'
+    },
+    btnDetails: {
+        backgroundColor: '#000000',
+        //farfan, si ves esto lo puse en pixeles el alto del boton 
+        //porque se desconfigura y no aparece completa la caja de detalles de usuario
+        height: 35,
+        width: "90%",
+        marginBottom: 20,
+        marginTop: 15,
+        borderRadius: 5,
+        alignSelf: 'center'
+        
+    },
+    textDetails:{
+        color: '#ffffff',
+        textAlign: 'center',
+        justifyContent: 'center',
+        paddingTop: 6,
+        fontWeight: '800',
+    },
 });
 
 export { stylesAdmin };

@@ -94,13 +94,13 @@ class DataJobRequest{
                     let pas = n.generatePassword(8);
                     console.log(pas);
                     createUserWithEmailAndPassword(auth, req.data().email, pas)
-                    .then((userCredential) => {
+                    .then(async (userCredential) => {
                         
                         const user = userCredential.user.uid;
                         this.AuthID = user;
                         this.pasw= pas;
                         // ...
-                        this.createNurse(req);
+                        await this.createNurse(req);
 
                         return true;
 

@@ -12,6 +12,8 @@ import DataUser from "./Data/DataUser.js";
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ServiceRequest from './Components/User/ServiceRequest.js';
 import UserNavigation from './Navigations/UserNavigation/Navigation.js';
+import GeneralProfile from "./Components/General/GeneralProfile.js";
+import ListOfComplaints from "./Components/Administrator/ListOfComplaints.js";
 
 
 export default function App() {
@@ -21,10 +23,12 @@ export default function App() {
    
       <>
         <MyStatusBar></MyStatusBar>
-        <StartNavigator></StartNavigator></>
+        <StartNavigator></StartNavigator>
+      </>
+        
     
     )
- 
+      /*  <StartNavigator></StartNavigator>*/
     /*Interfaces para mostrar 3*/
     
     /*<Home></Home>*/

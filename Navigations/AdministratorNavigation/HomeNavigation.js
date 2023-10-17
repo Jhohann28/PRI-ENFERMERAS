@@ -8,9 +8,18 @@ import ServiceForm from '../../Components/Administrator/ServiceForm';
 
 
 
+import NurseHome from "../../Components/Nurse/NurseHome"
+import AtentionRequestOpen from '../../Components/Nurse/GiveAtention/AtentionRequestOpen';
+import UserList from '../../Components/Administrator/UserList';
+
+
+
+
 const Stack = createStackNavigator();
 
+
 const HomeNavigation = () => {
+
 
 
   return (
@@ -20,9 +29,10 @@ const HomeNavigation = () => {
 
         <Stack.Screen name="NurseList" component={NurseList}  options={{headerShown:false}} />
         <Stack.Screen name="ServiceForm" component={ServiceForm}  options={{headerShown:false}} />
+        <Stack.Screen name="UserList" component={UserList}  options={{headerShown:false}} />
 
       </Stack.Navigator>
 
   );
 };
-export default HomeNavigation;
+export default HomeNavigation

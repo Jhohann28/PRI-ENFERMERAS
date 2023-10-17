@@ -69,7 +69,7 @@ import { useNavigation } from '@react-navigation/core';
       setPhone('');
 
     } catch (error) {
-      
+      console.log(error);
     }
   
   }

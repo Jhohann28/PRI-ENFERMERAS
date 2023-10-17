@@ -204,7 +204,8 @@ const stylesNurse = StyleSheet.create({
         fontWeight:"bold",
         fontSize:13,
         borderBottomWidth:1,
-        borderBottomColor:"#00774f"
+        borderBottomColor:"#00774f",
+        width:"40%"
     }
 
 });

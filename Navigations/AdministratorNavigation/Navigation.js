@@ -21,6 +21,8 @@ import { Platform } from 'react-native';
 import AdminAtentionRequestList from '../../Components/Administrator/AdminAtentionRequestList';
 import AtentionRequestNav from './AtentionRequestNav';
 
+
+
 const Tab = createBottomTabNavigator();
 
 function MyTabs(){

@@ -63,6 +63,64 @@ const styles = StyleSheet.create({
     btnTexto: {
         color: "#ffffff",
         fontSize: 18,
+
+    },
+    //------HISTORIAL DE ATENCION
+    search: {
+
+        backgroundColor: "#FFFFFF",
+        width: 350,
+        marginLeft: 35,
+        marginTop: -20,
+        borderRadius: 10,
+        height: 45,
+        textAlign: 'left',
+        padding: 10,
+        marginBottom: 22
+    },
+    iconSearchs: {
+        position: 'absolute',
+        top: 150,
+        left: 340,
+    },
+    //----------------------------ESTILO PARA LA VENTANA DE AMPLIAR------------------------
+    btnReload: {
+        alignSelf: 'center', 
+        borderRadius: 10, 
+        padding: 10, 
+        width: '85%', 
+        textAlign: "center", 
+        backgroundColor: '#0B3068',
+        color: '#ffffff',
+        marginBottom: 20
+        
+    },
+    textReload: {
+        color: '#ffffff',
+        textAlign: 'center'
+    },
+    scrollDetail: {
+ 
+        
+        marginTop: 35,
+        marginLeft: 35,
+        marginRight: 35,
+        marginBottom: 50,
+        backgroundColor: '#ffffff',
+        padding: 20,
+        borderRadius: 25
+        
+    },
+    textScroll: {
+        fontWeight: 'bold',
+        marginBottom: 20
+    },
+    imgRef: {
+        height: 300,
+        width: 300,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        marginBottom: 50
     }
    
 });

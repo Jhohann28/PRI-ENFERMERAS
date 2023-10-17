@@ -34,7 +34,7 @@ class UserValidationsForm{
     LastNameValidation(word) {
         
 
-        if (!regexregexApellidoCI.test(word)) {
+        if (!regexApellido.test(word)) {
       
         return 'apellido no válido';
         } 

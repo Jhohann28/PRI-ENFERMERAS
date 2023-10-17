@@ -3,7 +3,7 @@ import appFirebase  from "./firebaseConfig.js";
 import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction} from "firebase/firestore";
 
 
-import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth';
 import UserController from '../Controllers/UserController.js';
 import Nurse from '../Models/Nurse.js';
 import Person from '../Models/Person.js';
@@ -12,6 +12,8 @@ import User from '../Models/User.js';
 import * as Google from "expo-auth-session/providers/google.js";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GenerateRandoms from '../Tools/GenerateRandoms.js';
+import MySender from '../Tools/MailSender.js';
 
 
 
@@ -19,8 +21,7 @@ const db = getFirestore(appFirebase);
 
 const provider = new GoogleAuthProvider();
 
-
-
+const auth = getAuth();
 
 class DataUser{
   
@@ -155,12 +156,20 @@ class DataUser{
     }
 
 
-    async saveUser(data){
+    async saveUser(data, email, psw){
       let mcollection = collection(db,"User");
       console.log("llegué");
-      await addDoc(mcollection, data).then(docRef=>{
+      await addDoc(mcollection, data).then(async docRef=>{
+        try {
+          let sender = new MySender();
+          await sender.sendMail(email, "Usuario creado: ", "Bienvenido, use esta contraseña la primera vez: "+psw);
+  
+          return true;
+        } catch (error) {
+        console.error(error);
+          
+        }
        
-        return true;
       })
       .catch(error=>{
         console.error(error);
@@ -203,11 +212,13 @@ class DataUser{
 
           createUserWithEmailAndPassword(auth, person.email, pas)
 
-                      .then((userCredential) => {
+                      .then(async(userCredential) => {
                           const user = userCredential.user.uid;
                           this.AuthID = user;
                           console.log(this.AuthID);
-                          this.createUser(person)
+                          await this.createUser(person, pas);
+                            
+                          
                       })
                       .catch((error) => {
                           const errorCode = error.code;
@@ -217,10 +228,10 @@ class DataUser{
       });
   }
 
-  createUser = async (person) =>{
+  createUser = async (person,pas) =>{
 
       let collectionnn= collection(db, "Client");
-
+      var mail = person.email;
       const newClient ={
 
           names: person.names,
@@ -235,7 +246,7 @@ class DataUser{
           updateDate: serverTimestamp(),
       }
 
-      await addDoc(collectionnn, newClient).then(docRef=>{
+      await addDoc(collectionnn, newClient).then(async docRef=>{
           const userSys ={
                 
               location: {
@@ -251,7 +262,7 @@ class DataUser{
           };
           console.log("llegue aqui")
           
-          this.saveUser(userSys);
+          await this.saveUser(userSys, mail,pas);
           return true;
       })
 
