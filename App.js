@@ -16,7 +16,8 @@ import ListaSolicitudes from './Components/Administrator/JobDetails.js'
 import ExpandedJobList from './Components/Administrator/ExpandedJobList.js'
 import JobRequest from "./Components/General/JobRequest.js";
 import QuejaForm from "./Components/User/UserComplaint.js";
-
+import AtentionForm from "./Components/Nurse/AtentionForm.js";
+import ReportScreen from "./Components/General/ListWork.js"
 export default function App() {
 
     
@@ -24,7 +25,7 @@ export default function App() {
    
       <>
        <MyStatusBar></MyStatusBar>
-       <QuejaForm></QuejaForm>
+       <ReportScreen></ReportScreen>
 
         
        </>

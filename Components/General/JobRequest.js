@@ -38,31 +38,33 @@ export default function JobRequest() {
     const [isNameValid, setIsNameValid] = useState(true);
     const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
     const [validationMessagePhoneNumber, setValidationMessagePhoneNumber ] = useState('');
+    const [validationMessage, setValidationMessage] = useState('');
+    const [validationMessages, setValidationMessages] = useState({
+      nombre: '',
+      telefono: '',
+      // ... Agrega más campos según sea necesario ...
+    });
+
   
     const handleNameChange = (text) => {
       setNombre(text);
-  
-      const regexForName = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
-      const isValid = regexForName.test(text);
-      const regexForNumbers = /^[0-9]+$/;
-      const isValidNumber = regexForNumbers.test(text);
 
-     
-  
-      if (!isValid) {
-        setValidationMessageNombre('Por favor, ingrese un nombre válido.');
-      } else {
-        setValidationMessageNombre('');
-      }
-      setIsNameValid(isValid);
+    const regexForName = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+    const isValidName = regexForName.test(text);
 
-      if (!isValidNumber) {
-        setValidationMessagePhoneNumber('Por favor, ingrese un número válido.');
-      } else {
-        setValidationMessagePhoneNumber('');
-      }
-    
-      setIsPhoneNumberValid(isValidNumber);
+    const regexForNumbers = /^[0-9]+$/;
+    const isValidNumber = regexForNumbers.test(text);
+
+    setValidationMessages({
+      ...validationMessages,
+      nombre: isValidName ? '' : 'Por favor, ingrese un nombre válido.',
+      telefono: isValidNumber ? '' : 'Por favor, ingrese un número válido.',
+      // ... Ajusta las validaciones para otros campos según sea necesario ...
+    });
+
+    setIsNameValid(isValidName);
+    setIsPhoneNumberValid(isValidNumber);
+      
     };
     
     
@@ -107,8 +109,9 @@ export default function JobRequest() {
 
     const LoadFiles= async()=>{
         try {
-          if (!isNameValid || !isPhoneNumberValid ) {
-            Alert.alert('Por favor, corrija los errores antes de enviar la solicitud.');
+          if (!isNameValid || !isPhoneNumberValid) {
+            setValidationMessage('Por favor, corrija los errores antes de enviar la solicitud.');
+            Alert.alert(validationMessage);
             return;
           }
           
@@ -157,15 +160,15 @@ export default function JobRequest() {
         
       </View>
       <View style={stylesNf.section}>
-            <Text style={stylesNf.label}>Nombre</Text>
-            <TextInput
-              style={stylesNf.input}
-              placeholder="Nombre"
-              value={nombre}
-              onChangeText={handleNameChange}
-            />
-            <Text style={stylesNf.validationMessage}>{validationMessageNombre}</Text>
-          </View>
+          <Text style={stylesNf.label}>Nombre</Text>
+          <TextInput
+            style={stylesNf.input}
+            placeholder="Nombre"
+            value={nombre}
+            onChangeText={handleNameChange}
+          />
+          <Text style={stylesNf.validationMessage}>{validationMessages.nombre}</Text>
+        </View>
       <View style={stylesNf.section}>
         <Text style={stylesNf.label}>Apellido Paterno</Text>
         <TextInput
@@ -207,15 +210,15 @@ export default function JobRequest() {
         
       </View>
       <View style={stylesNf.section}>
-  <Text style={stylesNf.label}>Teléfono</Text>
-  <TextInput
-    style={stylesNf.input}
-    placeholder="Teléfono"
-    value={telefono}
-    onChangeText={(text)=> setTelefono(text)}
-  />
-  <Text style={stylesNf.validationMessage}>{validationMessagePhoneNumber}</Text>
-</View>
+          <Text style={stylesNf.label}>Teléfono</Text>
+          <TextInput
+            style={stylesNf.input}
+            placeholder="Teléfono"
+            value={telefono}
+            onChangeText={(text) => setTelefono(text)}
+          />
+          <Text style={stylesNf.validationMessage}>{validationMessages.telefono}</Text>
+        </View>
       <Text>Fecha de Titulación</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
         <View style={stylesNf.dateTimePicker}>
