@@ -31,7 +31,8 @@ class NurseAtentionData{
 
          if(req.data().status ==1){
             await updateDoc(mrequestRef, {
-               status: 5
+               status: 5,
+               userNurseRef: await this.getUserRef(auth)
              });
              this.writeLocationNurse(atention.userRef.location,atention.id)
 
@@ -61,17 +62,61 @@ class NurseAtentionData{
 
       
      }
-     async UserFound(id){
+     async UserFound(id, auth){
       const mrequestRef = doc(db, "AtentionRequest", id);
       let req = await getDoc(mrequestRef);
 
      
          await updateDoc(mrequestRef, {
             status: 3 // 3 is atempted
+            
+
+
+          }).then(async()=>{
+            const washingtonRef = collection(db, "Atention"); 
+
+            let myData ={
+              status :0,
+              atentionRequestRef: mrequestRef,
+              date: serverTimestamp()
+            }
+            await addDoc(washingtonRef, myData).then((doc)=>{
+              console.log("doc añadido: "+ doc.id)
+            })
+            .catch((err)=>{
+              console.log(err);
+            })
           });
 
       
      }
+     async getUserRef(AuthID){
+      console.log(AuthID);
+      const usersCollection = collection(db, 'User');
+      const q = query(usersCollection, where('userAuthId', '==', AuthID)); 
+    
+      try {
+        const querySnapshot = await getDocs(q);
+        let referToPerson="";
+        if (!querySnapshot.empty) {
+          const promises=  querySnapshot.docs.map(async (doc) => {
+         
+              referToPerson = await doc.ref;
+              console.log("Entré: "+ referToPerson);
+
+          });
+          
+          await Promise.all(promises); 
+          console.log("Hola mundo");
+          return referToPerson;
+
+        } else {
+          return "ERROR";
+        }
+      } catch (error) {
+        console.error('Error al consultar la base de datos:', error);
+      }
+  }
   
 }
 export default NurseAtentionData;

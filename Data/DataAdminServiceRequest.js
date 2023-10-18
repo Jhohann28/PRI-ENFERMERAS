@@ -70,7 +70,7 @@ class DataAdminServiceRequest{
 
        if(status==1){return "Activo;yellow"}
         else if (status==2){ return "Cancelado(Sin atención);red"}
-        else if (status==3){ return "Atendido (Finalizado);green"}
+        else if (status==3){ return "Atendiendo;green"}
         else if (status==4){ return "Usuario no encontrado;red"}
         else if (status==5){ return "Aceptado (En atención);orange"}
         else if (status==6){ return "Atendido;green"}

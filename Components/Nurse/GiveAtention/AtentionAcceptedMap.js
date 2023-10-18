@@ -115,7 +115,7 @@ const AtentionAcceptedMap = () => {
 
        
     const changeStateToNotFound=async ()=>{
-      if(  geolib.getDistance(location.coords, locationUser)>12){
+      if(  geolib.getDistance(location.coords, locationUser)>32){
         console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
         Alert.alert(
             'No disponible',
@@ -127,7 +127,7 @@ const AtentionAcceptedMap = () => {
         
     }
     const changeStateToFound=async ()=>{
-        if(  geolib.getDistance(location.coords, locationUser)>12){
+        if(  geolib.getDistance(location.coords, locationUser)>32){
           console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
           Alert.alert(
             'No disponible',
@@ -136,7 +136,7 @@ const AtentionAcceptedMap = () => {
           return;
           }
           let j = new NurseAtentionData();
-          await j.UserNotFound(atention.id);
+          await j.UserFound(atention.id, myuser.userAuthID);
           //redireccionar cuando s integre
           
       }

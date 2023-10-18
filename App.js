@@ -14,6 +14,9 @@ import ServiceRequest from './Components/User/ServiceRequest.js';
 import UserNavigation from './Navigations/UserNavigation/Navigation.js';
 import GeneralProfile from "./Components/General/GeneralProfile.js";
 import ListOfComplaints from "./Components/Administrator/ListOfComplaints.js";
+import BeingServed from "./Components/User/BeingServed.js";
+import WaitingConfirmationByUser from "./Components/Nurse/GiveAtention/WaitingConfirmationByUser.js";
+import Calification from "./Components/User/Calification.js";
 
 
 export default function App() {
@@ -23,7 +26,7 @@ export default function App() {
    
       <>
         <MyStatusBar></MyStatusBar>
-        <StartNavigator></StartNavigator>
+        <Calification></Calification>
       </>
         
     
