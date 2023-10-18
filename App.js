@@ -26,7 +26,7 @@ export default function App() {
    
       <>
         <MyStatusBar></MyStatusBar>
-        <Calification></Calification>
+        <StartNavigator></StartNavigator>
       </>
         
     
@@ -40,7 +40,9 @@ export default function App() {
     /*<NurseNavigation></NurseNavigation>*/
     /*<NurseResignationScreen></NurseResignationScreen>*/
     /*<AdminScreen></AdminScreen>*/
-    /*<AdminNavigation></AdminNavigation>*/
+    /*<AdminNavigation></AdminNavigation>
+    <MyStatusBar></MyStatusBar>
+       <StartNavigator></StartNavigator>*/
     
 
 

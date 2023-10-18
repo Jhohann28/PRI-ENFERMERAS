@@ -137,6 +137,8 @@ const AtentionAcceptedMap = () => {
           }
           let j = new NurseAtentionData();
           await j.UserFound(atention.id, myuser.userAuthID);
+          dataa.writeLocationNurse({latitude:-1000,longitude:-1000},atention.id )
+          nav.replace('AtentionForm',{request:atention}); 
           //redireccionar cuando s integre
           
       }
@@ -218,5 +220,5 @@ const AtentionAcceptedMap = () => {
 
     )
 }
-
+// apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M"
 export default AtentionAcceptedMap;

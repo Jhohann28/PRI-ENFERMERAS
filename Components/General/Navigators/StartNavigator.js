@@ -13,6 +13,8 @@ import NurseNavigation from "../../../Navigations/NurseNavigation/Navigation";
 import JobRequest from '../JobRequest';
 import UserForm from '../../User/UserRegistration';
 import AtentionAcceptedMap from '../../Nurse/GiveAtention/AtentionAcceptedMap';
+import AtentionForm from '../../Nurse/AtentionForm';
+//import JobRequest from '../../Nurse/JobRequest';
 
 
 const Stack = createStackNavigator();
@@ -31,6 +33,7 @@ const StartNavigator = () => {
         <Stack.Screen name="JobRequest" component={JobRequest} options={{headerShown:false}}/>
         <Stack.Screen name="UserForm" component={UserForm} options={{headerShown:false}}/>
         <Stack.Screen name='AtentionOK' component={AtentionAcceptedMap} options={{headerShown:false}}></Stack.Screen>
+        <Stack.Screen name="AtentionForm" component={AtentionForm} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

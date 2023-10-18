@@ -52,15 +52,7 @@ function MyTabs(){
                 }}
             
             />
-            <Tab.Screen 
-                name="Reportes" 
-                component={NurseReportScreen} 
-                options={{                   
-                    tabBarIcon: ({ color, size}) => (
-                        <Ionicons name="documents" size={30} color="black" />
-                    ),
-                }}
-            />
+          
             <Tab.Screen 
                 name="Historial" 
                 component={HistoyAtentionsNurseNav } 

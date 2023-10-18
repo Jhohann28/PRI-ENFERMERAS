@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
     startHeader:{
         backgroundColor: "#064571",
         padding:19,
-        borderBottomLeftRadius:40,
-        borderBottomRightRadius:40,
+       
+       borderBottomEndRadius:30,
+       borderBottomStartRadius:30,
+
        width:"100%"
     },
     headerText:{
@@ -95,10 +97,27 @@ const styles = StyleSheet.create({
     },
     footerText:{
         color:"#fff",
-        fontSize:18,
+        fontSize:15,
         textAlign:"center",
         fontWeight:"bold",
-       }
+       },
+       uploadButton: {
+        backgroundColor: '#D43A39',
+        paddingHorizontal: 20,  // Ajusta según tus necesidades
+        paddingVertical: 10,    // Puedes ajustar según tus necesidades
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,          // Puedes ajustar según tus necesidades
+        width: 437,    
+        borderRadius:10,   
+            // Puedes ajustar según tus necesidades
+      },
+    
+      uploadButtonText: {
+        color: '#fff',
+        fontSize: 18,
+      },
   });
 
   export default styles;

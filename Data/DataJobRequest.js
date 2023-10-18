@@ -31,27 +31,50 @@ const auth = getAuth();
 class DataJobRequest{
     AuthID;
     pasw;
+    listJobRequest = [];
     
-    uploadFiles = async(fileName, filePath)=>{
+    uploadFiles = async(fileName, filePath,data)=>{
         
 
-        fetch(filePath)
+       await fetch(filePath)
             .then((response) => response.blob())
-            .then((blob) => {
+            .then(async(blob) => {
                 // Obtén una referencia al archivo en Firebase Storage
                 let dt = new Date();
-                var name= dt.getMilliseconds().toString()+fileName;
-                const archivoRef = ref(dbSt, "JobRequests/"+ name);
+                var myFileName = dt.getMilliseconds().toLocaleString()+"xd"+fileName;
+                
+                const archivoRef = ref(dbSt, "JobRequests/"+ myFileName);
 
 
-                uploadBytes(archivoRef, blob)
+               await uploadBytes(archivoRef, blob)
                 .then((snapshot) => {
                     console.log('Archivo subido con éxito');
                     // Puedes obtener la URL de descarga del archivo
                     return getDownloadURL(snapshot.ref);
                 })
-                .then((downloadURL) => {
+                .then(async(downloadURL) => {
                     console.log('URL de descarga del archivo:', downloadURL);
+                    const myData={
+                      ci:data.ci,
+                      email:data.email,
+                      graduationInstitution:data.graduationInstitution,
+                      lastName:data.lastName,
+                      names:data.names,
+                      phone:data.phone,
+                      secondLastName:data.secondLastName,
+                      speciality:data.speciality,
+                      titulationDate:data.titulationDate,
+                      curriculumName:myFileName,
+                      curriculumUrl:downloadURL,
+                      status:1,
+                      registrationDate:serverTimestamp(),
+                      updateDate:serverTimestamp()
+                    }
+                    let collectionn = collection(db,"JobRequest");
+          
+                  
+        
+        await addDoc(collectionn, myData).then(docRef=>{ })
                 })
                 .catch((error) => {
                     console.error('Error al subir el archivo:', error);
@@ -59,7 +82,7 @@ class DataJobRequest{
             })
             .catch((error) => {
                 console.error('Error al convertir la URI en blob:', error);
-            });
+            }); 
         
     }
 
@@ -194,6 +217,44 @@ class DataJobRequest{
             });
 
       }
+    async getJobRequest(){
+
+      const jobRequestCollection = collection(db, 'JobRequest');
+
+      const q = query(jobRequestCollection, where('status', '==', 1)); //0 user, 1 admin, 2 nurse
+  
+      try {
+  
+        const querySnapshot = await getDocs(q);
+  
+  
+        if (!querySnapshot.empty) {
+  
+          querySnapshot.forEach((doc) => {
+          let jobrequest = new Nurse(doc.data().names, doc.data().lastName, doc.data().secondLastname, doc.data().email,doc.data().phone,doc.data().ci,doc.data().status,doc.data().speciality,doc.data().titulationDate,doc.data().graduationInstitution,'');
+          //aquí añadí a tu lista de services
+          let curriculum = {
+            curriculumName:doc.data().curriculumName, 
+            curriculumUrl:doc.data().curriculumUrl
+          }      
+          jobrequest.curriculum= curriculum;
+          jobrequest.id=doc.id;      
+          console.log(doc.id);
+          this.listJobRequest.push(jobrequest);
+                    
+        });
+        
+          return  this.listJobRequest;
+                          
+        } 
+        else {
+          return [];
+        }
+      } 
+      catch (error) {
+          console.error('Error al consultar la base de datos:', error);
+      }
+    }
 
 }
 export default DataJobRequest;
