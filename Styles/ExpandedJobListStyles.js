@@ -19,8 +19,13 @@ const stylesExpanded = StyleSheet.create({
     flex: 1,
   },
   itemText: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: 18,
+    fontWeight:"bold",
+    margin:7,
+    borderBottomColor:"black",
+    borderBottomWidth:2
+    ,
+    color:"#326695"
   },
   buttonsContainer: {
     flexDirection: 'row',

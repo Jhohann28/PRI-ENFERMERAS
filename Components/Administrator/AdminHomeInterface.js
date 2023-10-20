@@ -122,14 +122,18 @@ const AdminScreen = () => {
                             </TouchableOpacity>
                            </View>
                            
-                            <TouchableOpacity onPress={() => {setShowDates(true); setuser(""); closeSession()}} style = {stylesAdmin.btnButton4}>                   
-                                <FontAwesome5 name="user-nurse" size={50} color="black" style={stylesAdmin.btnIcons}/>
-                                <Text style = {stylesAdmin.btnText}>Cerrar sesión</Text>   
+
+                           <View style={stylesNurse.containerHorizontal}>
+                           <TouchableOpacity onPress={() => {setShowDates(true); setuser("");  n.navigate("Reports")}} style = {stylesAdmin.btnButton4}>                   
+                                <Entypo name="bar-graph" size={50} color="black" style={stylesAdmin.btnIcons}/>
+                                <Text style = {stylesAdmin.btnText}>Reportes Generales</Text>   
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={EstadoQuejas} style={stylesAdmin.btnButton2}>
+                            <TouchableOpacity onPress={EstadoQuejas} style={stylesAdmin.btnButton4}>
                                 <Entypo name="text-document" size={45} color="black" style={stylesAdmin.btnIcons} />
                                 <Text style={stylesAdmin.btnText}>Quejas</Text>
                             </TouchableOpacity>
+                           </View>
+                           
                            
                             
                         </>

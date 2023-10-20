@@ -97,11 +97,13 @@ class DataJobRequest{
                let r= await  s.sendMail(req.data().email, "Estamos interesados en sus servicios", 
                "Por favor, comuniquese al 78700880 o al correo hshhs@hsh.com, estamos interesados en una entrevista con usted"
                )
-               return req;
+               return true
             }
+            return false;
         }
         catch(e){
             console.log(e);
+            return false;
         }
        
     }
@@ -110,13 +112,13 @@ class DataJobRequest{
     createNurseFromJobRequest = async(id)=>{
         
         try {
-            await runTransaction(db, async(transaction)=>{
+            let h=await runTransaction(db, async()=>{
                 const mrequestRef = doc(db, "JobRequest", id);
                       let req = await getDoc(mrequestRef);
                     let n =new GenerateRandoms();
                     let pas = n.generatePassword(8);
                     console.log(pas);
-                    createUserWithEmailAndPassword(auth, req.data().email, pas)
+                   const r= await createUserWithEmailAndPassword(auth, req.data().email, pas)
                     .then(async (userCredential) => {
                         
                         const user = userCredential.user.uid;
@@ -124,7 +126,7 @@ class DataJobRequest{
                         this.pasw= pas;
                         // ...
                         await this.createNurse(req);
-
+                        await updateDoc(mrequestRef,{status:2});
                         return true;
 
 
@@ -135,10 +137,13 @@ class DataJobRequest{
                         return false;
                     });
 
+                    return r;
+
 
             })
+            return h;
         } catch (error) {
-            
+              return false;
         }
        
     }
@@ -150,7 +155,7 @@ class DataJobRequest{
           names: reqq.data().names,
           lastName: reqq.data().lastName,
           secondLastName: reqq.data().secondLastName,
-          email: reqq.data().secondLastName,
+          email: reqq.data().email,
           ci: reqq.data().ci,
           gender:"",
           phone: reqq.data().phone,
@@ -208,13 +213,16 @@ class DataJobRequest{
         let req = await getDoc(mrequestRef);
 
         const desertRef = ref(dbSt, 'JobRequests/'+req.data().curriculumName);
-           await  deleteObject(desertRef).then(() => {
+           const h= await  deleteObject(desertRef).then(() => {
                   updateDoc(mrequestRef,{status:0});
 
             console.log("Eliminado");
+            return true;
             }).catch((error) => {
-                return error;
+              console.log(error);
+                return false;
             });
+            return h;
 
       }
     async getJobRequest(){
@@ -231,7 +239,7 @@ class DataJobRequest{
         if (!querySnapshot.empty) {
   
           querySnapshot.forEach((doc) => {
-          let jobrequest = new Nurse(doc.data().names, doc.data().lastName, doc.data().secondLastname, doc.data().email,doc.data().phone,doc.data().ci,doc.data().status,doc.data().speciality,doc.data().titulationDate,doc.data().graduationInstitution,'');
+          let jobrequest = new Nurse(doc.data().names, doc.data().lastName, doc.data().secondLastName, doc.data().email,doc.data().phone,doc.data().ci,doc.data().status,doc.data().speciality,doc.data().titulationDate,doc.data().graduationInstitution,'');
           //aquí añadí a tu lista de services
           let curriculum = {
             curriculumName:doc.data().curriculumName, 

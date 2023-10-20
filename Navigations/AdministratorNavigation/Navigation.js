@@ -20,6 +20,9 @@ import AtentionAdminNavigation from './AtentionAdminNavigation';
 import { Platform } from 'react-native';
 import AdminAtentionRequestList from '../../Components/Administrator/AdminAtentionRequestList';
 import AtentionRequestNav from './AtentionRequestNav';
+import JobDetails from '../../Components/Administrator/JobDetails';
+import GeneralProfile from '../../Components/General/GeneralProfile';
+import JobRequestNav from './JobRequestNav';
 
 
 
@@ -71,7 +74,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Sol. Trabajo" 
-                component={AcceptContactDeclineRequest} 
+                component={ JobRequestNav} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome5 name="grip-lines" size={30} color="white" /> 
@@ -90,7 +93,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Perfil" 
-                component={NurseProfileScreen} 
+                component={GeneralProfile} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome name="user" size={35} color="white" />

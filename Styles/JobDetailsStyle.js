@@ -2,20 +2,24 @@ import { StyleSheet } from "react-native"
 const stylesDetails = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    backgroundColor: '#326695', // Fondo azul
+    backgroundColor: 'white', // Fondo azul
     padding: 30, // Ajusta el espacio alrededor del contenido
   },
   itemContainer: {
     marginBottom: 10,
+    padding:10
   },
   itemInnerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
+    padding: 15
+   
+
   },
   itemDetails: {
-    flex: 1,
+    flex: 1
+    
   },
   itemText: {
     fontSize: 16,
@@ -28,12 +32,14 @@ const stylesDetails = StyleSheet.create({
     alignSelf:'center',
   },
   button: {
-    padding: 10,
+    padding: 5,
     borderRadius: 5,
+    width:"100%"
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    textAlign:"center"
   },
 });
   export {stylesDetails};

@@ -45,7 +45,7 @@ const ReportScreen = () => {
     labels: ['Enfermera 1', 'Enfermera 2', 'Enfermera 3'],
     datasets: [
       {
-        data: [15, 20, 12], // Número de atenciones realizadas por cada enfermera (ficticio)
+        data: [15, 20, 12], 
       },
     ],
   };

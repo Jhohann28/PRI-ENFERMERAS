@@ -1,96 +1,110 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet,Image } from 'react-native';
 import { stylesDetails } from '../../Styles/JobDetailsStyle.js';
 import DataJobRequest from '../../Data/DataJobRequest.js';
 import JobRequest from '../General/JobRequest.js';
-const ListaSolicitudes = () => {
-  const solicitudes = [
-    { id: '1', nombre: 'Nombre:', egresado: 'Egresado de:', especialidad: 'Especialidad:' },
-    { id: '1', nombre: 'Nombre:', egresado: 'Egresado de:', especialidad: 'Especialidad:' },
-    // ... más datos
-  ]; 
-  const [JobRequests,setJobRequest] = useState([]);
-  
-  
-  const load =async () => {
-  let d = new DataJobRequest();
-  let aux = [];
-  aux = await d.getJobRequest();
-  setJobRequest(aux);
-  console.log(JobRequests);
+import { stylesAdmin } from '../../Styles/AdminStyles.js';
+import {Ionicons, FontAwesome5} from '@expo/vector-icons';
+import logo from '../../assets/images/GeneralImages/logo.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+
+const JobDetails = () => {
+  const[myuser, setuser] = useState("");
+  var muser="";
+  const [JobRequests, setJobRequest] = useState([]);
+const n = useNavigation();
+
+  const getLocalUser =async()=>{
+      
+    try{
+            muser = await AsyncStorage.getItem("user");
+            let muserJson = muser? JSON.parse(muser): null;
+            setuser(muserJson);
+    }
+    catch(e){
+        console.error(e);
+        setuser("");
+    }
+}
+
+useEffect(()=>{
+    getLocalUser();
+},[])
+
+  const load = async () => {
+    let d = new DataJobRequest();
+    let aux = [];
+    aux = await d.getJobRequest();
+    setJobRequest(aux);
+    console.log(JobRequests);
   };
 
-  useEffect(()=>{
-  load();
-  },[]); 
+  useEffect(() => {
+    load();
+  }, []);
 
   const contactarHandler = (solicitudId) => {
     console.log(`Contactar a la solicitud con ID: ${solicitudId}`);
   };
 
-  const ampliarHandler = (solicitudId) => {
-    console.log(`Ampliar la solicitud con ID: ${solicitudId}`);
+  const ampliarHandler = (job) => {
+   n.navigate("ExpandedJobList", {jobRequest: job});
   };
 
   const rechazarHandler = (solicitudId) => {
     console.log(`Rechazar la solicitud con ID: ${solicitudId}`);
   };
 
-  const renderSolicitudContainer = ({ item }) => (
-    <View style={stylesDetails.itemContainer}>
-      <View style={[stylesDetails.itemInnerContainer, { backgroundColor: '#9FC4EF', borderRadius: 10 }]}>
-        <View style={stylesDetails.itemDetails}>
-          <Text style={stylesDetails.itemText}>{item.nombre}</Text>
-          <Text style={stylesDetails.itemText}>{item.egresado}</Text>
-          <Text style={stylesDetails.itemText}>{item.especialidad}</Text>
-          <View style={stylesDetails.buttonsContainer}>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'green' }]} onPress={() => contactarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Contactar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#3498db', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Ampliar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'red' }]} onPress={() => rechazarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Rechazar</Text>
-        </TouchableOpacity>
-      </View>
-        </View>
-      </View>
-      
-    </View>
-  );
 
   return (
-    <View style={stylesDetails.outerContainer}>
-      {JobRequests.length > 0?
-      JobRequests.map((item)=>(
-        <View style={stylesDetails.itemContainer}>
-      <View style={[stylesDetails.itemInnerContainer, { backgroundColor: '#9FC4EF', borderRadius: 10 }]}>
-        <View style={stylesDetails.itemDetails}>
-          <Text style={stylesDetails.itemText}>Nombre: {item.names}</Text>
-          <Text style={stylesDetails.itemText}>Egresado de: {item.graduationInstitution}</Text>
-          <Text style={stylesDetails.itemText}>Especialidad: {item.speciality}</Text>
-          <View style={stylesDetails.buttonsContainer}>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'green' }]} onPress={() => contactarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Contactar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#3498db', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Ampliar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[stylesDetails.button, { backgroundColor: 'red' }]} onPress={() => rechazarHandler(item.id)}>
-          <Text style={stylesDetails.buttonText}>Rechazar</Text>
-        </TouchableOpacity>
-      </View>
+
+    <View style={stylesAdmin.container}>
+      <View style={stylesAdmin.container2}>
+        <Text style={stylesAdmin.texto}>Lista de Enfermeras</Text>
+        <Text style={stylesAdmin.texto1}>{myuser != "" ? myuser.personRef.names : ""}</Text>
+        <Ionicons name="ios-person-circle-outline" size={74} color="white" style={stylesAdmin.image} />
+        <View style={stylesAdmin.container4}>
+          <Text style={stylesAdmin.textCorporationTitle}>SISEEM</Text>
+          <Text style={stylesAdmin.textCorporation}>Servicios de vida al 100%</Text>
+          <Image
+            source={logo}
+            style={stylesAdmin.image}
+          />
         </View>
       </View>
+      <View style={stylesAdmin.container3}>
+        <ScrollView style={{width:"100%"}}>
+        {JobRequests.length > 0 ?
+          JobRequests.map((item) => (
+            <View style={stylesDetails.itemContainer} key={item.id}>
+              <View style={[stylesDetails.itemInnerContainer, { backgroundColor: 'white', borderRadius: 10 }]}>
+                <View style={stylesDetails.itemDetails}>
+                  <Text style={stylesDetails.itemText}>Nombre: {item.names+" "+item.lastName}</Text>
+                  <Text style={stylesDetails.itemText}>Egresado de: {item.graduationInstitution}</Text>
+                  <Text style={stylesDetails.itemText}>Especialidad: {item.speciality}</Text>
+                  <View style={stylesDetails.buttonsContainer}>
+                   
+                    <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#064571', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item)}>
+                      <Text style={stylesDetails.buttonText}>Ampliar</Text>
+                    </TouchableOpacity>
+                    
+                  </View>
+                </View>
+              </View>
+
+            </View>
+          )) : <Text>No hay solicitudes de trabajo</Text>
+        }
+        </ScrollView>
       
-    </View>
-      )):<Text>No hay solicitudes de trabajo</Text>
-      }
+      </View>
+
     </View>
   );
 };
 
 
 
-export default ListaSolicitudes;
+export default JobDetails;

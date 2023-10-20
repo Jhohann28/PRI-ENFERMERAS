@@ -12,6 +12,8 @@ import NurseHome from "../../Components/Nurse/NurseHome"
 import AtentionRequestOpen from '../../Components/Nurse/GiveAtention/AtentionRequestOpen';
 import UserList from '../../Components/Administrator/UserList';
 import ReportScreen from '../../Components/General/ReportScreen';
+import JobDetails from '../../Components/Administrator/JobDetails';
+import ExpandedJobList from '../../Components/Administrator/ExpandedJobList';
 
 
 
@@ -19,22 +21,20 @@ import ReportScreen from '../../Components/General/ReportScreen';
 const Stack = createStackNavigator();
 
 
-const HomeNavigation = () => {
+const JobRequestNav = () => {
 
 
 
   return (
     
-      <Stack.Navigator initialRouteName="AdminScreen">
+      <Stack.Navigator initialRouteName="JobDetails">
+        <Stack.Screen name="JobDetails" component={JobDetails}  options={{headerShown:false}} />
+
+        <Stack.Screen name="ExpandedJobList" component={ExpandedJobList}  options={{headerShown:false}} />
+      
         <Stack.Screen name="AdminScreen" component={AdminScreen}  options={{headerShown:false}} />
-
-        <Stack.Screen name="NurseList" component={NurseList}  options={{headerShown:false}} />
-        <Stack.Screen name="ServiceForm" component={ServiceForm}  options={{headerShown:false}} />
-        <Stack.Screen name="UserList" component={UserList}  options={{headerShown:false}} />
-        <Stack.Screen name="Reports" component={ReportScreen}  options={{headerShown:false}} />
-
       </Stack.Navigator>
 
   );
 };
-export default HomeNavigation
+export default JobRequestNav
