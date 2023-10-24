@@ -30,6 +30,7 @@ isAllOk=false;
         const p= querySnapshot.docs.map(async(doc) => {
 
         let dta =  await this.getFormattedData( doc.data().titulationDate);
+        
         console.log(dta);
         let curriculum ={
           curriculumUrl: doc.data().curriculumUrl,

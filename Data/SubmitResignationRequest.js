@@ -1,36 +1,56 @@
-import firebase from 'firebase/app';
-import appFirebase  from "./firebaseConfig.js";
 
-import { getFirestore,doc,getDoc,query,collection,where,getDocs, Timestamp, addDoc } from "firebase/firestore";
+import appFirebase  from "./firebaseConfig.js";
+import { getFirestore,doc,addDoc,getDoc,query,collection,where,getDocs, updateDoc, serverTimestamp } from "firebase/firestore";
+import AtentionRequest from '../Models/AtentionRequest.js';
+import { getAuth } from 'firebase/auth';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getStorage, getDownloadURL, deleteObject, storage,ref, uploadBytes } from "firebase/storage"; 
+import { getDatabase, set } from "firebase/database";
+
+
+const db = getFirestore(appFirebase);
+
 
 class ResignationData {
-    constructor() {
-        this.db = getFirestore(firebase);
-      }
-    
-      async submitResignation(nurseName, reason) {
-        try {
-          if (!nurseName || !reason) {
-            throw new Error('Por favor, ingresa un nombre y un motivo válidos');
+
+  async sendResignations(resignationData) {
+    try {
+      const userRef = await AsyncStorage.getItem("user");
+      if (userRef) {
+        const userAuthID = JSON.parse(userRef)?.userAuthID;
+        if (userAuthID) {
+          const usersCollection = collection(db, 'User');
+          const q = query(usersCollection, where('userAuthId', '==', userAuthID));
+
+          const querySnapshot = await getDocs(q);
+          let referToPerson = "";
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              referToPerson = doc.data().personRef;
+            });
+
+         
+            const resignationsCollection = collection(db, 'resignations'); 
+            await addDoc(resignationsCollection, {
+              reason: resignationData.reason,
+              date: serverTimestamp(),
+              nurseRef: referToPerson,
+            });
+
+            console.log("Solicitud de renuncia enviada con éxito.");
+          } else {
+            console.error("No se encontró la AuthID en la referencia al usuario en el almacenamiento local");
           }
-      
-          const resignationsRef = collection(this.db, 'ResignationRequest');
-          const timestamp = Timestamp.now();
-      
-          // Agrega el motivo, el nombre de la enfermera y la fecha a la base de datos
-          await addDoc(resignationsRef, {
-            nurseName: nurseName,
-            reason: reason,
-            timestamp: timestamp,
-          });
-      
-          return 'Solicitud de renuncia enviada';
-        } catch (error) {
-          console.error('Error al enviar la solicitud de renuncia:', error.message);
-          throw error;
+        } else {
+          console.error("No se encontró la referencia al usuario en el almacenamiento local");
         }
       }
-      
+    } catch (error) {
+      console.error("Error al enviar la solicitud de renuncia:", error);
+    }
+  }
+
+
 }
 
 export default ResignationData;

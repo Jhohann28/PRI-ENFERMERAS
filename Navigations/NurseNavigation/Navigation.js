@@ -15,6 +15,7 @@ import { Entypo, Ionicons, FontAwesome5, EvilIcons, FontAwesome  } from '@expo/v
 import AtentionNurseNav from './AtentionNurseNav.js';
 import HistoryAtentionNurse from '../../Components/Nurse/HistoryAtentionNurse/HistoryAtentionNurse.js';
 import HistoyAtentionsNurseNav from './HistoyAtentionsNurseNav.js';
+import GeneralProfile from '../../Components/General/GeneralProfile.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +75,7 @@ function MyTabs(){
             />
             <Tab.Screen 
                 name="Perfil" 
-                component={NurseProfileScreen} 
+                component={GeneralProfile} 
                 options={{                   
                     tabBarIcon: ({ color, size}) => (
                         <FontAwesome name="user" size={35} color="black" />

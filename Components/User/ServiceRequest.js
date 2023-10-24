@@ -91,6 +91,13 @@ const ServiceRequestUser = () => {
           console.log('el nombre de la iamgen es ' +  name);
 
         }
+        else{
+          console.log('El usuario no seleccionó una imagen. Puedes continuar sin una foto.');
+          setImage(null); // Establece un valor por defecto para `image`
+          setImageName(null); // Establece un valor por defecto para `imageName`
+          
+        }
+        
       
       };
      
@@ -107,8 +114,9 @@ const ServiceRequestUser = () => {
         if (!serviceValidation && !descriptionValidation) {
           // Enviar los datos requeridos a la base de datos
           //Alert.alert("Solicitud enviada con éxito");
-         const refService = doc(db, "Services", selectedService)
+         const refService = doc(db, "Services", selectedService);
 
+         if(image!=null){
           const requestData = {
             description,
             //imageName: imageName || "", 
@@ -134,6 +142,37 @@ const ServiceRequestUser = () => {
             .catch((error) => {
               console.error('Error al enviar la solicitud', error);
             });
+         }
+         else{
+
+          const requestData = {
+            description,
+            //imageName: imageName || "", 
+            imageName:'',
+            //image,
+            //downloadURL,
+            //imageUrl: k,
+            serviceRef: refService ,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude
+           
+        };
+        //const docReferenci = 
+        await dataServiceRequestUser.sendRequest(requestData)
+    
+          // Enviar los datos a Firebase        
+            .then(async() => {
+              console.log("Solicitud enviada con éxito");
+              await console.log("ID del requerimiento: ",dataServiceRequestUser.addRef);
+              
+              n.navigate("ServiceWaitInterface", {service: dataServiceRequestUser.addRef}); 
+            })
+            .catch((error) => {
+              console.error('Error al enviar la solicitud', error);
+            });
+         }
+
+         
         }
       
     };

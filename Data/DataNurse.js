@@ -12,7 +12,7 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
  */
 import firebase from 'firebase/app';
 import appFirebase  from "./firebaseConfig.js";
-import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot} from "firebase/firestore";
+import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot, updateDoc, deleteDoc} from "firebase/firestore";
 
 
 import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
@@ -70,34 +70,38 @@ class DataNurse{
       let p = await getDoc(rrdata.personRef);
       return p.data();
     }
-     
-    async acceptResignation(id, AuthID){
+    
+    async acceptResignation(id, userRef){
         const mrequestRef = doc(db, "resignations", id);
         let req = await getDoc(mrequestRef);
   
        
-           await updateDoc(mrequestRef, {
-              status: -1 // -1 is accepted
-            });
-            const usersCollection = collection(db, 'User');
-            const q = query(usersCollection, where('userAuthId', '==',AuthID )); //0 user, 1 admin, 2 nurse
-          
-            try {
-              const querySnapshot = await getDocs(q);
-              var finalUser="";
-              if (!querySnapshot.empty) {
-                querySnapshot.forEach((doc) => {
-                      console.log('Document data:', doc.data());
-                    finalUser = doc.ref;
-                     updateDoc(finalUser, {
-                      status: -1 ,// -1 disabled
-                      role:-1
-                    });
-                });}}
-                catch(er){
+           await deleteDoc(mrequestRef);
 
-                }
-        
+
+              
+    const usersCollection = collection(db, 'User');
+                const q = query(usersCollection, where('personRef', '==',userRef )); //0 user, 1 admin, 2 nurse
+            
+                try {
+                  const querySnapshot = await getDocs(q);
+                  var finalUser="";
+                  if (!querySnapshot.empty) {
+                    querySnapshot.forEach((doc) => {
+                          console.log('Document data:', doc.data());
+                        finalUser = doc.ref;
+                        updateDoc(finalUser, {
+                          status: -1 ,// -1 disabled
+                          role:-1
+                        });
+                    });}}
+                    catch(er){
+    
+                    }
+
+          
+
+           
     }
   
 }

@@ -207,9 +207,11 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: '#6C98DB',
         height: 'auto',
         width: 350,
-        borderRadius: 25,
-        marginLeft: 15,
+        borderRadius: 15,
+        marginLeft: 10,
         marginTop: 25,
+        marginBottom: 0,
+        
 
     },
 
