@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { stylesNurse } from '../../Styles/NurseStyles.js';
 import ListOfComplaints from './ListOfComplaints.js';
+import ListOfResignations from './ListOfResignations.js';
 
 
 const AdminScreen = () => {
@@ -143,37 +144,20 @@ const AdminScreen = () => {
                             <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn}>                     
                                 <Text style={stylesAdmin.btnTextReturn}>Vover</Text>
                             </TouchableOpacity>
-
-                            <View style = {stylesAdmin.container5}>
-                                <Text style = {stylesAdmin.textName}>Ana Villarroel</Text>
-                                <Text style = {stylesAdmin.textReason}>Bla bla Bla bla blaBla blaBla bla bla Bla bla blabla Bla bla Bla bla blaBla blaBla bla bla Bla bla blabla  </Text>
-                                
-                                <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnContact}>
-                                    
-                                    <Text style={stylesAdmin.btnTextReason}>Contactar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnUnsubscribe}>
-                                    
-                                    <Text style={stylesAdmin.btnTextReason}>Aceptar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => Alert.alert('Mostrando Usuarios')} style={stylesAdmin.btnDecline}>
-                                    
-                                    <Text style={stylesAdmin.btnTextReason}>Rechazar</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <ListOfResignations/>
+                            
                         </>
                     )} 
                     {mostrarServicios && (
                         <>
-                        <View style={stylesNurse.containerHorizontal}>
-                        <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
-                                <Text style={stylesAdmin.btnTextReturn}>Volver</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => n.navigate("ServiceForm",{service:0})} style={stylesAdmin.btnAddServices}>                     
-                                <Ionicons name="add-circle" size={45} color="white" />
-                            </TouchableOpacity>
-                        </View>
-                           
+                            <View style={stylesNurse.containerHorizontal}>
+                                <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
+                                    <Text style={stylesAdmin.btnTextReturn}>Volver</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => n.navigate("ServiceForm",{service:0})} style={stylesAdmin.btnAddServices}>                     
+                                    <Ionicons name="add-circle" size={45} color="white" />
+                                </TouchableOpacity>
+                            </View>
                             <ServicesList/> 
                         </>
                     )}

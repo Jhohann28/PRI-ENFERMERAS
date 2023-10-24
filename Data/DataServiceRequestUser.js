@@ -48,7 +48,7 @@ class DataServiceRequestUser {
                         date: serverTimestamp(),
                         description: requestData.description,
                         imageName: requestData.imageName || "",
-                        imageUrl: this.URL|| "",
+                        imageUrl: this.URL || "",
                         serviceRef: requestData.serviceRef,
                         status: 1,
                         updateDate: serverTimestamp(),
