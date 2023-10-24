@@ -6,6 +6,9 @@ import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverT
 
 import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import { getDatabase, ref, set } from "firebase/database";
+import { getStorage,  uploadBytes, getDownloadURL, deleteObject } from "firebase/storage"
+
+
 
 
 
@@ -22,7 +25,7 @@ class NurseAtentionData{
     }
 
 
-    async IsStillDisponible(atention){
+    async IsStillDisponible(atention,auth){
     
       try {
        
@@ -62,7 +65,7 @@ class NurseAtentionData{
 
       
      }
-     async UserFound(id, auth){
+     async UserFound(id, auth, latitude, longitude){
       const mrequestRef = doc(db, "AtentionRequest", id);
       let req = await getDoc(mrequestRef);
 
@@ -73,19 +76,28 @@ class NurseAtentionData{
 
 
           }).then(async()=>{
-            const washingtonRef = collection(db, "Atention"); 
 
-            let myData ={
+            let pRef = await this.getPERSONRefByUser(auth);
+
+            let clientRef = req.data().userRef;
+            let client = await getDoc(clientRef);
+
+            let service = await getDoc(req.data().serviceRef);
+            await setDoc(doc(db, "Atention", id), {
               status :0,
               atentionRequestRef: mrequestRef,
-              date: serverTimestamp()
-            }
-            await addDoc(washingtonRef, myData).then((doc)=>{
-              console.log("doc añadido: "+ doc.id)
-            })
-            .catch((err)=>{
-              console.log(err);
-            })
+              date: serverTimestamp(),
+              serviceRef:service.ref,
+              nurseRef: pRef,
+              clientRef: client.data().personRef,
+              serviceCurrentCost: service.data().price,
+              location: {latitude:latitude, longitude:longitude}
+
+
+            });
+           
+
+           
           });
 
       
@@ -118,5 +130,38 @@ class NurseAtentionData{
       }
   }
   
+
+
+  async getPERSONRefByUser(AuthID){
+    console.log(AuthID);
+    const usersCollection = collection(db, 'User');
+    const q = query(usersCollection, where('userAuthId', '==', AuthID)); 
+  
+    try {
+      const querySnapshot = await getDocs(q);
+      let referToPerson="";
+      if (!querySnapshot.empty) {
+        const promises=  querySnapshot.docs.map(async (doc) => {
+       
+            referToPerson = await doc.data().personRef;
+            console.log("Entré: "+ referToPerson);
+
+        });
+        
+        await Promise.all(promises); 
+        console.log("Hola mundo");
+        return referToPerson;
+
+      } else {
+        return "ERROR";
+      }
+    } catch (error) {
+      console.error('Error al consultar la base de datos:', error);
+    }
+}
+
+
+
+
 }
 export default NurseAtentionData;

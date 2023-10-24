@@ -17,6 +17,7 @@ import ListOfComplaints from "./Components/Administrator/ListOfComplaints.js";
 import BeingServed from "./Components/User/BeingServed.js";
 import WaitingConfirmationByUser from "./Components/Nurse/GiveAtention/WaitingConfirmationByUser.js";
 import Calification from "./Components/User/Calification.js";
+import UserComplaint from "./Components/User/UserComplaint.js";
 
 
 export default function App() {

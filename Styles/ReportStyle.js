@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native"
 const stylesN = StyleSheet.create({
     container: {
-      padding: 20,
+      
       flex: 1,
-      backgroundColor: '#a2c8cc', // Fondo verde azulado
+      backgroundColor: '#c4dafa', // Fondo verde azulado
     },
+    form:{
+      padding:10
+    }
+    ,
     title: {
       fontSize: 20,
       marginBottom: 20,
@@ -44,8 +48,14 @@ const stylesN = StyleSheet.create({
     },
     
     button: {
-      backgroundColor: '#26ADEE', // Nuevo color del botón
+      backgroundColor: '#064571', // Nuevo color del botón
       padding: 15,
+      borderRadius: 10, // Bordes redondeados
+      alignItems: 'center',
+    },
+    button2: {
+      backgroundColor: 'green', // Nuevo color del botón
+      padding: 4,
       borderRadius: 10, // Bordes redondeados
       alignItems: 'center',
     },
@@ -60,14 +70,14 @@ const stylesN = StyleSheet.create({
       borderRadius: 10,
     },
     startHeader:{
-      backgroundColor: "#338b85",
+      backgroundColor: "#064571",
       padding:19,
       borderRadius:10,
       
      width:"100%"
   },
   headerText:{
-   color:"black",
+   color:"white",
    fontSize:27,
    textAlign:"center",
    fontWeight:"bold"

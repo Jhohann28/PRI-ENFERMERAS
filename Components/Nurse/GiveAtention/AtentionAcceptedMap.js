@@ -124,10 +124,11 @@ const AtentionAcceptedMap = () => {
         }
         let j = new NurseAtentionData();
         await j.UserNotFound(atention.id);
+        nav.replace('NurseHome'); //A HOME
         
     }
     const changeStateToFound=async ()=>{
-        if(  geolib.getDistance(location.coords, locationUser)>32){
+        if(  geolib.getDistance(location.coords, locationUser)>80){
           console.log("NO SE PUEDE CAMBIAR EL ESTADO, distancia: "+ geolib.getDistance(location.coords, locationUser));
           Alert.alert(
             'No disponible',
@@ -136,9 +137,9 @@ const AtentionAcceptedMap = () => {
           return;
           }
           let j = new NurseAtentionData();
-          await j.UserFound(atention.id, myuser.userAuthID);
+          await j.UserFound(atention.id, myuser.userAuthID, location.coords.latitude, location.coords.longitude);
           dataa.writeLocationNurse({latitude:-1000,longitude:-1000},atention.id )
-          nav.replace('AtentionForm',{request:atention}); 
+          nav.replace('AtentionForm',{atention:atention}); 
           //redireccionar cuando s integre
           
       }
@@ -206,11 +207,11 @@ const AtentionAcceptedMap = () => {
                     <Text style={styles.TextBody}>Cambia el estado de la solicitud sólo cuando estés cerca.</Text>
                    
                     <View style={styles.horizontal} >
-                <TouchableOpacity style={styles.btnAccept}>
-                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18, justifyContent:"center", alignItems:"center"}} onPress={()=>changeStateToFound()}>En atención</Text>
+                <TouchableOpacity style={styles.btnAccept} onPress={async()=>await changeStateToFound()}>
+                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18, justifyContent:"center", alignItems:"center"}} >En atención</Text>
                                   </TouchableOpacity>
-                                  <TouchableOpacity style={styles.btnRemove}>
-                                      <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:18, color:"white"}}  onPress={()=>changeStateToNotFound()} >Usuario no encontrado</Text>
+                                  <TouchableOpacity style={styles.btnRemove} onPress={async()=>await changeStateToNotFound()}>
+                                      <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:18, color:"white"}}   >Usuario no encontrado</Text>
                                   </TouchableOpacity>
                 </View>
                 </View>

@@ -180,7 +180,7 @@ const AdminScreen = () => {
                     {mostrarQuejas && (
                         <>
                             <TouchableOpacity onPress={volverAlEstadoPrincipal} style={stylesAdmin.btnReturn2}>                     
-                                <Text style={stylesAdmin.btnTextReturn}>Vover</Text>
+                                <Text style={stylesAdmin.btnTextReturn}>Volver</Text>
                             </TouchableOpacity>
                             
                             <ListOfComplaints/> 

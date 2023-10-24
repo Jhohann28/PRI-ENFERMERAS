@@ -14,13 +14,16 @@ import JobRequest from '../JobRequest';
 import UserForm from '../../User/UserRegistration';
 import AtentionAcceptedMap from '../../Nurse/GiveAtention/AtentionAcceptedMap';
 import AtentionForm from '../../Nurse/AtentionForm';
-//import JobRequest from '../../Nurse/JobRequest';
+import BeingServed from '../../User/BeingServed';
+import Calification from '../../User/Calification';
+import WaitingConfirmationByUser from '../../Nurse/GiveAtention/WaitingConfirmationByUser';
+import UserComplaint from '../../User/UserComplaint';
 
+//import JobRequest from '../../Nurse/JobRequest';
 
 const Stack = createStackNavigator();
 
 const StartNavigator = () => {
-
 
   return (
     <NavigationContainer >
@@ -34,6 +37,14 @@ const StartNavigator = () => {
         <Stack.Screen name="UserForm" component={UserForm} options={{headerShown:false}}/>
         <Stack.Screen name='AtentionOK' component={AtentionAcceptedMap} options={{headerShown:false}}></Stack.Screen>
         <Stack.Screen name="AtentionForm" component={AtentionForm} options={{headerShown:false}}/>
+        <Stack.Screen name="WaitingConfirmationByUser" component={WaitingConfirmationByUser} options={{headerShown:false}}/>
+    
+        <Stack.Screen name="BeingServed" component={BeingServed} options={{headerShown:false}}/>
+        <Stack.Screen name="Calification" component={Calification} options={{headerShown:false}}/>
+        <Stack.Screen name="UserComplaint" component={UserComplaint} options={{headerShown:false}}/>
+
+
+    
       </Stack.Navigator>
     </NavigationContainer>
   );

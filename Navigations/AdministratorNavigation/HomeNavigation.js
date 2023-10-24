@@ -13,14 +13,11 @@ import AtentionRequestOpen from '../../Components/Nurse/GiveAtention/AtentionReq
 import UserList from '../../Components/Administrator/UserList';
 import ReportScreen from '../../Components/General/ReportScreen';
 
-
-
-
+import AdminAtentionOpen from '../../Components/Administrator/AdminAtentionOpen';
 const Stack = createStackNavigator();
 
 
 const HomeNavigation = () => {
-
 
 
   return (
@@ -32,6 +29,7 @@ const HomeNavigation = () => {
         <Stack.Screen name="ServiceForm" component={ServiceForm}  options={{headerShown:false}} />
         <Stack.Screen name="UserList" component={UserList}  options={{headerShown:false}} />
         <Stack.Screen name="Reports" component={ReportScreen}  options={{headerShown:false}} />
+        <Stack.Screen name="AOpen" component={AdminAtentionOpen}  options={{headerShown:false}} />
 
       </Stack.Navigator>
 

@@ -3,6 +3,10 @@ class AtentionRequest{
     isLocalVisible= true;
     nurse;
     atentionRef;
+
+    serviceAuxRef;
+    userAuxRef;
+
     constructor(id, date, description, imageName, imageUrl, serviceRef, status, updateDate,userRef  ){
         this.id = id;
         this.date = date;

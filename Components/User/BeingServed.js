@@ -5,9 +5,39 @@ import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import DataUser from '../../Data/DataUser.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onSnapshot , doc, getFirestore} from 'firebase/firestore';
+import appFirebase from '../../Data/firebaseConfig.js';
 
+const db= getFirestore(appFirebase);
 export default function BeingServed() {
 
+    const n = useNavigation();
+    const r = useRoute();
+
+    const {idAtention} =r.params;
+
+
+    const susc = async () => {
+        try {
+            const unsub = onSnapshot(doc(db, "Atention", idAtention), (doc) => {
+                console.log("Current data: ", doc.data());
+                if(doc.data().status==2){
+                    let mdata ={
+                            id: idAtention,
+                            aditionalCost: doc.data().aditionalCost,
+                            serviceCurrentCost: doc.data().serviceCurrentCost
+                    }
+                    n.replace('Calification',{Atention:mdata}); 
+                } 
+            });
+        } catch (error) {
+            console.log(error);
+        }
+      };
+      
+      useEffect(() => {
+        susc();
+      }, []);
   
    
         

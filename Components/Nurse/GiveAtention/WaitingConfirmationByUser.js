@@ -1,12 +1,39 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Button, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Button, TouchableHighlight, ActivityIndicator, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from '../../../Styles/StartPageStyles.js';
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import appFirebase from '../../../Data/firebaseConfig.js';
+const db= getFirestore(appFirebase);
 export default function WaitingConfirmationByUser() {
 
+  
+    const n = useNavigation();
+    const r = useRoute();
+
+    const {atention} =r.params;
+
+
+    const susc = async () => {
+        try {
+            const unsub = onSnapshot(doc(db, "Atention", atention.id), (doc) => {
+                console.log("Current data: ", doc.data());
+                if(doc.data().status==1){
+                   
+                    Alert.alert("Confirmado", "Finalizó la atención");
+                    n.replace('NurseHome'); 
+                } 
+            });
+        } catch (error) {
+            console.log(error);
+        }
+      };
+      
+      useEffect(() => {
+        susc();
+      }, []);
   
    
         

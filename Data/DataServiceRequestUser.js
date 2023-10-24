@@ -124,7 +124,55 @@ class DataServiceRequestUser {
         status: 0
       });
     }
+
+
+
+    async registerValoration (data, n){
+      try {
+        if(n==1){
+          const ref = doc(db, "Atention", data.id);
     
+          await updateDoc(ref, {
+            status: 1,
+            valoration: data.valoration
+          });
+          return true;
+        }
+        else {
+          const ref = doc(db, "Atention", data.id);
+    
+          await updateDoc(ref, {
+            status: 1
+          });
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+      
+     
+    }
+    
+    async registerComplaint(data, clientName){
+
+      try {
+        const complaintRef = collection(db, "Complaint");
+        const atentionRef = doc(db, "Atention", data.id);
+
+      const res = await addDoc(complaintRef,
+         {
+          clientName: clientName,
+          date: serverTimestamp(),
+          description: data.description,
+          atentionRef: atentionRef
+
+      }) ;
+      return true;
+      } catch (error) {
+        return false;
+      }
+      
+    }
 }
 
 export default DataServiceRequestUser;

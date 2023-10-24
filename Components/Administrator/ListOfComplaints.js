@@ -45,7 +45,7 @@ const ListOfComplaints = () => {
   const gettingDetails = async (ref) => {
     let dt= new DataListOfComplaints(); 
     let atentionRequest= await dt.getAnAtenionByReference(ref); 
-    //n.navigate("AtentionByRef", {atentionn: atentionRequest});
+    n.navigate("AOpen", {atentionn: atentionRequest});
   }
 
   return (

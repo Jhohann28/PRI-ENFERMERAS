@@ -1,7 +1,7 @@
 
 export const regexNombre = /^[A-Za-zÁ-ÿ\s]+$/;
 export const regexApellido = /^[A-Za-zÁ-ÿ\s]+$/;
-export const regexCI = /^\d{7,8}$/;
+export const regexCI = /^(?:E-)?[1-9]\d{5,7}(?:-\d[A-Z])?$/;
 export const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 export const regexGenero = /^(Masculino|Femenino|Otro)$/;
 export const regexCelular = /^\d{8}$/;

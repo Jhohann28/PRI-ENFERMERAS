@@ -9,6 +9,9 @@ class Validations {
         return emailRegex.test(word);
     }
 
+
+    
+
     
 
 

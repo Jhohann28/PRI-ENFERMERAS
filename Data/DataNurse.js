@@ -52,7 +52,8 @@ class DataNurse{
         const formattedDate = date.toLocaleDateString('es-ES', options);
         this.r = new AtentionRequest(d.id, formattedDate, data.description, data.imageName, data.imageUrl,service,  data.status, data.updateDate, person);
          
-
+       // this.r.serviceAuxRef= data.serviceRef;
+        //this.r.userAuxRef= data.userRef;
 
         return this.r;
       }

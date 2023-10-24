@@ -18,6 +18,7 @@ import DataJobRequest from '../../Data/DataJobRequest.js';
 import { stylesNf } from '../../Styles/FormNurseStyles.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome } from '@expo/vector-icons';
+import ValidateJob from '../../Tools/JobRequestValidator.js';
 
 
 
@@ -27,45 +28,26 @@ export default function JobRequest() {
 
   //#region USESTATES
     const [ci, setCi] = useState('');
-    const [nombre, setNombre] = useState('');
-    const [apellidoPaterno, setApellidoPaterno] = useState('');
-    const [apellidoMaterno, setApellidoMaterno] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [especialidad, setEspecialidad] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [añoTitulacion, setAñoTitulacion] = useState(new Date());
-    const [institucionAcademica, setInstitucionAcademica] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [secondLastName, setSecondLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [speciality, setSpeciality] = useState('');
+    const [phone, setPhone] = useState('');
+    const [titulationDate, setTitulationDate] = useState(new Date());
+    const [graduationInstitution, setGraduationInstitution] = useState('');
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [validationMessageNombre, setValidationMessageNombre] = useState('');
-    const [isNameValid, setIsNameValid] = useState(true);
-    const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
-    const [validationMessagePhoneNumber, setValidationMessagePhoneNumber ] = useState('');
-    const [validationMessage, setValidationMessage] = useState('');
-    const [validationMessages, setValidationMessages] = useState({
-      nombre: '',
-      telefono: '',
-      // ... Agrega más campos según sea necesario ...
-    });
+ 
 
   //#endregion
     const handleNameChange = (text) => {
-      setNombre(text);
+      setName(text);
 
-    const regexForName = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
-    const isValidName = regexForName.test(text);
+ 
 
-    const regexForNumbers = /^[0-9]+$/;
-    const isValidNumber = regexForNumbers.test(text);
+   
 
-    setValidationMessages({
-      ...validationMessages,
-      nombre: isValidName ? '' : 'Por favor, ingrese un nombre válido.',
-      telefono: isValidNumber ? '' : 'Por favor, ingrese un número válido.',
-      // ... Ajusta las validaciones para otros campos según sea necesario ...
-    });
-
-    setIsNameValid(isValidName);
-    setIsPhoneNumberValid(isValidNumber);
+   
       
     };
     
@@ -75,7 +57,7 @@ export default function JobRequest() {
 
       setShowDatePicker(false);     
       if (date !== undefined) {       
-        setAñoTitulacion(date);     
+        setTitulationDate(date);     
       }  
      };  
     const[uri, seturi] = useState("");
@@ -111,32 +93,39 @@ export default function JobRequest() {
 
     const LoadFiles= async()=>{
         try {
-          if (!isNameValid || !isPhoneNumberValid) {
-            setValidationMessage('Por favor, corrija los errores antes de enviar la solicitud.');
-            Alert.alert(validationMessage);
-            return;
-          }
+          
           
 
             let data={
-                ci:ci,//permitir letras y numeros 106512-A , 12313212 , permitir una E al inicio *opcional
-                email:correo,//regex correo
-                graduationInstitution:institucionAcademica, //mismo regex que nombre
-                lastName:apellidoPaterno,//permitir solo letras con acentos y ñ
-                names:nombre,//permitir espacios pero que el campo no este lleno de espacios
-                phone:telefono,//solo numeros de 6 a 8
-                secondLastName:apellidoMaterno,//puede estar vacio pero si no esta vacio validar
-                speciality:especialidad,//mismo regex que nombre
-                titulationDate: añoTitulacion
+                ci:ci.trim(),//permitir letras y numeros 106512-A , 12313212 , permitir una E al inicio *opcional
+                email:email.trim(),//regex correo
+                graduationInstitution:graduationInstitution.trim(), //mismo regex que nombre
+                lastName:lastName.trim(),//permitir solo letras con acentos y ñ
+                names:name.trim(),//permitir espacios pero que el campo no este lleno de espacios
+                phone:phone.trim(),//solo numeros de 6 a 8
+                secondLastName:secondLastName.trim(),//puede estar vacio pero si no esta vacio validar
+                speciality:speciality.trim(),//mismo regex que nombre
+                titulationDate: titulationDate
             }
-            
-
+            let vldtn = new ValidateJob();
+            let validRes =vldtn.validateAllJob(data);
+            if(validRes != true){
+                Alert.alert("Error en el ingreso de los campos", validRes);
+                return;
+            }
 
 
             let dataJobr = new DataJobRequest();
-      await  dataJobr.uploadFiles(names,uri,data); //ya da siuu
-      console.log("Se registro");  
-      Alert.alert('Se registro')
+            let res=  await  dataJobr.uploadFiles(names,uri,data); //ya da siuu
+            if(res== true){
+              console.log("Se registro");  
+              Alert.alert("Éxito", 'Se envió su solicitud de trabajo al administrador, espere por una respuesta')
+              nav.navigate("StartPage");
+            }
+            else{
+              Alert.alert('Error', "ha habido un error, verifique que el correo esté disponible y que subió su pdf")
+            }
+      
         } catch (error) {
             
         }
@@ -167,18 +156,18 @@ export default function JobRequest() {
           <TextInput
             style={stylesNf.input}
             placeholder="Nombre"
-            value={nombre}
+            value={name}
             onChangeText={handleNameChange}
           />
-          <Text style={stylesNf.validationMessage}>{validationMessages.nombre}</Text>
+        
         </View>
       <View style={stylesNf.section}>
         <Text style={stylesNf.label}>Apellido Paterno</Text>
         <TextInput
           style={stylesNf.input}
           placeholder="Apellido Paterno"
-          value={apellidoPaterno}
-          onChangeText={(text) => setApellidoPaterno(text)}
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
         />
         
       </View>
@@ -187,8 +176,8 @@ export default function JobRequest() {
         <TextInput
           style={stylesNf.input}
           placeholder="Apellido Materno"
-          value={apellidoMaterno}
-          onChangeText={(text) => setApellidoMaterno(text)}
+          value={secondLastName}
+          onChangeText={(text) => setSecondLastName(text)}
         />
         
       </View>
@@ -197,8 +186,8 @@ export default function JobRequest() {
         <TextInput
           style={stylesNf.input}
           placeholder="Correo"
-          value={correo}
-          onChangeText={(text) => setCorreo(text)}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         
       </View>
@@ -207,8 +196,8 @@ export default function JobRequest() {
         <TextInput
           style={stylesNf.input}
           placeholder="Especialidad"
-          value={especialidad}
-          onChangeText={(text) => setEspecialidad(text)}
+          value={speciality}
+          onChangeText={(text) => setSpeciality(text)}
         />
         
       </View>
@@ -217,24 +206,24 @@ export default function JobRequest() {
           <TextInput
             style={stylesNf.input}
             placeholder="Teléfono"
-            value={telefono}
-            onChangeText={(text) => setTelefono(text)}
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
           />
-          <Text style={stylesNf.validationMessage}>{validationMessages.telefono}</Text>
+          
         </View>
       <Text>Fecha de Titulación</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
         <View style={stylesNf.dateTimePicker}>
           <FontAwesome name="calendar" size={20} color="#333" style={stylesNf.calendarIcon} />
           <Text style={stylesNf.dateTimePickerText}>
-            {añoTitulacion != null ? añoTitulacion.toLocaleDateString() : "Ingrese fecha de Titulación"}
+            {titulationDate != null ? titulationDate.toLocaleDateString() : "Ingrese fecha de Titulación"}
           </Text>
         </View>
       </TouchableOpacity>
 
       {showDatePicker && (
         <DateTimePicker
-          value={añoTitulacion}
+          value={titulationDate}
           mode="date"
           display="default"
           onChange={handleDateChange}
@@ -246,9 +235,9 @@ export default function JobRequest() {
         <TextInput
           style={stylesNf.input}
           placeholder="Institución Academica"
-          value={institucionAcademica}
+          value={graduationInstitution}
         
-        onChangeText={(text) => setInstitucionAcademica(text)}
+        onChangeText={(text) => setGraduationInstitution(text)}
         />
         
       </View>

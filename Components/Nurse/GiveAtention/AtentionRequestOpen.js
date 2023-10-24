@@ -66,7 +66,7 @@ const AtentionRequestOpen = () => {
 
         GoToMainAtent=async()=>{
             let n = new NurseAtentionData();
-           if(await n.IsStillDisponible(atention)) {
+           if(await n.IsStillDisponible(atention, myuser.userAuthID)) {
             nav.replace("AtentionOK",{atention: atention});
            }
            else{
@@ -140,8 +140,8 @@ const AtentionRequestOpen = () => {
                 
                     }
                     <View style={styles.horizontal} >
-                <TouchableOpacity style={styles.btnAccept}>
-                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18}} onPress={()=>GoToMainAtent(atention)}>Aceptar</Text>
+                <TouchableOpacity style={styles.btnAccept} onPress={()=>GoToMainAtent(atention)}>
+                                      <Text style={{textAlign:"center", fontWeight:"bold", fontSize:18}} >Aceptar</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btnRemove}>
                                       <Text  style={{textAlign:"center", fontWeight:"bold", fontSize:18, color:"white"}}  onPress={()=>nav.replace("NurseHome")} >Cerrar</Text>

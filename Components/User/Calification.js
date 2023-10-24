@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Button, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, Button, TouchableHighlight, ActivityIndicator, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import styles from '../../Styles/StartPageStyles.js';
 import { Ionicons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
@@ -6,14 +6,42 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import DataUser from '../../Data/DataUser.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import DataServiceRequestUser from '../../Data/DataServiceRequestUser.js';
 export default function Calification() {
 
-  
+  const n = useNavigation();
+  const r = useRoute();
+
+  const {Atention} = r.params;
+
+
+
    const [starCount, setStarCount]= useState(0);
         
        
-        
-          
+     const registerValoration=async()=>{
+        const data ={
+            valoration: starCount,
+            id:Atention.id
+        }
+        let dt = new DataServiceRequestUser();
+        let result = await dt.registerValoration(data, 1);
+        if(result==true){
+            Alert.alert("Éxito","Calificación registrada exitósamente, la atención finalizó");
+            n.replace("UserHome");
+        }
+     }   
+     const goToComplaint=async()=>{
+        const data ={
+            valoration: starCount,
+            id: Atention.id
+        }
+        let dt = new DataServiceRequestUser();
+        let result = await dt.registerValoration(data, 0);
+        if(result ==true){
+            n.replace("UserComplaint", {idAtention:Atention.id});
+        }
+     }  
         
         useEffect(()=>{
            // getLocalUser();
@@ -30,9 +58,9 @@ export default function Calification() {
             </View>
             <ScrollView style={styles.myScroll} >
                 
-            <Text style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}>El precio del servicio fue: 123 Bs. </Text>
-            <Text  style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}>Hubo un costo adicional de: 10 Bs</Text>
-            <Text  style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}> Haciendo en total: 133Bs</Text>
+            <Text style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}>El precio del servicio fue: {Atention.serviceCurrentCost} Bs. </Text>
+            <Text  style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}>Hubo un costo adicional de: {Atention.aditionalCost} Bs</Text>
+            <Text  style={{fontWeight:"bold", fontSize:21, textAlign:"center", color:"#0D47a1", margin:10}}> Haciendo en total: {Atention.serviceCurrentCost+Atention.aditionalCost} Bs</Text>
             <View style={{margin:20}}>
                 <StarRating
                     disabled={false}
@@ -45,11 +73,11 @@ export default function Calification() {
                 <Image source={require("../../assets/images/GeneralImages/client.png")} style={{width:360, height:260, alignSelf:"center"}}></Image>
 
         <View style={{width:"100%", alignItems:"center", margin:5}}>
-        <TouchableOpacity style={styles.btnTypeOne}>
+        <TouchableOpacity style={styles.btnTypeOne} onPress={()=>{registerValoration();}}>
                 <Text style={styles.btnTypeOneText} >Confirmar</Text>
            </TouchableOpacity>
            <View style={{margin:10}}></View>
-           <TouchableOpacity style={styles.btnTypeThree}>
+           <TouchableOpacity style={styles.btnTypeThree}  onPress={()=>{goToComplaint();}}>
                 <Text  style={styles.btnTypeOneText}>Tengo una QUEJA</Text>
            </TouchableOpacity>
         </View>

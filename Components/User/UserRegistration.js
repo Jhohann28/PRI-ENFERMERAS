@@ -34,13 +34,13 @@ import { useNavigation } from '@react-navigation/core';
   const handleSubmit = async () => {
     // Crea un objeto person con los valores de los estados
     const person = {
-      ci,
-      names,
-      lastName,
-      secondLastname,
-      email,
-      gender,
-      phone,
+      ci:ci.trim(),
+      names:names.trim(),
+      lastName:lastName.trim(),
+      secondLastname:secondLastname.trim(),
+      email:email.trim(),
+      gender:gender,
+      phone:phone.trim(),
     };
 
     
@@ -59,6 +59,7 @@ import { useNavigation } from '@react-navigation/core';
 
       console.log("estoy entrando");
       await dataUser.registerUser(person);
+      Alert.alert("Se registró", "Revise su correo electrónico para ingresar.")
       n.navigate("Loggin",{type:0});
       setCi('');
       setNames('');
@@ -70,6 +71,7 @@ import { useNavigation } from '@react-navigation/core';
 
     } catch (error) {
       console.log(error);
+      Alert.alert("Error", "Ha ocurrido un error insesperado");
     }
   
   }

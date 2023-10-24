@@ -159,22 +159,8 @@ class DataUser{
     async saveUser(data, email, psw){
       let mcollection = collection(db,"User");
       console.log("llegué");
-      await addDoc(mcollection, data).then(async docRef=>{
-        try {
-          let sender = new MySender();
-          await sender.sendMail(email, "Usuario creado: ", "Bienvenido, use esta contraseña la primera vez: "+psw);
-  
-          return true;
-        } catch (error) {
-        console.error(error);
-          
-        }
-       
-      })
-      .catch(error=>{
-        console.error(error);
-        return false;
-      })
+      await addDoc(mcollection, data);
+      
 
     }
 
@@ -229,43 +215,50 @@ class DataUser{
   }
 
   createUser = async (person,pas) =>{
+try {
+  let collectionnn= collection(db, "Client");
+  var mail = person.email;
+  const newClient ={
 
-      let collectionnn= collection(db, "Client");
-      var mail = person.email;
-      const newClient ={
+      names: person.names,
+      lastName: person.lastName,
+      secondLastname: person.secondLastname,
+      email: person.email,
+      phone: person.phone,
+      ci: person.ci,
+      status: 1,
+      gender: person.gender,
+      registrationDate: serverTimestamp(),
+      updateDate: serverTimestamp(),
+  }
 
-          names: person.names,
-          lastName: person.lastName,
-          secondLastname: person.secondLastname,
-          email: person.email,
-          phone: person.phone,
-          ci: person.ci,
+  await addDoc(collectionnn, newClient).then(async docRef=>{
+      const userSys ={
+            
+          location: {
+              latitude: 34.0522,
+              longitude: -118.254
+          },
+          personRef: docRef,
+          role: 0,
           status: 1,
-          gender: person.gender,
           registrationDate: serverTimestamp(),
           updateDate: serverTimestamp(),
-      }
+          userAuthId: this.AuthID
+      };
+      console.log("llegue aqui")
+      
+      await this.saveUser(userSys, mail,pas);
+      let sender = new MySender();
+        await sender.sendMail(mail, "Usuario creado: ", "Bienvenido, use esta contraseña la primera vez: "+pas);
+        console.log("HOLA");
+      return true;
+  })
 
-      await addDoc(collectionnn, newClient).then(async docRef=>{
-          const userSys ={
-                
-              location: {
-                  latitude: 34.0522,
-                  longitude: -118.254
-              },
-              personRef: docRef,
-              role: 0,
-              status: 1,
-              registrationDate: serverTimestamp(),
-              updateDate: serverTimestamp(),
-              userAuthId: this.AuthID
-          };
-          console.log("llegue aqui")
-          
-          await this.saveUser(userSys, mail,pas);
-          return true;
-      })
-
+} catch (error) {
+  return false;
+}
+     
       
 
 
