@@ -12,15 +12,28 @@ const stylesAdmin = StyleSheet.create({
         backgroundColor: "#002f5C",
         height: 310,
         borderRadius: 25,
-   
-
     },
     container22: {
         backgroundColor: "#002f5C",
         height: 310,
         borderRadius: 25,
-   
+    },
+    search: {
 
+        backgroundColor: "#FFFFFF",
+        width: 320,
+        marginLeft: 5,
+        marginTop: 20,
+        borderRadius: 10,
+        height: 45,
+        textAlign: 'left',
+        padding: 10,
+        
+    },
+    iconSearchs: {
+        position: 'absolute',
+        top: 25,
+        left: 310,
     },
     container3: {
         backgroundColor: "#315488",
@@ -41,7 +54,6 @@ const stylesAdmin = StyleSheet.create({
         alignSelf:"center",
         justifyContent:"center",
         alignItems:"center",
-
     },
     container4: {
         backgroundColor: "#FFFFFF",
@@ -75,7 +87,8 @@ const stylesAdmin = StyleSheet.create({
         marginTop: 15,
         marginLeft: 35,
         fontStyle: 'italic',
-        fontWeight: '900'
+        fontWeight: '900',
+        marginBottom: 10
     },
     btnJobApplications: {
         backgroundColor: "#B4B6F1",
@@ -140,7 +153,9 @@ const stylesAdmin = StyleSheet.create({
         marginTop: 15,
         fontStyle: 'italic',
         fontWeight: 'bold',
-        alignSelf:"flex-start"
+        alignSelf:"flex-start",
+        marginLeft: 35
+
 
 
     },
