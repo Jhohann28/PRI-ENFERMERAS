@@ -20,6 +20,7 @@ import { getDatabase, onValue, ref, set } from "firebase/database";
 import appFirebase from "../../Data/firebaseConfig.js";
 import DataMap from "../../Data/DataMap.js";
 
+const customIcon = require('../../../assets/images/Location/userIcon.gif');
 
 
 const db = getDatabase(appFirebase);
@@ -65,8 +66,8 @@ const DetailOfNurseOnTheWay = () => {
       try {
         const lt = snapshot.val();
         if (snapshot.val().latitude == -1000) {
-          n.replace('BeingServed',{idAtention:service}); 
-          
+          n.replace('BeingServed', { idAtention: service });
+
         }
         setNurseLocations(lt);
       } catch (error) {
@@ -135,7 +136,7 @@ const DetailOfNurseOnTheWay = () => {
 
 
           >
-
+            <Image source={customIcon} style={{ width: 30, height: 50 }}></Image>
 
 
           </Marker> : ""}
@@ -163,7 +164,7 @@ const DetailOfNurseOnTheWay = () => {
           >
 
 
-
+            <Image source={customIcon} style={{ width: 30, height: 50 }}></Image>
 
           </Marker> : ""}
 
@@ -172,7 +173,7 @@ const DetailOfNurseOnTheWay = () => {
             origin={location}
 
             destination={nurseLocations}
-
+            apikey="AIzaSyA_ls_slrYWqP45l0ROO3i5s2CgUmgcefk"
             //apikey="AIzaSyBgmYM83-TooUkEELOLCd6uZE6I_bDz59M" // Reemplaza con tu clave de API de Google Maps
 
             strokeWidth={3}
