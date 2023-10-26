@@ -7,10 +7,12 @@ import {Ionicons, FontAwesome} from '@expo/vector-icons';
 import ResignationData from '../../Data/SubmitResignationRequest.js'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 
 const NurseResignationScreen = () => {
     
+    const n = useNavigation();
   const [reason, setReason] = useState('');
   const [noshowDates, setShowDates] = useState(false);
   const[myuser, setuser] = useState("");
@@ -46,6 +48,7 @@ const NurseResignationScreen = () => {
       await resignationData.sendResignations({ reason });
       Alert.alert("EXITO!!", "Se envio su solicitud");
       setReason('');
+      n.navigate("NurseHome")
 
     } catch (error) {
       Alert.alert('Error al enviar la solicitud de renuncia. Por favor, inténtalo de nuevo.');

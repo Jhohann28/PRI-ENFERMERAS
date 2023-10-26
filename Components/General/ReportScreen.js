@@ -1,101 +1,211 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
+import DataReports from '../../Data/DataReports';
 
 
 const ReportScreen = () => {
-  // Datos de ejemplo para los gráficos
-  const servicesData = {
-    labels: ['Servicio A', 'Servicio B', 'Servicio C'],
+   
+
+    const[laading, setLoading]= useState(false);
+
+
+
+    const[nursesData, setNursesData] = useState(  {
+      labels: [""],
+      datasets: [
+        {
+          data: [""], 
+        },
+      ],
+    })
+
+  const [servicesData, setServiceData] = useState({
+    labels: ['Servicio A'],
     datasets: [
       {
-        data: [100, 90,120], // Cantidad de servicios requeridos (ficticios)
+        data: [100], // Cantidad de servicios requeridos (ficticios)
       },
     ],
-  };
-
-  const nursesData = {
-    labels: ['Enfermera 1', 'Enfermera 2', 'Enfermera 3'],
+  });
+  const [clientsPaidData, setClientsPaidData] = useState({
+    labels: ['Cliente A'],
     datasets: [
       {
-        data: [90, 110, 80], // Recaudación por enfermera (ficticia)
+        data: [150],
       },
     ],
-  };
+  });
+  
 
-  const clientsPaidData = {
-    labels: ['Cliente A', 'Cliente B', 'Cliente C'],
+  const [clientsAttendedData, setClientsAttendedData] = useState( {
+    labels: ['Cliente A'],
     datasets: [
       {
-        data: [150, 120, 100], // Monto pagado por cada cliente (ficticio)
+        data: [10], 
       },
     ],
-  };
+  });
 
-  const clientsAttendedData = {
-    labels: ['Cliente A', 'Cliente B', 'Cliente C'],
+  const [nurseAttentionsData, setNurseAttentionData] = useState({
+    labels: ['Enfermera 1'],
     datasets: [
       {
-        data: [10, 7, 3], // Número de atenciones recibidas por cada cliente (ficticio)
+        data: [15], 
       },
     ],
-  };
+  });
 
-  const nurseAttentionsData = {
-    labels: ['Enfermera 1', 'Enfermera 2', 'Enfermera 3'],
-    datasets: [
-      {
-        data: [15, 20, 12], 
-      },
-    ],
-  };
+ 
 
+
+  const mtd = async ()=>{
+    setLoading(true);
+
+    try {
+      let dt = new DataReports();
+
+      await dt.getReportNurses();
+      await dt.getReportServices();
+      await dt.getReportUsers();
+  
+  
+  
+      let nurseOrdered= await dt.nursesReportsList.sort((a, b) => b.totalWon - a.totalWon);
+      let serviceOrdered= await dt.servicesReportsList.sort((a, b) => b.nAtentions - a.nAtentions)
+      let clientOrdered= await dt.usersReportsList.sort((a, b) => b.totalWon - a.totalWon);
+      let clientOrderedByCount= await dt.usersReportsList.sort((a, b) => b.nAtentions - a.nAtentions);
+      let nurseOrderedByCount= await dt.nursesReportsList.sort((a, b) => b.nAtentions - a.nAtentions);
+
+
+
+     
+  
+      console.log("Paso here -1");
+
+       let nursesDataa = {
+        labels: [nurseOrdered[0].names, nurseOrdered[1].names, nurseOrdered[2].names],
+        datasets: [
+          {
+            data: [nurseOrdered[0].totalWon, nurseOrdered[1].totalWon, nurseOrdered[2].totalWon], // Recaudación por enfermera (ficticia)
+          },
+        ],
+      };
+      console.log("Paso here");
+      let cdata2 = {
+        labels: [clientOrderedByCount[0].names, clientOrderedByCount[1].names, clientOrderedByCount[2].names],
+        datasets: [
+          {
+            data: [clientOrderedByCount[0].nAtentions, clientOrderedByCount[1].nAtentions, clientOrderedByCount[2].nAtentions], // Recaudación por enfermera (ficticia)
+          },
+        ],
+      };
+      console.log("Paso here2");
+
+      let cpdata = {
+        labels: [clientOrdered[0].names, clientOrdered[1].names, clientOrdered[2].names],
+        datasets: [
+          {
+            data: [clientOrdered[0].totalWon, clientOrdered[1].totalWon, clientOrdered[2].totalWon], // Recaudación por enfermera (ficticia)
+          },
+        ],
+      };
+
+
+      let serviceDataa = {
+        labels: [serviceOrdered[0].names, serviceOrdered[1].names, serviceOrdered[2].names],
+        datasets: [
+          {
+            data: [serviceOrdered[0].nAtentions, serviceOrdered[1].nAtentions, serviceOrdered[2].nAtentions], // Recaudación por enfermera (ficticia)
+          },
+        ],
+      };
+      
+      let nurseData2 = {
+        labels: [nurseOrderedByCount[0].names, nurseOrderedByCount[1].names, nurseOrderedByCount[2].names],
+        datasets: [
+          {
+            data: [nurseOrderedByCount[0].nAtentions, nurseOrderedByCount[1].nAtentions, nurseOrderedByCount[2].nAtentions], // Recaudación por enfermera (ficticia)
+          },
+        ],
+      };
+      
+      setNursesData(nursesDataa);
+      setServiceData(serviceDataa);
+      setClientsPaidData(cpdata);
+      setNurseAttentionData(nurseData2);
+      setClientsAttendedData(cdata2);
+  
+    } catch (error) {
+      console.log(error);
+    }
+   
+
+    setLoading(false);
+
+
+  }
+
+
+
+  useEffect(()=>{
+ mtd();
+  },[])
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.mainContainer}>
         <Text style={styles.header}>Reportes en General</Text>
+       {laading?<ActivityIndicator size="large" color="white"></ActivityIndicator>:""} 
 
+       
         <View style={styles.chartContainer}>
-          <Text style={styles.title}>Servicios más requeridos</Text>
-          <BarChart
-            data={servicesData}
-            width={300}
-            height={200}
-            yAxisLabel="Cantidad"
-            chartConfig={chartConfig}
-          />
-        </View>
-
-        <View style={styles.chartContainer}>
-          <Text style={styles.title}>Enfermeras con más recaudación</Text>
+        <Text style={styles.title}>Servicios más requeridos</Text>
+        <BarChart
+          data={servicesData}
+          width={350}
+          height={300}
+          
+          chartConfig={chartConfig}
+          showValuesOnTopOfBars={true}
+        />
+      </View>
+      
+       
+         <View style={styles.chartContainer}>
+          <Text style={styles.title}>Enfermeras con más recaudación Bs</Text>
           <BarChart
             data={nursesData}
-            width={300}
-            height={200}
-            yAxisLabel="Recaudación"
+            width={350}
+            height={300}
+            
             chartConfig={chartConfig}
+            showValuesOnTopOfBars={true}
           />
         </View>
 
+      
         <View style={styles.chartContainer}>
-          <Text style={styles.title}>Clientes que más pagaron</Text>
+          <Text style={styles.title}>Clientes con mayor monto de pago Bs.</Text>
           <BarChart
             data={clientsPaidData}
-            width={300}
-            height={200}
-            yAxisLabel="Monto Pagado"
+            width={350}
+            height={300}
+            
             chartConfig={chartConfig}
+            showValuesOnTopOfBars={true}
           />
-        </View>
+        </View> 
+       
 
         <View style={styles.chartContainer}>
           <Text style={styles.title}>Clientes que más atenciones recibieron</Text>
           <BarChart
             data={clientsAttendedData}
-            width={300}
-            height={200}
-            yAxisLabel="Número de Atenciones"
+            width={350}
+            height={300}
+            
             chartConfig={chartConfig}
+            showValuesOnTopOfBars={true}
           />
         </View>
 
@@ -103,10 +213,11 @@ const ReportScreen = () => {
           <Text style={styles.title}>Enfermeras que más atenciones dieron</Text>
           <BarChart
             data={nurseAttentionsData}
-            width={300}
-            height={200}
-            yAxisLabel="Número de Atenciones"
+            width={350}
+            height={300}
+            
             chartConfig={chartConfig}
+            showValuesOnTopOfBars={true}
           />
         </View>
       </View>
@@ -115,16 +226,16 @@ const ReportScreen = () => {
 };
 
 const chartConfig = {
-    backgroundGradientFrom: '#e8f0ff',
+    backgroundGradientFrom: 'white',
     backgroundGradientTo: '#e8f0ff',
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    color: (opacity = 1) => `rgba(1, 72, 111, ${opacity})`
     
   };
 
   const styles = StyleSheet.create({
     scrollContainer: {
       flexGrow: 1,
-      backgroundColor: '#326695',  // Cambia este color según tus preferencias
+      backgroundColor: '#326695',  
     },
     mainContainer: {
       flex: 1,
@@ -135,12 +246,13 @@ const chartConfig = {
       borderRadius: 40,
       padding: 20,
       margin: 10,
-      backgroundColor:'#96B4FF',
+      backgroundColor:'rgba(1, 72, 111, 1)',
     },
     header: {
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 20,
+      color:"white"
     },
     chartContainer: {
       marginBottom: 20,
@@ -148,7 +260,9 @@ const chartConfig = {
     title: {
       fontSize: 18,
       fontWeight: 'bold',
+      color:"white",
       marginTop: 10,
+
     },
   });
   

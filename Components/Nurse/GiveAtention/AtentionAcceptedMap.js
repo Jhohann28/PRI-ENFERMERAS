@@ -187,7 +187,7 @@ const AtentionAcceptedMap = () => {
                         {location!=null && locationUser!=null ?  <MapViewDirections
                             origin={location.coords}
                             destination={locationUser}
-                          //  apikey="AIzaSyAwM90zqo1GBuXDpnqTS2-bzA9Y0aiUBmQ" // Reemplaza con tu clave de API de Google Maps
+                            apikey="AIzaSyA_ls_slrYWqP45l0ROO3i5s2CgUmgcefk" // Reemplaza con tu clave de API de Google Maps
                             strokeWidth={3}
                             strokeColor="#0000FF"
                             
