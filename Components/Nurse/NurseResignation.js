@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import { stylesNurse } from '../../Styles/NurseStyles.js';
 import profile from '../../assets/images/GeneralImages/perfil.jpg';
-import {Ionicons, FontAwesome} from '@expo/vector-icons';
+import {Ionicons, FontAwesome, MaterialIcons} from '@expo/vector-icons';
 
 import ResignationData from '../../Data/SubmitResignationRequest.js'
 
@@ -61,10 +61,7 @@ const NurseResignationScreen = () => {
                 <Text style={stylesNurse.texto}>Hello</Text>
                 <Text style={stylesNurse.texto1}>{myuser!=""? myuser.personRef.names+" "+ myuser.personRef.lastName :""}</Text>
 
-                <Image
-                    source={profile}
-                    style = {stylesNurse.image}
-                />               
+                <MaterialIcons name="account-circle" size={74} color="black"  style = {stylesNurse.image} />            
            </View>
            <View style = {stylesNurse.container5}>
                 <Text style = {stylesNurse.textTitle}>Solicitar Renuncia</Text>

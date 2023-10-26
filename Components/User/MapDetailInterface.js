@@ -20,7 +20,8 @@ import { getDatabase, onValue, ref, set } from "firebase/database";
 import appFirebase from "../../Data/firebaseConfig.js";
 import DataMap from "../../Data/DataMap.js";
 
-const customIcon = require('../../../assets/images/Location/userIcon.gif');
+const customIcon = require('../../assets/images/Location/userIcon.gif');
+
 
 
 const db = getDatabase(appFirebase);

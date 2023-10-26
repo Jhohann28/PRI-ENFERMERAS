@@ -62,12 +62,9 @@ export default function StartPage() {
           
         
         useEffect(()=>{
-           getLocalUser();
+           //getLocalUser();
 
         },[])
-
-
-
     return (
         <>
         <View style={styles.container}>
