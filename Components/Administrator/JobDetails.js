@@ -9,8 +9,10 @@ import logo from '../../assets/images/GeneralImages/logo.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
 
 const JobDetails = () => {
+  const [loading, setLoading] = useState(false);
   const[myuser, setuser] = useState("");
   var muser="";
   const [JobRequests, setJobRequest] = useState([]);
@@ -34,11 +36,17 @@ useEffect(()=>{
 },[])
 
   const load = async () => {
-    let d = new DataJobRequest();
-    let aux = [];
-    aux = await d.getJobRequest();
-    setJobRequest(aux);
-    console.log(JobRequests);
+    setLoading(true);
+    try {
+      let d = new DataJobRequest();
+      let aux = [];
+      aux = await d.getJobRequest();
+      setJobRequest(aux);
+      console.log(JobRequests);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);  
   };
 
   useEffect(() => {
@@ -76,27 +84,30 @@ useEffect(()=>{
       </View>
       <View style={stylesAdmin.container3}>
         <ScrollView style={{width:"100%"}}>
-        {JobRequests.length > 0 ?
-          JobRequests.map((item) => (
-            <View style={stylesDetails.itemContainer} key={item.id}>
-              <View style={[stylesDetails.itemInnerContainer, { backgroundColor: 'white', borderRadius: 10 }]}>
-                <View style={stylesDetails.itemDetails}>
-                  <Text style={stylesDetails.itemText}>Nombre: {item.names+" "+item.lastName}</Text>
-                  <Text style={stylesDetails.itemText}>Egresado de: {item.graduationInstitution}</Text>
-                  <Text style={stylesDetails.itemText}>Especialidad: {item.speciality}</Text>
-                  <View style={stylesDetails.buttonsContainer}>
-                   
-                    <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#064571', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item)}>
-                      <Text style={stylesDetails.buttonText}>Ampliar</Text>
-                    </TouchableOpacity>
-                    
+          {loading ? (
+          <ActivityIndicator size="large" color="white" />
+          ) : (
+          JobRequests.length > 0 ? (
+            JobRequests.map((item) => (
+              <View style={stylesDetails.itemContainer} key={item.id}>
+                <View style={[stylesDetails.itemInnerContainer, { backgroundColor: 'white', borderRadius: 10 }]}>
+                  <View style={stylesDetails.itemDetails}>
+                    <Text style={stylesDetails.itemText}>Nombre: {item.names + " " + item.lastName}</Text>
+                    <Text style={stylesDetails.itemText}>Egresado de: {item.graduationInstitution}</Text>
+                    <Text style={stylesDetails.itemText}>Especialidad: {item.speciality}</Text>
+                    <View style={stylesDetails.buttonsContainer}>
+                      <TouchableOpacity style={[stylesDetails.button, { backgroundColor: '#064571', marginLeft: 10, marginRight: 10 }]} onPress={() => ampliarHandler(item)}>
+                        <Text style={stylesDetails.buttonText}>Ampliar</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               </View>
-
-            </View>
-          )) : <Text>No hay solicitudes de trabajo</Text>
-        }
+            ))
+          ) : (
+            <Text style={{textAlign:"center", color:"white", fontSize:15}}>No hay solicitudes de trabajo</Text>
+          )
+        )}
         </ScrollView>
       
       </View>

@@ -12,14 +12,15 @@ const UserMapStyle = StyleSheet.create({
         height: 130,
         marginTop: 15,
         width: 380,
-        
+        marginLeft: 15    
     },
     container3: {
         backgroundColor:"#0B2B42",
         borderRadius: 5,
         height: 600,
         width: 380,
-        marginTop: 20
+        marginTop: 20,
+        marginLeft: 15
     },
     textTitleInfo: {
         color: '#ffffff',

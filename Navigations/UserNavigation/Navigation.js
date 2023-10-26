@@ -33,7 +33,7 @@ function MyTabs(){
                          
                    backgroundColor: '#0367AF',
                    borderTopLeftRadius: 10,
-                   borderTopRightRadius: 10,
+                   
                    borderColor: '#ffffff'
                 }
             }}

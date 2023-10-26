@@ -96,11 +96,10 @@ const NurseScreen = () => {
                 <Text style={stylesNurse.texto1}>{myuser!=""? myuser.personRef.names+" "+ myuser.personRef.lastName :""}</Text>
                 
                 <MaterialIcons name="account-circle" size={74} color="black"  style = {stylesNurse.image} />
-                <TextInput
-                    style = {stylesNurse.inputSearch}
-                    placeholder='Buscar ofertas en el area'                   
-                />
-                <Ionicons name="search" size={30} color="black" style ={stylesNurse.iconSearch}/>
+                <Text style={stylesNurse.textoLema}>  Compasión en cada cuidado {"\n"}
+                        Esperanza en cada sonrisa.
+                </Text>
+                
                 <Text style={stylesNurse.texto2}>Ofertas</Text>
                 <Text style={stylesNurse.texto3}>Tiquipaya</Text>
            </View>

@@ -14,6 +14,7 @@ import { stylesNurse } from '../../Styles/NurseStyles.js';
 
 const ExpandedJobList = () => { //no es list
   const [load, setLoad] = useState(false);
+  
   const [date, setDate] = useState("");
   const n = useNavigation();
   const r = useRoute();
@@ -195,18 +196,19 @@ const ExpandedJobList = () => { //no es list
       <View style={stylesAdmin.container3}>
         <View style={[stylesExpanded.itemInnerContainer, { backgroundColor: 'white', borderRadius: 10, margin:5 }]}>
           <ScrollView>
-          <View style={stylesExpanded.itemDetails}>
+            <View style={stylesExpanded.itemDetails}>
 
-<Text style={stylesExpanded.itemText}>Nombre Completo: {jobRequest.names + " " + jobRequest.lastName + " " + jobRequest.secondLastname}</Text>
+              <Text style={stylesExpanded.itemText}>Nombre Completo: {jobRequest.names + " " + jobRequest.lastName + " " + jobRequest.secondLastname}</Text>
 
-<Text style={stylesExpanded.itemText}>Egresado de: {jobRequest.graduationInstitution}</Text>
-<Text style={stylesExpanded.itemText}>Fecha de egreso: {date}</Text>
-<Text style={stylesExpanded.itemText}>Especialidad: {jobRequest.speciality}</Text>
-<Text style={stylesExpanded.itemText}>Ci: {jobRequest.ci}</Text>
-<Text style={stylesExpanded.itemText}>Email: {jobRequest.email}</Text>
-<Text style={stylesExpanded.itemText}>Teléfono: {jobRequest.phone}</Text>
-<TouchableOpacity style={stylesExpanded.itemText} onPress={()=>{handleLinkPress(jobRequest.curriculum.curriculumUrl)}} ><Text style={{alignSelf:"center"}}> Ver currículum</Text></TouchableOpacity>
-</View>
+              <Text style={stylesExpanded.itemText}>Egresado de: {jobRequest.graduationInstitution}</Text>
+              <Text style={stylesExpanded.itemText}>Fecha de egreso: {date}</Text>
+              <Text style={stylesExpanded.itemText}>Especialidad: {jobRequest.speciality}</Text>
+              <Text style={stylesExpanded.itemText}>Ci: {jobRequest.ci}</Text>
+              <Text style={stylesExpanded.itemText}>Email: {jobRequest.email}</Text>
+              <Text style={stylesExpanded.itemText}>Teléfono: {jobRequest.phone}</Text>
+              <TouchableOpacity style={stylesExpanded.itemText} onPress={()=>{handleLinkPress(jobRequest.curriculum.curriculumUrl)}} ><Text style={{alignSelf:"center"}}> Ver currículum</Text></TouchableOpacity>
+              
+            </View>
           </ScrollView>
          
         </View>

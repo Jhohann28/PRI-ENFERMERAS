@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
         height: 75,
         width: 75,
         borderRadius: 37.5,
-        
-        
     },
     texto: {
         color: "#ffffff",

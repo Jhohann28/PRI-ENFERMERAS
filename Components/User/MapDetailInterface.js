@@ -89,7 +89,6 @@ const DetailOfNurseOnTheWay = () => {
     const subscription = await Location.watchPositionAsync(
 
       {
-
         accuracy: Location.Accuracy.BestForNavigation,
         timeInterval: 10000,
         distanceInterval: 3,
@@ -114,14 +113,15 @@ const DetailOfNurseOnTheWay = () => {
     text = JSON.stringify(location);
   }
   return (
+
     <View style={UserMapStyle.container}>
       <View style={UserMapStyle.container3}>
         <MapView style={UserMapStyle.map} initialRegion={{ latitude: -17.38031006310289, longitude: -66.16033831408814, latitudeDelta: 0.0041022, longitudeDelta: 0.00421 }}>
 
-          {nurseLocations != null ? <Marker
-            coordinate={{
+            {nurseLocations != null ? <Marker
+              coordinate={{
 
-              latitude: nurseLocations.latitude,
+                latitude: nurseLocations.latitude,
 
               longitude: nurseLocations.longitude,
 
@@ -138,13 +138,12 @@ const DetailOfNurseOnTheWay = () => {
           >
             <Image source={customIcon} style={{ width: 30, height: 50 }}></Image>
 
+              
+            
 
           </Marker> : ""}
 
-
-
-          {location != null ? <Marker
-
+            {location != null ? <Marker
             coordinate={{
 
               latitude: location.latitude,
@@ -152,15 +151,9 @@ const DetailOfNurseOnTheWay = () => {
               longitude: location.longitude,
 
             }}
-
             title="Ubicación de la persona"
 
             description="Descripción de la ubicación de la persona"
-
-
-
-
-
           >
 
 
