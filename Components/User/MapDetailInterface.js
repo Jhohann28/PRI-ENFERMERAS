@@ -11,7 +11,7 @@ import DataServices from '../../Data/DataServices';
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { styles } from '../../Styles/UserStyles.js';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import DataServiceRequestUser from "../../Data/DataServiceRequestUser.js";
 import Services from "../../Models/ServicesModel.js";
@@ -120,7 +120,10 @@ const DetailOfNurseOnTheWay = () => {
 
     <View style={UserMapStyle.container}>
       <View style={UserMapStyle.container3}>
-        <MapView style={UserMapStyle.map} initialRegion={{ latitude: -17.38031006310289, longitude: -66.16033831408814, latitudeDelta: 0.0041022, longitudeDelta: 0.00421 }}>
+        <MapView style={UserMapStyle.map} initialRegion={{ latitude: -17.38031006310289, longitude: -66.16033831408814, latitudeDelta: 0.0041022, longitudeDelta: 0.00421 }}
+                provider={PROVIDER_GOOGLE}
+        
+        >
 
             {nurseLocations != null ? <Marker
               coordinate={{

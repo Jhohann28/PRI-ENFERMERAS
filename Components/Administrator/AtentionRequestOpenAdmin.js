@@ -17,7 +17,7 @@ import firebase from 'firebase/app';
 import appFirebase  from "../../Data/firebaseConfig.js";
 import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot, orderBy} from "firebase/firestore";
 import MapMaker from '../../Tools/Maper.js';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import styles from '../../Styles/AtentionRequestOpenStyles.js';
 const customIcon = require('../../assets/images/Location/userIcon.gif');
 
@@ -89,6 +89,7 @@ const AtentionRequestOpenAdmin = () => {
                     latitudeDelta: 0.0041022,
                     longitudeDelta: 0.00421,
                 }}
+                provider={PROVIDER_GOOGLE}
                
                 >
                  

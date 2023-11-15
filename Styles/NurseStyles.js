@@ -238,9 +238,10 @@ const stylesNurse = StyleSheet.create({
         backgroundColor: "#98C7BE",
         borderRadius: 25,
         height: 550,
-        width: 380,
+        width: "95%",
         marginTop: 35,
-        marginLeft: 15
+        alignSelf:"center"
+        
     },
     textTitle: {
         color: "#000000",

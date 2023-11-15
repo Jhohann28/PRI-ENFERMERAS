@@ -3,7 +3,7 @@ const stylesN = StyleSheet.create({
     container: {
       
       flex: 1,
-      backgroundColor: '#c4dafa', // Fondo verde azulado
+      backgroundColor: '#c4dafa'// Fondo verde azulado
     },
     form:{
       padding:10
@@ -12,18 +12,18 @@ const stylesN = StyleSheet.create({
     title: {
       fontSize: 20,
       marginBottom: 20,
-      color: 'black',
+      color: 'black'
       
       
     },
     
     section: {
-      marginBottom: 20,
+      marginBottom: 20
     },
     label: {
       fontSize: 18,
       marginBottom: 5,
-      color: 'black',
+      color: 'black'
     },
     input: {
       height: 40,
@@ -33,7 +33,7 @@ const stylesN = StyleSheet.create({
       paddingHorizontal: 10,
       backgroundColor: 'white',
       color: 'black',
-      borderRadius: 8,
+      borderRadius: 8
     },
     textarea: {
       height: 100,
@@ -44,30 +44,30 @@ const stylesN = StyleSheet.create({
       backgroundColor: 'white',
       color: 'black',
       borderRadius: 8,
-      textAlignVertical: 'top', 
+      textAlignVertical: 'top',
     },
     
     button: {
       backgroundColor: '#064571', // Nuevo color del botón
       padding: 15,
       borderRadius: 10, // Bordes redondeados
-      alignItems: 'center',
+      alignItems: 'center'
     },
     button2: {
       backgroundColor: 'green', // Nuevo color del botón
       padding: 4,
       borderRadius: 10, // Bordes redondeados
-      alignItems: 'center',
+      alignItems: 'center'
     },
     buttonText: {
       color: 'white',
-      fontSize: 18,
+      fontSize: 18
     },
     image: {
       width: 200,
       height: 200,
       marginBottom: 10,
-      borderRadius: 10,
+      borderRadius: 10
     },
     startHeader:{
       backgroundColor: "#064571",
@@ -84,12 +84,12 @@ const stylesN = StyleSheet.create({
 
   },
     inputError: {
-      borderColor: 'red',
+      borderColor: 'red'
     },
     errorText: {
       color: 'red',
       fontSize: 14,
-      marginTop: 5,
+      marginTop: 5
     },
   
     

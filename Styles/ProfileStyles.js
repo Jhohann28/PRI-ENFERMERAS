@@ -10,13 +10,13 @@ const profileStyle = StyleSheet.create({
         marginTop: 15,
         
         width: '95%',
-        marginLeft: 10
+        alignSelf:"center"
     },
     iconProfile: {
-        marginLeft: 125,
         height: 150,
         width: 150,
         borderRadius: 75,
+        alignSelf:"center"
     },
     textHeader: {
         color: '#ffffff',
@@ -26,15 +26,17 @@ const profileStyle = StyleSheet.create({
     },
     line: {
         color: '#ffffff',
-        marginLeft: 10,
-        marginTop: 20,
+       borderBottomColor:"white",
+       width:"100%",
+      borderBottomWidth:2
         
     },
     line2: {
         color: '#ffffff',
-        marginLeft: 50,
-        marginTop: 10,
-        opacity: 0.5
+        borderTopColor:"white",
+      borderTopWidth:2,
+        marginHorizontal:20,
+        marginTop:13
     },
     container3: {
      
@@ -45,7 +47,7 @@ const profileStyle = StyleSheet.create({
     },
     container4:{     
         width: '100%',
-        height: 86,    
+        height: 86 
       
        
     },
@@ -88,7 +90,7 @@ const profileStyle = StyleSheet.create({
         height: 310,
         marginLeft: 30,
         marginTop: 260,
-        borderRadius: 25,
+        borderRadius: 25
         
         
     },
@@ -112,7 +114,7 @@ const profileStyle = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         paddingTop: 6,
-        fontWeight: '800',
+        fontWeight: '800'
 
     },
     btnAccept: {
@@ -171,7 +173,7 @@ const profileStyle = StyleSheet.create({
         marginLeft: 40,
         marginTop: 40,
         borderRadius: 10,
-        marginBottom: 30,
+        marginBottom: 70,
         alignSelf:"center"
     },
     textSaveChanges: {
@@ -182,7 +184,7 @@ const profileStyle = StyleSheet.create({
     },
     scrollViewContainer:{
         
-        height: 480,
+        height: 480
        
     },
 
@@ -200,7 +202,7 @@ const profileStyle = StyleSheet.create({
         height: 450,
         marginLeft: 30,
         marginTop: 260,
-        borderRadius: 25,
+        borderRadius: 25
         
         
     },

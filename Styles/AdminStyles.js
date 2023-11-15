@@ -221,12 +221,11 @@ const stylesAdmin = StyleSheet.create({
     container5: {
         backgroundColor: '#6C98DB',
         height: 'auto',
-        width: 350,
+        width: "95%",
         borderRadius: 15,
-        marginLeft: 10,
         marginTop: 25,
         marginBottom: 0,
-        
+        alignSelf:"center"
 
     },
 
