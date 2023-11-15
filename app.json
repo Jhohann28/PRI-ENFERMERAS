@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "PRI-ENFERMEROS",
+    "slug": "PRI-ENFERMEROS",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/GeneralImages/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/GeneralImages/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff",
+      "showDuration": 2000,
+      "hideDuration": 0,
+      "autoHide": true
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pri.enfermeros",
+      "permissions": ["PHOTO_LIBRARY"],
+      "config": {
+        "googleMapsApiKey": "AIzaSyA_ls_slrYWqP45l0ROO3i5s2CgUmgcefk"
+      }
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA8TP476Re2B60xVFsad_Aj4fGE5TfnEmo"
+        }
+      },
+      "permissions": ["CAMERA_ROLL", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/GeneralImages/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.pri.enfermeros",
+      "versionCode":5
+    },
+    "web": {
+      "favicon": "./assets/images/GeneralImages/favicon.png"
+    }
+    ,
+    "scheme": "PRI-ENFERMEROS",
+    "extra": {
+      "eas": {
+        "projectId": "5d1487b3-44ad-4f1e-8a85-a730b11c50f5"
+      }
+    }
+  }
+}
