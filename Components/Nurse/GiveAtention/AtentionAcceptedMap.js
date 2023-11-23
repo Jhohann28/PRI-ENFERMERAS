@@ -9,7 +9,7 @@ import  styles  from '../../../Styles/AtentionRequestOpenStyles.js';
 import firebase from 'firebase/app';
 import appFirebase  from "../../../Data/firebaseConfig.js";
 import { getFirestore,doc,getDoc,query,collection,where,getDocs, setDoc, serverTimestamp, addDoc, runTransaction, Transaction, onSnapshot} from "firebase/firestore";
-import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, {Marker} from "react-native-maps";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
@@ -17,6 +17,7 @@ import NurseAtentionData from '../../../Data/NurseAtentionData.js';
 import { getDatabase, ref, onValue } from '@firebase/database';
 import * as geolib from "geolib";
 import { stylesAdmin } from '../../../Styles/AdminStyles.js';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const customIcon = require('../../../assets/images/Location/userIcon.gif');
 const db = getFirestore(appFirebase);
@@ -176,8 +177,7 @@ const AtentionAcceptedMap = () => {
                     latitudeDelta: 0.0041022,
                     longitudeDelta: 0.00421,
                 }}
-                provider={PROVIDER_GOOGLE}
-               
+               provider={PROVIDER_GOOGLE}
                 >
                   { locationUser != null? <Marker
                         coordinate={{

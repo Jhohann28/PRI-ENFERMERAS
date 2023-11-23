@@ -89,8 +89,7 @@ const AtentionRequestOpenAdmin = () => {
                     latitudeDelta: 0.0041022,
                     longitudeDelta: 0.00421,
                 }}
-                provider={PROVIDER_GOOGLE}
-               
+               provider={PROVIDER_GOOGLE}
                 >
                  
                 <Marker

@@ -40,7 +40,6 @@ export default function Loggin() {
    const [request, response, myMethod ] =  Google.useAuthRequest({
     iosClientId:"838277525434-lk0omg23t69gm761k2ct90op2djjqqfv.apps.googleusercontent.com"
     , androidClientId:"838277525434-spu7snilotg0a1t14c8o2blqrbl9ifc6.apps.googleusercontent.com"
-
   });
  //  setLoading(true);
 

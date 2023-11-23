@@ -24,26 +24,20 @@ export default function App() {
 
     
     return (
-   
-      <>
-        <MyStatusBar></MyStatusBar>
+        //--1--
+    
         <StartNavigator></StartNavigator>
-      </>
+     
         
     
     )
-      /*  <StartNavigator></StartNavigator>*/
+      /*  
+       <MyStatusBar></MyStatusBar>
+       //COLOCAR ESTE COMPONENTE EN --1--   CUANDO SE ESTA TRABAJANDO DESDE EL LOCALHOST Y NO EN MODO CLIENT
+      */
     /*Interfaces para mostrar 3*/
     
-    /*<Home></Home>*/
-    /*<UserNavigation></UserNavigation>*/
-    /*<NurseScreen></NurseScreen>*/
-    /*<NurseNavigation></NurseNavigation>*/
-    /*<NurseResignationScreen></NurseResignationScreen>*/
-    /*<AdminScreen></AdminScreen>*/
-    /*<AdminNavigation></AdminNavigation>
-    <MyStatusBar></MyStatusBar>
-       <StartNavigator></StartNavigator>*/
+  
     
 
 

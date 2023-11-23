@@ -200,12 +200,12 @@ const GeneralProfile = () => {
                 <Text style={profileStyle.textHeader}>Perfil</Text> 
                 <MaterialIcons name="account-circle" size={150} color="white"  style = {profileStyle.iconProfile} />
                 <Text style={profileStyle.textHeader}>{myuser != ""? myuser.personRef.names:"cargando"}</Text>
-                <TouchableOpacity onPress={() => n.navigate("StartPage", {closeSession : true})} style = {profileStyle.iconRight}>
+                <TouchableOpacity onPress={() => n.replace("StartPage", {closeSession : true})} style = {profileStyle.iconRight}>
                     <AntDesign name="poweroff" size={24} color= {'#03a984'} />
                 </TouchableOpacity>    
                 
             </View>: ""}   
-            <Text style={profileStyle.line}>-------------------------------------------------------------------------------------------------</Text>
+            <Text style={profileStyle.line}></Text>
             
             <View style={profileStyle.container3}>
                     
@@ -275,7 +275,7 @@ const GeneralProfile = () => {
                         }}>
                         <View >
                             <View style={profileStyle.container7}>
-                                <Text  style={profileStyle.textMessage}>Esta seguro de cambiar sus datos?, debera volver a iniciar secion</Text>
+                                <Text  style={profileStyle.textMessage}>¿Está seguro de cambiar sus datos?, deberá volver a iniciar sesión</Text>
                                 
                                 <Pressable
                                     style={profileStyle.btnCancel}
@@ -315,7 +315,7 @@ const GeneralProfile = () => {
                             <TouchableOpacity onPress={() => {setEditName(true);setName(myuser.personRef.names)}} style={profileStyle.btnChangePassword}>
                                 <MaterialCommunityIcons name="pencil" size={30} color={'#03a984'} />
                             </TouchableOpacity>
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>                    
+                            <Text style={profileStyle.line2}></Text>                    
                         </View>
                         <View style={profileStyle.container4}>
                             <FontAwesome5 name="user-alt" size={24} color="white" style={profileStyle.iconLeft}/>
@@ -340,7 +340,7 @@ const GeneralProfile = () => {
                             <TouchableOpacity onPress={() => {setEditLastName(true);setLasName(myuser.personRef.lastName)}} style={profileStyle.btnChangePassword}>
                                 <MaterialCommunityIcons name="pencil" size={30} color={'#03a984'} />
                             </TouchableOpacity>
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>                    
+                            <Text style={profileStyle.line2}></Text>                    
                         </View>
                         <View style={profileStyle.container4}>
                             <FontAwesome name="address-card" size={26} color="white" style={profileStyle.iconLeft}/>
@@ -365,7 +365,7 @@ const GeneralProfile = () => {
                             <TouchableOpacity onPress={() =>  {setEditCi(true);setCi(myuser.personRef.ci)}} style={profileStyle.btnChangePassword}>
                                 <MaterialCommunityIcons name="pencil" size={30} color={'#03a984'} />
                             </TouchableOpacity>
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>              
+                            <Text style={profileStyle.line2}></Text>              
                         </View>
                         
                         <View style={profileStyle.container4}>
@@ -391,7 +391,7 @@ const GeneralProfile = () => {
                             <TouchableOpacity onPress={() => {setEditPhone(true);setPhone(myuser.personRef.phone)}} style={profileStyle.btnChangePassword}>
                                 <MaterialCommunityIcons name="pencil" size={30} color={'#03a984'} />
                             </TouchableOpacity>
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>               
+                            <Text style={profileStyle.line2}></Text>               
                         </View>
                         <View style={profileStyle.container4}>
                             <MaterialCommunityIcons name="email" size={30} color="white" style={profileStyle.iconLeft}/>
@@ -404,7 +404,7 @@ const GeneralProfile = () => {
                                 />
                             }
                             
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>
+                            <Text style={profileStyle.line2}></Text>
 
                         </View>
                         <View style={profileStyle.container4}>
@@ -414,7 +414,7 @@ const GeneralProfile = () => {
                             <TouchableOpacity onPress={() => {setModalVisible(true)}} style={profileStyle.btnChangePassword}>
                                 <MaterialCommunityIcons name="pencil" size={30} color= {'#03a984'} />
                             </TouchableOpacity>
-                            <Text style={profileStyle.line2}>------------------------------------------------------------------------------------</Text>
+                            <Text style={profileStyle.line2}></Text>
                         </View>
                         <TouchableOpacity style={profileStyle.btnSaveChanges} 
                             onPress={ () => {canIChange()}}

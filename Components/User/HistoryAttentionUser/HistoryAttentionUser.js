@@ -103,13 +103,13 @@ const HistoryAttentionUser = () => {
 
                                         <View style={stylesNurse.containerHorizontal}>
 
-                                            <Text style={stylesNurse.left}>Direccion:  <Text style={{ fontWeight: "normal" }}>{atention.adress}</Text></Text>
+                                            <Text style={stylesNurse.left}>Dirección:  <Text style={{ fontWeight: "normal" }}>{atention.adress}</Text></Text>
                                         </View>
                                     </View>
 
                                 </View>
 
-                                <View style={{ alignSelf: "center" }}><Text style={{ textAlign: "center" }} >fecha: {atention.date}</Text></View>
+                                <View style={{ alignSelf: "center" }}><Text style={{ textAlign: "center" }} >Fecha: {atention.date}</Text></View>
 
 
                                 <View style={stylesNurse.containerHorizontalButtons}>

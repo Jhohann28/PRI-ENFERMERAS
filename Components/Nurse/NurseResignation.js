@@ -54,7 +54,7 @@ const NurseResignationScreen = () => {
 
       await resignationData.sendResignations({ reason });
       n.navigate("NurseHome")
-      Alert.alert("EXITO!!", "Se envio su solicitud");
+      Alert.alert("EXITO!!", "Se envió su solicitud");
       setReason('');
     setLoading(false);
       
@@ -69,13 +69,13 @@ const NurseResignationScreen = () => {
     return (
         <View style = {stylesNurse.container3}>
            <View style = {stylesNurse.container4}>
-                <Text style={stylesNurse.texto}>Hello</Text>
+                <Text style={stylesNurse.texto}>Solicitud Baja del Sistema</Text>
                 <Text style={stylesNurse.texto1}>{myuser!=""? myuser.personRef.names+" "+ myuser.personRef.lastName :""}</Text>
 
                 <MaterialIcons name="account-circle" size={74} color="black"  style = {stylesNurse.image} />            
            </View>
            <View style = {stylesNurse.container5}>
-                <Text style = {stylesNurse.textTitle}>Solicitar Renuncia</Text>
+                <Text style = {stylesNurse.textTitle}>Solicitar Baja del Sistema</Text>
                 <ScrollView>
                     <Text style = {stylesNurse.textReaseonResignation}>Motivo</Text>
                     <TextInput

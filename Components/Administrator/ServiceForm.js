@@ -83,7 +83,7 @@ const ServiceForm = () => {
                 }
                 setLoading(false);
             } catch (error) {
-                Alert.alert(error);
+                Alert.alert("Hola", error.message+"");
                 setLoading(false);
             }
 
@@ -97,7 +97,7 @@ const ServiceForm = () => {
                     id: service.id,
                     name: name,
                     description: description,
-                    price: price
+                    price: price.toString()
                 }
                 let vld = new ServiceValidation();
                 if(vld.isAllOk(data) == true){
@@ -111,7 +111,7 @@ const ServiceForm = () => {
                 }
                 setLoading(false);
             } catch (error) {
-                Alert.alert(error);
+                Alert.alert(error.message);
                 setLoading(false);
             }
     }
@@ -152,7 +152,7 @@ const ServiceForm = () => {
 
                     <Text style={stylesAdmin.myTextInput}>Precio Bs: </Text>
                     <TextInput inputMode='decimal'  style={stylesAdmin.myTextInputReal}  placeholder='Precio Bs.'
-                      value={price+""} onChangeText={(text)=>setPrice(text)}
+                      value={price.toString()+""} onChangeText={(text)=>setPrice(text)}
                     ></TextInput>
                     
                    
